@@ -150,6 +150,7 @@ ${MAGENTA}  /_/  /_/\\_,_/\\__/\\____/___/
 pkg_count() {
     if   command -v pacman      >/dev/null; then echo "$(pacman -Q | wc -l) (pacman)"
     elif command -v dpkg        >/dev/null; then echo "$(dpkg --get-selections | grep -v deinstall | wc -l) (dpkg)"
+    elif command -v qlist       >/dev/null; then echo "$(qlist -I | wc -l) (portage)"
     elif command -v rpm         >/dev/null; then echo "$(rpm -qa | wc -l) (rpm)"
     elif command -v xbps-query  >/dev/null; then echo "$(xbps-query -l | wc -l) (xbps)"
     elif command -v apk         >/dev/null; then echo "$(apk info | wc -l) (apk)"
