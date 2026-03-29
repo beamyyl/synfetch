@@ -4,14 +4,14 @@
 
 <div align="center">
 
-<img width="475" height="373" alt="image" src="https://github.com/user-attachments/assets/b4b7825d-c9a5-412e-8186-e8f9fd15808e" />
 <img width="432" height="354" alt="image" src="https://github.com/user-attachments/assets/144caf7d-c1ed-4180-b2ab-881e054ccc7a" />
+<img width="475" height="373" alt="image" src="https://github.com/user-attachments/assets/b4b7825d-c9a5-412e-8186-e8f9fd15808e" />
 
 </div>
 
 <div align="center">
 
-  # synfetch
+  # Synfetch
   
 A really simple system fetch written in `bash`.
 *More features soon*
