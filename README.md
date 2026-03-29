@@ -2,8 +2,7 @@
 ![Issues](https://img.shields.io/github/issues/SXSLVT/synfetch)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-<img width="506" height="396" alt="image" src="https://github.com/user-attachments/assets/efad188c-600f-4e49-8a2e-9df855a63224" />
-
+<img width="497" height="398" alt="image" src="https://github.com/user-attachments/assets/5d924788-b6b8-4f11-9fff-1895ce250e3c" />
 
 ## Why synfetch?
 
