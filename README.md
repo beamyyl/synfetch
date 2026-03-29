@@ -15,7 +15,7 @@
   
 A really simple system fetch written in `bash`.
 
-*More features soon*
+*More features soon.*
 </div>
 
 ## Why synfetch?
