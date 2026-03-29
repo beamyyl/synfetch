@@ -22,8 +22,8 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), synfetch
 
 The package **git** is required to clone the repository!
 Install **git**: 
-https://git-scm.com/install/linux (Linux)
-https://git-scm.com/install/mac (macOS)
+- Linux: https://git-scm.com/install/linux
+- macOS: https://git-scm.com/install/mac
 ```bash
 git clone https://github.com/SXSLVT/synfetch.git
 cd synfetch
