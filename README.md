@@ -1,6 +1,6 @@
 ![License](https://img.shields.io/github/license/SXSLVT/synfetch)
-![Stars](https://img.shields.io/github/stars/SXSLVT/synfetch?style=social)
 ![Issues](https://img.shields.io/github/issues/SXSLVT/synfetch)
+![Stars](https://img.shields.io/github/stars/SXSLVT/synfetch?style=social)
 
 <img width="506" height="396" alt="image" src="https://github.com/user-attachments/assets/efad188c-600f-4e49-8a2e-9df855a63224" />
 
