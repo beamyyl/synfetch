@@ -29,7 +29,9 @@ sudo mv synfetch /usr/local/bin/
 
 or
 
+```bash
 git clone https://github.com/SXSLVT/synfetch.git && cd synfetch && chmod +x synfetch && sudo mv synfetch /usr/local/bin/
+```
 
 ## Usage
 
