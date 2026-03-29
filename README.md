@@ -46,7 +46,7 @@ Run
 synfetch
 ```
 
-## Uninstall synfetch
+## Uninstallation
 
 ```bash
 rm -rf synfetch && sudo rm -rf /usr/local/bin/synfetch
