@@ -29,7 +29,6 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), synfetch
 - Beautiful custom ASCII art
 - Displays Info + CPU & RAM Usage
 - Highly customizable
-- Blazingly fast execution
 
 ### Support
 `synfetch` currently supports **MacOS** and the following **Linux** distributions. However, I have not been able to test them all.
