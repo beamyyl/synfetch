@@ -79,18 +79,22 @@ Just run:
 ```bash
 synfetch
 ```
+
 To hide icons:
 ```bash
 synfetch --nonerd
 ```
+
 To hide ASCII:
 ```bash
 synfetch --noascii
 ```
+
 To display ASCII art of a different distro:
 ```bash
 synfetch --distro <name>
 ```
+
 To display help:
 ```bash
 synfetch --help
@@ -99,6 +103,7 @@ or
 ```bash
 synfetch -h
 ```
+
 Output of `synfetch --help`
 ```bash
 Usage: synfetch [OPTIONS]
