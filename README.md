@@ -4,7 +4,7 @@
 
 <div align="center">
 
-<img width="432" height="354" alt="image" src="https://github.com/user-attachments/assets/144caf7d-c1ed-4180-b2ab-881e054ccc7a" />
+<img width="519" height="412" alt="image" src="https://github.com/user-attachments/assets/3eaffc84-6600-468b-bb93-18ffb23a3d10" />
 
 </div>
 
@@ -29,8 +29,9 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), synfetch
 ### Features
 
 - Beautiful custom ASCII art
+- Displays Info + CPU & RAM Usage
+- Blazingly fast execution
 - Works on both Linux and macOS
-- Blazing fast execution 
 
 ### Support
 `synfetch` currently supports **MacOS** and the following **Linux** distributions. However, I have not been able to test them all.
@@ -59,6 +60,7 @@ If you are experiencing issues with synfetch or your current **Linux** distribut
 > [!NOTE]
 >
 > The package **git** is required to clone the repository!
+> A **Nerd Font** is required to display icons!
 
 ```bash
 git clone https://github.com/SXSLVT/synfetch.git
@@ -79,6 +81,26 @@ git clone https://github.com/SXSLVT/synfetch.git && cd synfetch && chmod +x synf
 Just run: 
 ```bash
 synfetch
+```
+To hide icons:
+```bash
+synfetch --nonerd
+```
+To hide ascii:
+```bash
+synfetch --noascii
+```
+To display ASCII art of a different distro:
+```bash
+synfetch --distro <name>
+```
+To display help:
+```bash
+synfetch --help
+```
+or
+```bash
+synfetch -h
 ```
 
 ### Uninstallation
