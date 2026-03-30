@@ -1,14 +1,51 @@
 #!/usr/bin/env bash
 
-RED='\e[31m'; GREEN='\e[32m'; BLUE='\e[34m'; MAGENTA='\e[35m'; RESET='\e[0m'
+# Colors
+
+RESET="\e[0m"
+BOLD="\e[1m"
+DIM="\e[2m"
+
+NEON_BLUE="\e[38;5;39m" 
+MAGENTA="\e[38;5;165m"
+PINK="\e[38;5;201m"
+BLUE="\e[38;5;51m"
+PURPLE="\e[38;5;135m"
+TEAL="\e[38;5;45m"
+RED="\e[38;5;196m"
+GREEN="\e[38;5;82m"
+YELLOW="\e[38;5;226m"
+WHITE="\e[97m"
+GRAY="\e[38;5;245m"
+
+# ASCII
 
 detect_distro() {
-    case "$(uname -s)" in
-        Linux*)
-            if [ -f /etc/os-release ]; then . /etc/os-release; fi
-            DISTRO="${PRETTY_NAME:-$NAME}"
+    local target_distro="${CUSTOM_DISTRO}"
+    if [[ -z "$target_distro" ]]; then
+        case "$(uname -s)" in
+            Linux*)
+                if [ -f /etc/os-release ]; then . /etc/os-release; fi
+                target_distro="${ID:-unknown}"
+                DISTRO="${PRETTY_NAME:-$NAME:-Unknown Linux}"
+                ;;
+            Darwin*)
+                DISTRO="macOS $(sw_vers -productVersion 2>/dev/null || echo "")"
+                target_distro="macos"
+                ;;
+            *)
+                DISTRO="Unknown"
+                target_distro="unknown"
+                ;;
+        esac
+    else
+        case "$target_distro" in
+            macos|darwin|mac) DISTRO="macOS" ;;
+            *) DISTRO="${target_distro^}" ;;
+        esac
+    fi
 
-            case "$ID" in
+    case "$target_distro" in
                 arch|archarm)
                     ART="${BLUE}     ___           __ 
 ${BLUE}    / _ | ________/ / 
@@ -55,7 +92,7 @@ ${GREEN}  /_/  /_/_/_//_/\\__/
                 zorin)
                     ART="${BLUE}   ____           _    
 ${BLUE}  /_  / ___  ____(_)__ 
-${BLUE}   / /_/ _ \\/ __/ / _ \
+${BLUE}   / /_/ _ \\/ __/ / _ \\
 ${BLUE}  /___/\\___/_/ /_/_//_/
                     "
                     ;;
@@ -70,7 +107,7 @@ ${BLUE}           /_/
                 manjaro)
                     ART="${GREEN}     __  ___            _             
 ${GREEN}    /  |/  /__ ____    (_)__ ________ 
-${GREEN}   / /|_/ / _ \\/ _ \\  / / _ \\/ __/ _ \
+${GREEN}   / /|_/ / _ \\/ _ \\  / / _ \\/ __/ _ \\
 ${GREEN}  /_/  /_/\\_,_/_//_/_/ /\\_,_/_/  \\___/
 ${GREEN}                  |___/               
                     "                    ;;
@@ -99,12 +136,12 @@ ${RED}  \\___/\\__/_//_/\\__/\\____/___/
                 gentoo)
                     ART="${MAGENTA}    _____         __          
 ${MAGENTA}   / ___/__ ___  / /____  ___ 
-${MAGENTA}  / (_ / -_) _ \\/ __/ _ \\/ _ \
+${MAGENTA}  / (_ / -_) _ \\/ __/ _ \\/ _ \\
 ${MAGENTA}  \\___/\\__/_//_/\\__/\\___/\\___/                            
                     "
                     ;;
                 endeavouros)
-                    ART="${MAGENTA}     ____        __                  ____  ____
+                    ART="${MAGENTA}     ____        __                            ____  ____
 ${MAGENTA}    / __/__  ___/ /__ ___ __  _____  __ ______/ __ \\/ __/
 ${MAGENTA}   / _// _ \\/ _  / -_) _ \\/ |/ / _ \\/ // / __/ /_/ /\\ \\  
 ${MAGENTA}  /___/_//_/\\_,_/\\__/\\_,_/|___/\\___/\\_,_/_/  \\____/___/  
@@ -130,20 +167,164 @@ ${BLUE}    / |/ (_)_ __/ __ \\/ __/
 ${BLUE}   /    / /\\ \\ / /_/ /\\ \\  
 ${BLUE}  /_/|_/_//_\\_|\\____/___/  
                     "
-                    ;;
-            esac
-            ;;
-        Darwin*)
-            DISTRO="macOS $(sw_vers -productVersion)"
-            ART="${MAGENTA}     __  ___         ____  ____
+		   ;;
+macos|darwin|mac)
+ART="${MAGENTA}     __  ___         ____  ____
 ${MAGENTA}    /  |/  /__ _____/ __ \\/ __/
 ${MAGENTA}   / /|_/ / _ \\/ __/ /_/ /\\ \\  
 ${MAGENTA}  /_/  /_/\\_,_/\\__/\\____/___/  
-            "
+"
+;;
+        *)
+            ART="${PINK}
+ Wrong distro :( ${RESET}"
             ;;
-        *) DISTRO="Unknown" ;;
     esac
 }
+
+# Flags
+
+USE_NERD_FONTS=true
+USE_ASCII=true
+CUSTOM_DISTRO=""
+
+# Help
+
+show_help() {
+    echo ""
+    echo -e "${BLUE}Usage:${RESET} synfetch [OPTIONS]"
+    echo ""
+    echo -e "${BOLD}Options:${RESET}"
+    echo -e "  ${PINK}--nonerd${RESET}          Disable Nerd Font icons"
+    echo -e "  ${PINK}--noascii${RESET}         Hide ASCII art"
+    echo -e "  ${PINK}--distro${RESET} <name>   Force specific distro ASCII"
+    echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
+    echo ""
+    echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorin, pop-os, manjaro, opensuse, slackware, centos, gentoo, endeavouros, artix, void, nixos, macos"
+    echo ""
+    echo -e "${GRAY}Examples:${RESET}"
+    echo -e "  ${GREEN}synfetch ${RESET}"
+    echo -e "  ${GREEN}synfetch --nonerd${RESET}"
+    echo -e "  ${GREEN}synfetch --noascii${RESET}"
+    echo -e "  ${GREEN}synfetch --distro arch${RESET}"
+    echo -e "  ${GREEN}synfetch --distro macos --nonerd${RESET}"
+    exit 0
+}
+
+# Argument Parsing
+
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --nonerd)
+                USE_NERD_FONTS=false
+                ;;
+            --noascii)
+                USE_ASCII=false
+                ;;
+            --distro)
+                shift
+                CUSTOM_DISTRO="${1,,}"
+                ;;
+            --help|-h)
+                show_help
+                ;;
+            *)
+                echo -e "${PINK}Error:${RESET} Unknown option '$1'"
+                echo -e "Run ${PINK}synfetch --help${RESET} for usage"
+                exit 1
+                ;;
+        esac
+        shift
+    done
+}
+
+parse_args "$@"
+
+# Nerd Fonts
+
+if $USE_NERD_FONTS; then
+    ICON_OS="󰣇 "
+    ICON_KERNEL=" "
+    ICON_USER=" "
+    ICON_HOST="󰗈 "
+    ICON_MOBO=" "
+    ICON_CPU=" "
+    ICON_UPTIME=" "
+    ICON_SHELL=" "
+    ICON_DEWM=" "
+    ICON_PKGS="󰏗 "
+else
+    ICON_OS=""
+    ICON_KERNEL=""
+    ICON_USER=""
+    ICON_HOST=""
+    ICON_MOBO=""
+    ICON_CPU=""
+    ICON_UPTIME=""
+    ICON_SHELL=""
+    ICON_DEWM=""
+    ICON_PKGS=""
+fi
+
+# CPU & RAM Usage
+
+get_cpu_usage() {
+    if [ "$(uname)" = "Linux" ]; then
+        read -r cpu user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat
+        total1=$((user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice))
+        idle1=$((idle + iowait))
+
+        sleep 0.2
+
+        read -r cpu user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat
+        total2=$((user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice))
+        idle2=$((idle + iowait))
+
+        diff_total=$((total2 - total1))
+        diff_idle=$((idle2 - idle1))
+        usage=$((100 * (diff_total - diff_idle) / diff_total))
+        echo "$usage"
+    else
+        top -l 1 | awk '/^CPU usage/ {print int($3)}'
+    fi
+}
+
+get_ram_usage() {
+    if [ "$(uname)" = "Linux" ]; then
+        free -m | awk '/Mem:/ {printf "%d", 100*$3/$2}'
+    else
+        vm_stat | awk '/Pages active/ {print int(($2 * 4096 / 1024 / 1024) / ($(sysctl -n hw.memsize)/1024/1024) * 100)}'
+    fi
+}
+
+cyber_bar() {
+    local percent=$1
+    local width=22
+    local filled=$((percent * width / 100))
+    local bar=""
+
+    local pulse=$(( (percent % 10) + 80 ))
+
+    for ((i=0; i<filled; i++)); do
+        if (( i < filled/2 )); then
+            bar+="\e[38;5;201m█"
+        else
+            bar+="\e[38;5;45m█"
+        fi
+    done
+
+    for ((i=filled; i<width; i++)); do
+        bar+="\e[38;5;236m─"
+    done
+
+    printf "%b\e[0m %3d%%" "$bar" "$percent"
+}
+
+CPU=$(get_cpu_usage)
+RAM=$(get_ram_usage)
+
+# DE/WM Detector
 
 if [ -n "${XDG_CURRENT_DESKTOP}" ]; then
     de_wm="${XDG_CURRENT_DESKTOP}"
@@ -170,6 +351,8 @@ case "${de_wm,,}" in
     mate-session)         de_wm="MATE" ;;
     cinnamon)             de_wm="Cinnamon" ;;
 esac
+
+# Package Counter
 
 pkg_count() {
     if command -v pacman >/dev/null; then
@@ -215,19 +398,26 @@ pkg_count() {
     fi
 }
 
+# Main Output
+
 detect_distro
 
-echo -e "$ART"
-echo
-echo -e " ${GREEN}OS${RESET}         $DISTRO"
-echo -e " ${GREEN}Kernel${RESET}     $(uname -r)"
-echo -e " ${GREEN}Host${RESET}       $(cat /etc/hostname 2>/dev/null || hostname)"
-echo -e " ${GREEN}MoBo${RESET}       $(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"
-echo -e " ${GREEN}CPU${RESET}        $(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')"
-echo -e " ${GREEN}Memory${RESET}     $(awk '/MemTotal/{t=$2}/MemAvailable/{a=$2}END{used=t-a; printf "%.1fGiB / %.1fGiB", used/1024/1024, t/1024/1024}' /proc/meminfo)"
-echo -e " ${GREEN}Disk${RESET}       $(df -h --total -x tmpfs -x devtmpfs 2>/dev/null | awk '/^total/{print $3 " / " $2}' || echo "Unknown")"
-echo -e " ${GREEN}Uptime${RESET}     $(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')"
-echo -e " ${GREEN}Shell${RESET}      ${SHELL##*/}"
-echo -e " ${GREEN}DE/WM${RESET}      ${de_wm}"
-echo -e " ${GREEN}Packages${RESET}   $(pkg_count)"
-echo -e " ${GREEN}Time${RESET}       $(date +%H:%M:%S)"
+if $USE_ASCII; then
+    echo -e "$ART"
+fi
+
+echo -e
+echo -e " ${NEON_BLUE}${ICON_OS}${RESET}OS      ${NEON_BLUE}${DISTRO}${RESET}"
+echo -e " ${MAGENTA}${ICON_KERNEL}${RESET}Kernel  ${MAGENTA}$(uname -r)${RESET}"
+echo -e " ${BLUE}${ICON_USER}${RESET}User    ${BLUE}${USER}${RESET}"
+echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}$(cat /etc/hostname 2>/dev/null || hostname)${RESET}"
+echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
+echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
+echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
+echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
+echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
+echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs    ${YELLOW}$(pkg_count)${RESET}"
+echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+echo -e " ${PINK}CPU${RESET}     $(cyber_bar "${CPU}")"
+echo -e " ${PINK}RAM${RESET}     $(cyber_bar "${RAM}")"
+echo -e " ${GRAY}────────────────────────────────────────${RESET}"
