@@ -83,7 +83,7 @@ Just run:
 synfetch
 ```
 
-To show CPU, GPU and RAM Usage in real-time:
+To display CPU, GPU and RAM Usage in real-time:
 ```bash
 synfetch --live
 ```
