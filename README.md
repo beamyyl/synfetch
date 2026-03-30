@@ -29,9 +29,8 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), synfetch
 ### Features
 
 - Beautiful custom ASCII art
-- Colorful and easy to read
 - Works on both Linux and macOS
-- Highly customizable (easy to extend with new modules)
+- Highly customizable
 - Blazing fast execution 
 
 ### Support
