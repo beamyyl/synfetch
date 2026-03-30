@@ -99,9 +99,28 @@ or
 ```bash
 synfetch -h
 ```
+Output of `synfetch --help`
+```bash
+Usage: synfetch [OPTIONS]
+
+Options:
+  --nonerd          Disable Nerd Font icons
+  --noascii         Hide ASCII art
+  --distro <name>   Force specific distro ASCII
+  --help | -h       Show this help message
+
+Available distros: arch, cachyos, ubuntu, debian, fedora, linuxmint, zorin, pop-os, manjaro, opensuse, slackware, centos, gentoo, endeavouros, artix, void, nixos, macos
+
+Examples:
+  synfetch 
+  synfetch --nonerd
+  synfetch --noascii
+  synfetch --distro arch
+  synfetch --distro macos --nonerd
+```
 
 ### Uninstallation
-
+Simply uninstall `synfetch` with this command:
 ```bash
 sudo rm -rf /usr/local/bin/synfetch
 ```
