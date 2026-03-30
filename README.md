@@ -12,7 +12,7 @@
 
   # Synfetch
   
-`A really simple system fetch written in **bash**.`
+*A really simple system fetch written in **bash**.*
 
 </div>
 
