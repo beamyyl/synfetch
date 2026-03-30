@@ -30,7 +30,6 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), synfetch
 
 - Beautiful custom ASCII art
 - Works on both Linux and macOS
-- 
 - Blazing fast execution 
 
 ### Support
