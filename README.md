@@ -29,7 +29,7 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), synfetch
 ### Features
 
 - Beautiful custom ASCII art
-- Live mode
+- Real-time Monitoring
 - Displays Info + CPU, GPU and RAM Usage
 - Highly customizable
 
