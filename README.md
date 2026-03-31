@@ -48,6 +48,18 @@ If you are experiencing issues with synfetch, please create an issue in (https:/
 - openSUSE
 - Slackware
 - CentOS
+- MX Linux
+- Guix
+- QubesOS
+- antiX
+- Garuda
+- Nobara
+- Bazzite
+- Kali
+- elementaryOS
+- KDE Neon
+- Deepin
+- Alpine
 - Gentoo
 - EndeavourOS
 - Artix
@@ -123,7 +135,7 @@ Options:
   --live            Animated CPU, GPU and RAM usage
   --help | -h       Show this help message
 
-Available distros: arch, cachyos, ubuntu, debian, fedora, linuxmint, zorin, pop-os, manjaro, opensuse, slackware, centos, gentoo, endeavouros, artix, void, nixos, macos
+Available distros: arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubes, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gentoo, endeavouros, artix, void, nixos, macos
 
 Examples:
   synfetch 
