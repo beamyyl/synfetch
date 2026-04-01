@@ -263,7 +263,7 @@ ${MAGENTA}  /_/  /_/\\_,_/\\__/\\____/___/
 ;;
         *)
             ART="${PINK}
- Wrong distro :( ${RESET}"
+ Unsupported distro :( ${RESET}"
             ;;
     esac
 }
