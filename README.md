@@ -95,6 +95,8 @@ For `Arch-based` users, I have a [`PKGBUILD`](./install/PKGBUILD) available.
 
 For `Nix` users, I have both [flake.nix](./install/flake.nix) and [flake.lock](./install/flake.lock) available.
 
+For everyone else:
+
 **Clone the repository and cd into the new directory**
 ```bash
 git clone https://github.com/SXSLVT/synfetch.git && cd synfetch
