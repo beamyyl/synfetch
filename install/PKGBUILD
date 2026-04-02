@@ -1,0 +1,30 @@
+# Maintainer: Syner <ploscarusynxy@gmail.com>
+pkgname=synfetch
+pkgver=0.1.0
+pkgrel=1
+pkgdesc="A fast and customizable neofetch-like system information tool with a synthwave theme and live mode"
+arch=('any')
+url="https://github.com/SXSLVT/synfetch"
+license=('GPL3')
+depends=('bash')
+optdepends=(
+  'pciutils: Better GPU detection (lspci)'
+  'nvidia-utils: NVIDIA GPU name and usage'
+  'flatpak: Flatpak package counting'
+)
+provides=('synfetch')
+conflicts=('synfetch-git')
+
+# Source from GitHub (main branch)
+source=("synfetch::https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch"
+        "LICENSE::https://raw.githubusercontent.com/SXSLVT/synfetch/main/LICENSE.md")
+sha256sums=('SKIP' 
+            'SKIP')
+
+package() {
+    # Install the main script
+    install -Dm755 synfetch "${pkgdir}/usr/bin/synfetch"
+
+    # Install license
+    install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
