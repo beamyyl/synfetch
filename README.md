@@ -90,11 +90,6 @@ If you don't have `git` installed on your system, check one of the links below:
 - For Linux users: [here](https://git-scm.com/install/linux)
 - For MacOS users: [here](https://git-scm.com/install/mac)
 
-If you don't want to install a Nerd Font on your system, you can just run:
-```bash
-synfetch --nonerd
-```
-
 ### Installation
 For `Arch-based` users, I have a [`PKGBUILD`](./install/PKGBUILD) available. 
 
