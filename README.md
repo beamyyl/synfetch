@@ -84,10 +84,13 @@ If you are experiencing issues with synfetch, please create an [issue](https://g
 >
 > The package **git** is required to clone the repository!
 > A **Nerd Font** is required to display icons!
-
+If you don't have `git` installed on your system, check one of the links below:
+- For Linux users: [here](https://git-scm.com/install/linux)
+- For MacOS users: [here](https://git-scm.com/install/mac)
+ 
 ### Installation
 For `Arch-based` users, I have a [`PKGBUILD`](./install/PKGBUILD) available. 
-For `Nix` users, I have both [flake.nix](./install/flake.nix) and [flake.lock](./install/flake.lock)
+For `Nix` users, I have both [flake.nix](./install/flake.nix) and [flake.lock](./install/flake.lock) available.
 
 **Clone the repository and cd into the new directory**
 ```bash
