@@ -105,13 +105,9 @@ git clone https://github.com/SXSLVT/synfetch.git && cd synfetch
 ```bash
 chmod +x synfetch
 ```
-**Move `synfetch` to `/usr/local/bin`**
+**Move `synfetch` to `/usr/local/bin` and return to the previous directory**
 ```bash
-sudo mv synfetch /usr/local/bin/
-```
-**Return to previous directory**
-```bash
-cd -
+sudo mv synfetch /usr/local/bin/ && cd -
 ```
 
 ### Usage
