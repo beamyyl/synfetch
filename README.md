@@ -93,7 +93,7 @@ If you don't have `git` installed on your system, check one of the links below:
 ### Installation
 For `Arch-based` users, I have a [`PKGBUILD`](./install/PKGBUILD) available. 
 
-For `Nix` users, I have both [flake.nix](./install/flake.nix) and [flake.lock](./install/flake.lock) available.
+For `Nix` users, I have both [`flake.nix`](./install/flake.nix) and [`flake.lock`](./install/flake.lock) available.
 
 For everyone else:
 
