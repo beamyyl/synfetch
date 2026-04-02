@@ -96,7 +96,7 @@ chmod +x synfetch
 ```bash
 sudo mv synfetch /usr/local/bin/
 ```
-**Cd into previous directory**
+**Return to previous directory**
 ```bash
 cd -
 ```
