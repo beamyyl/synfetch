@@ -93,7 +93,7 @@ ${GREEN}  /_/  /_/_/_//_/\\__/
 ${BLUE}  /_  / ___  ____(_)__  / __ \\/ __/
 ${BLUE}   / /_/ _ \\/ __/ / _ \\/ /_/ /\\ \\  
 ${BLUE}  /___/\\___/_/ /_/_//_/\\____/___/  
-		  "
+		 "
                     ;;
                 pop|popos)
                     ART="${BLUE}     ___            ____  ____
@@ -132,100 +132,100 @@ ${RED}  / /__/ -_) _ \\/ __/ /_/ /\\ \\
 ${RED}  \\___/\\__/_//_/\\__/\\____/___/  
                     "
                     ;;
-	  mx-linux|mxlinux)
-		  ART="${BLUE}     __  ___       __   _               
+	 mx-linux|mxlinux)
+		 ART="${BLUE}     __  ___       __   _               
 ${BLUE}    /  |/  /_ __  / /  (_)__  __ ____ __
 ${BLUE}   / /|_/ /\\ \\ / / /__/ / _ \\/ // /\\ \\ /
 ${BLUE}  /_/  /_//_\\_\\ /____/_/_//_/\\_,_//_\\_\\  
-		  "
-		  ;;
-	  guix)
-		  ART="${YELLOW}    _____     _     
+		 "
+		 ;;
+	 guix)
+		 ART="${YELLOW}    _____     _     
 ${YELLOW}   / ___/_ __(_)_ __
 ${YELLOW}  / (_ / // / /\\ \\ /
 ${YELLOW}  \\___/\\_,_/_//_\\_\\ 
-		  "
-		  ;;
+		 "
+		 ;;
            qubes|qubesos)
-		  ART="${BLUE}    ____       __           ____  ____
+		 ART="${BLUE}    ____       __           ____  ____
 ${BLUE}   / __ \\__ __/ /  ___ ___ / __ \\/ __/
 ${BLUE}  / /_/ / // / _ \\/ -_|_-</ /_/ /\\ \\  
 ${BLUE}  \\___\\_\\_,_/_.__/\\__/___/\\____/___/  
-		  "
-		  ;;
-	 antix)
-		 ART="${BLUE}              __  _ _  __
+		 "
+		 ;;
+	antix)
+		ART="${BLUE}              __  _ _  __
 ${BLUE}   ___ ____  / /_(_) |/_/
 ${BLUE}  / _ \\/ _ \\/ __/ />  <  
 ${BLUE}  \\_,_/_//_/\\__/_/_/|_|  
-		 "
+		"
                     ;;
-	  garuda)
-		  ART="${RED}    _____                 __    
+	 garuda)
+		 ART="${RED}    _____                 __    
 ${RED}   / ___/__ _______ _____/ /__ _
 ${RED}  / (_ / _ \\/ __/ // / _  / _ \\/
 ${RED}  \\___/\\_,_/_/  \\_,_/\\_,_/\\_,_/  
-		  "
-		  ;;
-	  nobara)
-		  ART="${MAGENTA}     _  __     __                
+		 "
+		 ;;
+	 nobara)
+		 ART="${MAGENTA}     _  __     __                
 ${MAGENTA}    / |/ /__  / /  ___ ________ _
 ${MAGENTA}   /    / _ \\/ _ \\/ _ \\/ __/ _ \\/
-${MAGENTA}  /_/|_/\\___/_.__/\\_,_/_/  \\_,_/ 		  
-		  "
-		  ;;
-	  bazzite)
-		  ART="${BLUE}     ___              _ __     
+${MAGENTA}  /_/|_/\\___/_.__/\\_,_/_/  \\_,_/ 		 
+		 "
+		 ;;
+	 bazzite)
+		 ART="${BLUE}     ___              _ __     
 ${BLUE}    / _ )___ _______ (_) /____ 
 ${BLUE}   / _  / _ \\/_ /_ // / __/ -_)
 ${BLUE}  /____/\\_,_//__/__/_/\\__/\\__/
-		  "
-		  ;;
+		 "
+		 ;;
             kali)
-		  ART="${NEON_BLUE}     __ __     ___ 
+		 ART="${NEON_BLUE}     __ __     ___ 
 ${NEON_BLUE}    / //_/__ _/ (_)
 ${NEON_BLUE}   / ,< / _ \\/ / / 
 ${NEON_BLUE}  /_/|_|\\_,_/_/_/  
-		  "
-		  ;;
-	  elementaryos|elementary)
-		  ART="${WHITE}        __                   __                ____  ____
+		 "
+		 ;;
+	 elementaryos|elementary)
+		 ART="${WHITE}        __                   __                ____  ____
 ${WHITE}   ___ / /__ __ _  ___ ___  / /____ _______ __/ __ \\/ __/
 ${WHITE}  / -_) / -_)  ' \\/ -_) _ \\/ __/ _ \\/ __/ // / /_/ /\\ \\  
 ${WHITE}  \\__/_/\\__/_/_/_/\\__/_//_/\\__/\\_,_/_/  \\_, /\\____/___/  
 ${WHITE}                                       /___/             
-		  "
-		  ;;
-	  kde-neon|kdeneon)
-		  ART="${BLUE}     __ _____  ____  _  __            
+		 "
+		 ;;
+	 kde-neon|kdeneon)
+		 ART="${BLUE}     __ _____  ____  _  __            
 ${BLUE}    / //_/ _ \\/ __/ / |/ /__ ___  ___ 
 ${BLUE}   / ,< / // / _/  /    / -_) _ \\/ _ \\
 ${BLUE}  /_/|_/____/___/ /_/|_/\\__/\\___/_//_/
-		  "
-		  ;;
-	  deepin)
-		  ART="${BLUE}     ___               _    
+		 "
+		 ;;
+	 deepin)
+		 ART="${BLUE}     ___               _    
 ${BLUE}    / _ \\___ ___ ___  (_)__ 
 ${BLUE}   / // / -_) -_) _ \\/ / _ \\
 ${BLUE}  /____/\\__/\\__/ .__/_/_//_/
 ${BLUE}              /_/           
-		  "
-		  ;;
-	  alpine)
-		  ART="${NEON_BLUE}     ___   __     _         
+		 "
+		 ;;
+	 alpine)
+		 ART="${NEON_BLUE}     ___   __     _         
 ${NEON_BLUE}    / _ | / /__  (_)__  ___ 
 ${NEON_BLUE}   / __ |/ / _ \\/ / _ \\/ -_)
 ${NEON_BLUE}  /_/ |_/_/ .__/_/_//_/\\__/ 
 ${NEON_BLUE}         /_/                
-		  "
-		  ;;
-	  gobo)
-		  ART="${BLUE}    _____     __      
+		 "
+		 ;;
+	 gobo)
+		 ART="${BLUE}    _____     __      
 ${BLUE}   / ___/__  / /  ___ 
 ${BLUE}  / (_ / _ \\/ _ \\/ _ \\
 ${BLUE}  \\___/\\___/_.__/\\___/
-		  "
-		  ;;
+		 "
+		 ;;
                 gentoo)
                     ART="${MAGENTA}    _____         __          
 ${MAGENTA}   / ___/__ ___  / /____  ___ 
@@ -311,7 +311,7 @@ show_help() {
 parse_args() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
-	 --live)
+	--live)
 		LIVE_MODE=true
 		;;
             --nonerd)
@@ -424,52 +424,60 @@ cyber_bar() {
 CPU=$(get_cpu_usage)
 RAM=$(get_ram_usage)
 
-# GPU Detector
+# GPU & GPU Usage Detector
 
 get_gpu() {
-    if [ "$(uname)" = "Linux" ]; then
-        if command -v lspci >/dev/null; then
-            gpu=$(lspci | grep -E 'VGA|3D|Display' | head -n1 | sed 's/.*: //')
-            if [ -n "$gpu" ]; then
-                echo "$gpu"
-                return
-            fi
-        fi
-
-        if command -v nvidia-smi >/dev/null; then
-            echo "$(nvidia-smi --query-gpu=name --format=csv,noheader,nounits | head -n1)"
-            return
-        fi
-
-        if [ -d /sys/class/drm/card0/device ]; then
-            echo "Integrated Graphics"
-            return
-        fi
-
-        echo "Unknown GPU"
-    else
+    if [ "$(uname)" != "Linux" ]; then
         echo "$(system_profiler SPDisplaysDataType 2>/dev/null | grep 'Chipset Model' | awk -F': ' '{print $2}' || echo 'Apple GPU')"
+        return
     fi
+
+    local gpus=()
+
+    if command -v nvidia-smi >/dev/null 2>&1; then
+        while IFS= read -r name; do
+            [ -n "$name" ] && gpus+=("$name")
+        done < <(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null)
+    fi
+
+    if command -v lspci >/dev/null 2>&1; then
+        while IFS= read -r line; do
+            if [[ "$line" == *"NVIDIA"* ]] && command -v nvidia-smi >/dev/null 2>&1; then
+                continue
+            fi
+            name=$(echo "$line" | sed 's/^[0-9a-f:.]\+ //' | sed 's/ (rev .*)$//')
+            [ -n "$name" ] && gpus+=("$name")
+        done < <(lspci | grep -E 'VGA|3D|Display' 2>/dev/null)
+    fi
+
+    if [ ${#gpus[@]} -eq 0 ]; then
+        if [ -d /sys/class/drm/card0/device ]; then
+            gpus+=("Integrated Graphics")
+        else
+            gpus+=("Unknown GPU")
+        fi
+    fi
+
+    printf '%s\n' "${gpus[@]}"
 }
 
-# GPU Usage (Linux only)
-
 get_gpu_usage() {
-    if [ "$(uname)" = "Linux" ]; then
-        if command -v nvidia-smi >/dev/null; then
-            nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | head -n1 | tr -d ' %'
-            return
-        fi
-
-        if [ -f /sys/class/drm/card0/device/gpu_busy_percent ]; then
-            cat /sys/class/drm/card0/device/gpu_busy_percent 2>/dev/null || echo "0"
-            return
-        fi
-
-        echo "0"   # fallback
-    else
+    if [ "$(uname)" != "Linux" ]; then
         echo "N/A"
+        return
     fi
+
+    if command -v nvidia-smi >/dev/null 2>&1; then
+        nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits 2>/dev/null | head -n1 | tr -d ' %'
+        return
+    fi
+
+    if [ -f /sys/class/drm/card0/device/gpu_busy_percent ]; then
+        cat /sys/class/drm/card0/device/gpu_busy_percent 2>/dev/null || echo "0"
+        return
+    fi
+
+    echo "0"
 }
 
 GPU=$(get_gpu)
@@ -548,52 +556,79 @@ esac
 # Package Detector
 
 pkg_count() {
+    local pkgs=()
+    local count
+
     if command -v dpkg >/dev/null; then
-        echo "$(dpkg --get-selections | grep -v deinstall | wc -l) (dpkg)"
+        count=$(dpkg --get-selections | grep -v deinstall | wc -l)
+        pkgs+=("$count (dpkg)")
 
     elif command -v guix >/dev/null; then
-        echo "$(guix package -I | wc -l) (guix)"
-	
+        count=$(guix package -I | wc -l)
+        pkgs+=("$count (guix)")
+
     elif command -v rpm >/dev/null; then
-        echo "$(rpm -qa | wc -l) (rpm)"
+        count=$(rpm -qa | wc -l)
+        pkgs+=("$count (rpm)")
 
     elif command -v qlist >/dev/null; then
-        echo "$(qlist -I | wc -l) (portage)"
+        count=$(qlist -I | wc -l)
+        pkgs+=("$count (portage)")
 
     elif command -v xbps-query >/dev/null; then
-        echo "$(xbps-query -l | wc -l) (xbps)"
+        count=$(xbps-query -l | wc -l)
+        pkgs+=("$count (xbps)")
 
     elif command -v apk >/dev/null; then
-        echo "$(apk info | wc -l) (apk)"
+        count=$(apk info | wc -l)
+        pkgs+=("$count (apk)")
 
     elif command -v nix-store >/dev/null; then
-        echo "$(nix-store -q --requisites /run/current-system 2>/dev/null | wc -l || echo 0) (nix)"
-
-    elif command -v flatpak >/dev/null; then
-        echo "$(flatpak list | wc -l) (flatpak)"
+        count=$(nix-store -q --requisites /run/current-system 2>/dev/null | wc -l || echo 0)
+        pkgs+=("$count (nix)")
 
     elif command -v slackpkg >/dev/null || [ -d /var/log/packages ]; then
-        echo "$(ls /var/log/packages/ 2>/dev/null | wc -l) (slackware)"
+        count=$(ls /var/log/packages/ 2>/dev/null | wc -l)
+        pkgs+=("$count (slackware)")
 
     elif command -v brew >/dev/null; then
         local formulas=$(brew list --formula 2>/dev/null | wc -l)
         local casks=$(brew list --cask 2>/dev/null | wc -l)
-        echo "$formulas (formulas) + $casks (casks) = $((formulas + casks)) (brew)"
+        pkgs+=("$formulas (formulas) + $casks (casks) = $((formulas + casks)) (brew)")
 
     elif command -v port >/dev/null; then
-        echo "$(port -q installed 2>/dev/null | wc -l) (MacPorts)"
+        count=$(port -q installed 2>/dev/null | wc -l)
+        pkgs+=("$count (MacPorts)")
 
     elif command -v pkgutil >/dev/null || command -v pkg >/dev/null; then
-        echo "$(pkgutil --pkgs 2>/dev/null | wc -l) (Fink/pkgutil)"
-    
+        count=$(pkgutil --pkgs 2>/dev/null | wc -l)
+        pkgs+=("$count (Fink/pkgutil)")
+
     elif command -v pacman >/dev/null; then
-        echo "$(pacman -Q | wc -l) (pacman)"
+        count=$(pacman -Q | wc -l)
+        pkgs+=("$count (pacman)")
 
-    elif command -v ls /Programs >/dev/null; then
-	    echo "$(ls /Programs | wc -l) (programs)"
+    elif command -v flatpak >/dev/null; then
+        count=$(flatpak list | wc -l)
+        pkgs+=("$count (flatpak)")
+        echo "${pkgs[*]}"
+        return
+    elif ls /Programs >/dev/null 2>&1; then
+        count=$(ls /Programs | wc -l)
+        pkgs+=("$count (programs)")
+    fi
 
-    else
+    if command -v flatpak >/dev/null; then
+        local fp_count=$(flatpak list | wc -l)
+        if [ "$fp_count" -gt 0 ]; then
+            pkgs+=("$fp_count (flatpak)")
+        fi
+    fi
+
+    if [ ${#pkgs[@]} -eq 0 ]; then
         echo "?"
+    else
+        echo "${pkgs[*]}"
     fi
 }
 
