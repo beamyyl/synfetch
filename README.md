@@ -20,6 +20,7 @@
 
 ### Contents
 - [Why synfetch?](#why-synfetch?)
+- [Features](#features)
 
 ### Why synfetch?
 
