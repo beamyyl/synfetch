@@ -91,9 +91,9 @@ If you don't have `git` installed on your system, check one of the links below:
 - For MacOS users: [here](https://git-scm.com/install/mac)
 
 ### Building and Installation
-For `Arch-based` users, I have a [`PKGBUILD`](./install/PKGBUILD) available. 
+For `Arch-based` users, I have a [`PKGBUILD`](./PKGBUILD) available. 
 
-For `Nix` users, I have both [`flake.nix`](./install/flake.nix) and [`flake.lock`](./install/flake.lock) available.
+For `Nix` users, I have both [`flake.nix`](./flake.nix) and [`flake.lock`](./flake.lock) available.
 
 For everyone else:
 
