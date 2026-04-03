@@ -628,8 +628,6 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
     de_wm="macOS (Aqua)"
 fi
 
-echo "${de_wm}"
-
 # Package Detector
 
 pkg_count() {
