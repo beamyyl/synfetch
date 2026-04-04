@@ -31,7 +31,7 @@
 
 While there are many excellent fetch tools (neofetch, fastfetch, etc.), `synfetch` stands out by embracing a distinct **synthwave / synthetic** identity:
 
-- Clean, modern layout with vibrant cyber colors
+- Clean, modern layout with vibrant synthwave colors
 - Cross-platform support for **Linux** and **macOS**
 - Fast bash implementation that stays lightweight
 
@@ -40,10 +40,7 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), `synfetc
 - Beautiful custom ASCII art
 - Real-time Monitoring
 - Displays Info + CPU, GPU and RAM Usage
-- Highly customizable
-
-
-*(Will add Dual GPU Output for `synfetch` soon.)*
+- Highly customizable & Minimal Flags
 
 
 ### Support
