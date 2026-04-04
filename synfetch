@@ -434,37 +434,72 @@ get_gpu() {
 
     local gpus=()
 
-    if command -v nvidia-smi >/dev/null 2>&1; then
-        while IFS= read -r name; do
-            [ -n "$name" ] && gpus+=("NVIDIA ${name}")
-        done < <(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null)
-    fi
+    gpu_cmd="$(lspci -mm |
+               awk -F '\"|\" \"|\\(' \
+                      '/"Display|"3D|"VGA/ {
+                          a[$0] = $1 " " $3 " " ($(NF-1) ~ /^$|^Device [[:xdigit:]]+$/ ? $4 : $(NF-1))
+                      }
+                      END { for (i in a) {
+                          if (!seen[a[i]]++) {
+                              sub("^[^ ]+ ", "", a[i])
+                              print a[i]
+                          }
+                      }}')"
 
-    if command -v lspci >/dev/null 2>&1; then
-        while IFS= read -r line; do
-            if [[ "$line" == *"NVIDIA"* ]] && command -v nvidia-smi >/dev/null 2>&1; then
+    IFS=$'\n' read -d "" -ra gpus <<< "$gpu_cmd"
+
+    [[ "${gpus[0]}" == *Intel* && "${gpus[1]}" == *Intel* ]] && unset -v "gpus[0]"
+
+    for gpu in "${gpus[@]}"; do
+        case $gpu in
+            *"Advanced"*)
+                brand="${gpu/*AMD*ATI*/AMD ATI}"
+                brand="${brand:-${gpu/*AMD*/AMD}}"
+                brand="${brand:-${gpu/*ATI*/ATi}}"
+                gpu="${gpu/\[AMD\/ATI\] }"
+                gpu="${gpu/\[AMD\] }"
+                gpu="${gpu/OEM }"
+                gpu="${gpu/Advanced Micro Devices, Inc.}"
+                gpu="${gpu/*\[}"
+                gpu="${gpu/\]*}"
+                gpu="$brand $gpu"
+                ;;
+            *"NVIDIA"*)
+                gpu="${gpu/*\[}"
+                gpu="${gpu/\]*}"
+                gpu="NVIDIA $gpu"
+                ;;
+            *"Intel"*)
+                gpu="${gpu/*Intel/Intel}"
+                gpu="${gpu/\(R\)}"
+                gpu="${gpu/Corporation}"
+                gpu="${gpu/ \(*}"
+                gpu="${gpu/Integrated Graphics Controller}"
+                gpu="${gpu/*Xeon*/Intel HD Graphics}"
+                [[ -z "$(echo "$gpu" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')" ]] && gpu="Intel Integrated Graphics"
+                ;;
+            *"MCST"*)
+                gpu="${gpu/*MCST*MGA2*/MCST MGA2}"
+                ;;
+            *"VirtualBox"*)
+                gpu="VirtualBox Graphics Adapter"
+                ;;
+            *)
                 continue
-            fi
+                ;;
+        esac
+        [ -n "$gpu" ] && gpus_out+=("$gpu")
+    done
 
-            name=$(echo "$line" |
-                   sed 's/^[0-9a-f:.]\+ //' |
-                   sed 's/^\(VGA compatible controller\|3D controller\|Display controller\): *//' |
-                   sed 's/ (rev .*)$//' |
-                   sed 's/ \[.*\]//')
-
-            [ -n "$name" ] && gpus+=("$name")
-        done < <(lspci | grep -E 'VGA|3D|Display' 2>/dev/null)
-    fi
-
-    if [ ${#gpus[@]} -eq 0 ]; then
+    if [ ${#gpus_out[@]} -eq 0 ]; then
         if [ -d /sys/class/drm/card0/device ]; then
-            gpus+=("Integrated Graphics")
+            gpus_out+=("Integrated Graphics")
         else
-            gpus+=("Unknown GPU")
+            gpus_out+=("Unknown GPU")
         fi
     fi
 
-    printf '%s\n' "${gpus[@]}"
+    printf '%s\n' "${gpus_out[@]}"
 }
 
 get_gpu_usage() {
