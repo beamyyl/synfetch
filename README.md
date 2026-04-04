@@ -102,13 +102,9 @@ git clone https://github.com/SXSLVT/synfetch && cd synfetch
 ```bash
 chmod +x synfetch
 ```
-**Install `synfetch` system-wide (optional)**
+**Install `synfetch` system-wide and return to the previous directory**
 ```bash
-sudo mv synfetch /usr/local/bin/
-```
-**Return to the previous directory**
-```bash
-cd -
+sudo mv synfetch /usr/local/bin/ && cd -
 ```
 
 ### Usage
