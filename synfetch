@@ -369,7 +369,6 @@ show_help() {
     echo -e " ${GREEN}synfetch --noascii${RESET}"
     echo -e " ${GREEN}synfetch --theme monochrome${RESET}"
     echo -e " ${GREEN}synfetch --distro arch${RESET}"
-    echo -e " ${GREEN}synfetch --distro macos --nonerd${RESET}"
     exit 0
 }
 
@@ -377,9 +376,9 @@ show_help() {
 parse_args() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
-          --live)
-            LIVE_MODE=true
-            ;;
+            --live)
+                LIVE_MODE=true
+                ;;
             --theme)
                 shift
                 THEME="${1,,}"
@@ -409,12 +408,12 @@ parse_args() {
 
 parse_args "$@"
 
-# Load selected theme
+# Load theme
 load_theme() {
     local data="${THEMES[$1]}"
     if [[ -z "$data" ]]; then
         echo -e "${RED}Error: Theme '$1' not found!${RESET}"
-        echo -e "Available: ${!THEMES[*]}"
+        echo -e "Available themes: ${!THEMES[*]}"
         exit 1
     fi
     eval "$data"
@@ -580,13 +579,13 @@ synfetch_live() {
         echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell ${PURPLE}${SHELL##*/}${RESET}"
         echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM ${GRAY}${de_wm}${RESET}"
         echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs ${YELLOW}$(pkg_count)${RESET}"
-        echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+        echo -e " ${GRAY}${SEP}${RESET}"
         echo -e " \e[38;5;${SECONDARY}mCPU${RESET} $(cyber_bar "${CPU}")"
         echo -e " \e[38;5;${SECONDARY}mRAM${RESET} $(cyber_bar "${RAM}")"
         if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
-        echo -e " \e[38;5;${SECONDARY}mGPU${RESET} $(cyber_bar "${GPU_USAGE}")"
+            echo -e " \e[38;5;${SECONDARY}mGPU${RESET} $(cyber_bar "${GPU_USAGE}")"
         fi
-        echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+        echo -e " ${GRAY}${SEP}${RESET}"
         echo -e " ${DIM}Press Ctrl+C to exit live mode${RESET} "
         sleep 0.7
     done
@@ -775,23 +774,25 @@ if [[ "${LIVE_MODE:-false}" == true ]]; then
 else
     if $USE_ASCII; then
         ART=$(echo -e "$ART" | sed "s/\e\[38;5;[0-9]*m/\e[38;5;${ASCII_COLOR}m/g")
+        echo -e "$ART"
+        echo
     fi
     echo -e " ${NEON_BLUE}${ICON_OS}${RESET}OS ${NEON_BLUE}${DISTRO}${RESET}"
     echo -e " ${MAGENTA}${ICON_KERNEL}${RESET}Kernel ${MAGENTA}$(uname -r)${RESET}"
     echo -e " ${BLUE}${ICON_USER}${RESET}User ${BLUE}${USER}${RESET}"
     echo -e " ${RED}${ICON_HOST}${RESET}Host ${RED}$(cat /etc/hostname 2>/dev/null || hostname)${RESET}"
-    echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}"
+    echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
     echo -e " ${TEAL}${ICON_CPU}${RESET}CPU ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
     echo -e " ${PINK}${ICON_GPU}${RESET}GPU ${PINK}${GPU}${RESET}"
     echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
     echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell ${PURPLE}${SHELL##*/}${RESET}"
     echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM ${GRAY}${de_wm}${RESET}"
     echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs ${YELLOW}$(pkg_count)${RESET}"
-    echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+    echo -e " ${GRAY}${SEP}${RESET}"
     echo -e " \e[38;5;${SECONDARY}mCPU${RESET} $(cyber_bar "${CPU}")"
     echo -e " \e[38;5;${SECONDARY}mRAM${RESET} $(cyber_bar "${RAM}")"
     if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
         echo -e " \e[38;5;${SECONDARY}mGPU${RESET} $(cyber_bar "${GPU_USAGE}")"
     fi
-    echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+    echo -e " ${GRAY}${SEP}${RESET}"
 fi
