@@ -258,7 +258,7 @@ ${GREEN}  |___/\\___/_/\\_,_/
                     ART="${BLUE}     _  ___      ____  ____
 ${BLUE}    / |/ (_)_ __/ __ \\/ __/
 ${BLUE}   /    / /\\ \\ / /_/ /\\ \\  
-${BLUE}  /_/|_/_//_\\_/\\____/___/  
+${BLUE}  /_/|_/_//_\\_|\\____/___/  
                     "
 		;;
 macos|darwin|mac)
@@ -436,49 +436,39 @@ get_gpu() {
 
     if command -v nvidia-smi >/dev/null 2>&1; then
         while IFS= read -r name; do
-            [ -n "$name" ] && gpus+=("NVIDIA ${name}")
+            [ -n "$name" ] && gpus+=("$name")
         done < <(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null)
     fi
 
-    for card in /sys/class/drm/card*/device; do
-        [ -d "$card" ] || continue
+    if command -v lspci >/dev/null 2>&1; then
+        while IFS= read -r line; do
+            if [[ "$line" == *"NVIDIA"* ]] && command -v nvidia-smi >/dev/null 2>&1; then
+                continue
+            fi
 
-        vendor=$(cat "$card/vendor" 2>/dev/null)
-        device=$(cat "$card/device" 2>/dev/null)
-        driver=$(basename "$(readlink -f "$card/driver" 2>/dev/null)" 2>/dev/null)
+            name=$(echo "$line" | 
+                   sed 's/^[0-9a-f:.]\+ //' |        
+                   sed 's/^\(VGA compatible controller\|3D controller\|Display controller\): *//' | 
+                   sed 's/ (rev .*)$//' |     
+                   sed 's/ \[.*\]//' )      
 
-        case "$vendor" in
-            "0x8086")  # Intel
-                if [ -n "$driver" ] && [[ "$driver" == i915* || "$driver" == xe* ]]; then
-                    case "$device" in
-                        "0x5916"|"0x5917") name="Intel HD Graphics 620" ;;
-                        "0x5926"|"0x5927") name="Intel Iris Plus Graphics 640" ;;
-                        "0x9b41"|"0x9bca") name="Intel UHD Graphics" ;;
-                        *) name="Intel UHD Graphics" ;;
-                    esac
-                    gpus+=("$name")
-                fi
-                ;;
-            "0x1002")  # AMD
-                if [[ "$driver" == amdgpu* || "$driver" == radeon* ]]; then
-                    gpus+=("AMD Radeon Graphics")
-                fi
-                ;;
-        esac
-    done
-
-    local cleaned=()
-    for gpu in "${gpus[@]}"; do
-        [[ ! " ${cleaned[*]} " == *" ${gpu} "* ]] && cleaned+=("$gpu")
-    done
-
-    if [ ${#cleaned[@]} -eq 0 ]; then
-        gpus+=("Unknown GPU")
-    else
-        gpus=("${cleaned[@]}")
+            [ -n "$name" ] && gpus+=("$name")
+        done < <(lspci | grep -E 'VGA|3D|Display' 2>/dev/null)
     fi
 
-    printf '%s\n' "${gpus[@]}"
+    if [ ${#gpus[@]} -eq 0 ]; then
+        if [ -d /sys/class/drm/card0/device ]; then
+            gpus+=("Integrated Graphics")
+        else
+            gpus+=("Unknown GPU")
+        fi
+    fi
+
+    if [ ${#gpus[@]} -gt 0 ]; then
+        printf '%s\n' "${gpus[*]}"
+    else
+        echo "Unknown GPU"
+    fi
 }
 
 get_gpu_usage() {
@@ -528,16 +518,7 @@ synfetch_live() {
         echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}$(cat /etc/hostname 2>/dev/null || hostname)${RESET}"
         echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
         echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
-        mapfile -t gpu_list < <(get_gpu)
-
-        if [ ${#gpu_list[@]} -eq 1 ]; then
-            echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${gpu_list[0]}${RESET}"
-        else
-            echo -e " ${PINK}${ICON_GPU}${RESET}GPU"
-            for gpu in "${gpu_list[@]}"; do
-                echo -e     " ${PINK}${gpu}${RESET}"
-            done
-        fi
+        echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
         echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
         echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
         echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
@@ -593,7 +574,7 @@ case "${de_wm,,}" in
     plasma* | kde* | plasmashell | kwin* | kded*) de_wm="KDE Plasma" ;;
     xfce* | xfwm4 | xfce4-session) de_wm="XFCE" ;;
     mate* | marco) de_wm="MATE" ;;
-    cinnamon* | muffin) de_wm="X-Cinnamon" ;;
+    cinnamon* | muffin) de_wm="Cinnamon" ;;
     budgie*) de_wm="Budgie" ;;
     pantheon* | gala) de_wm="Pantheon (elementary OS)" ;;
     deepin* | dde*) de_wm="Deepin DDE" ;;
@@ -638,7 +619,7 @@ case "${de_wm,,}" in
     cage) de_wm="Cage (kiosk)" ;;
     waybox) de_wm="Waybox" ;;
     oxwm) de_wm="oxwm" ;;
-    exwm) de_wm="exwm" ;;
+    exwm) de_wm="exwm" ;; 
     aqua | quartz | macos | darwin) de_wm="macOS (Aqua)" ;;
 esac
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -651,7 +632,7 @@ if [[ "${de_wm}" == "GNOME" || \
       "${de_wm}" == "MATE" || \
       "${de_wm}" == "XFCE" || \
       "${de_wm}" == "LXQt" || \
-      "${de_wm}" == "X-Cinnamon" ]]; then
+      "${de_wm}" == "Cinnamon" ]]; then
     session_suffix=""
     if [ -n "${XDG_SESSION_TYPE}" ]; then
         case "${XDG_SESSION_TYPE}" in
@@ -763,16 +744,7 @@ echo -e " ${BLUE}${ICON_USER}${RESET}User    ${BLUE}${USER}${RESET}"
 echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}$(cat /etc/hostname 2>/dev/null || hostname)${RESET}"
 echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
 echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
-mapfile -t gpu_list < <(get_gpu)
-
-if [ ${#gpu_list[@]} -eq 1 ]; then
-    echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${gpu_list[0]}${RESET}"
-else
-    echo -e " ${PINK}${ICON_GPU}${RESET}GPU"
-    for gpu in "${gpu_list[@]}"; do
-        echo -e     " ${PINK}${gpu}${RESET}"
-    done
-fi
+echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
 echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
 echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
 echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
