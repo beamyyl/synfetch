@@ -520,14 +520,8 @@ synfetch_live() {
         echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
         echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
         echo -e " ${PINK}${ICON_GPU}${RESET}GPU"
-        mapfile -t gpu_list < <(get_gpu)
-
-        for i in "${!gpu_list[@]}"; do
-            if [ "$i" -eq 0 ]; then
-        echo -e "      ${PINK}${gpu_list[i]}${RESET}"
-            else
-        echo -e "      ${PINK}${gpu_list[i]}${RESET}"
-            fi
+        get_gpu | while IFS= read -r gpu_line; do
+          [ -n "$gpu_line" ] && echo -e "      ${PINK}${gpu_line}${RESET}"
         done
         echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
         echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
@@ -754,14 +748,8 @@ echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}$(cat /etc/hostname 2>/dev/nul
 echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
 echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
 echo -e " ${PINK}${ICON_GPU}${RESET}GPU"
-mapfile -t gpu_list < <(get_gpu)
-
-for i in "${!gpu_list[@]}"; do
-    if [ "$i" -eq 0 ]; then
-        echo -e "      ${PINK}${gpu_list[i]}${RESET}"
-    else
-        echo -e "      ${PINK}${gpu_list[i]}${RESET}"
-    fi
+get_gpu | while IFS= read -r gpu_line; do
+    [ -n "$gpu_line" ] && echo -e "      ${PINK}${gpu_line}${RESET}"
 done
 echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
 echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
