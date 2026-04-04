@@ -581,7 +581,7 @@ else
         i3 i3wm sway hyprland river wayfire labwc niri dwl \
         awesome bspwm dwm qtile xmonad herbstluftwm spectrwm stumpwm \
         openbox fluxbox blackbox jwm icewm afterstep windowmaker fvwm pekwm \
-        twm ctwm metacity sawfish compiz berry hikari cage waybox oxwm; do
+        twm ctwm metacity sawfish compiz berry hikari cage waybox oxwm exwm; do
         if pgrep -x "$prog" >/dev/null 2>&1; then
             de_wm="$prog"
             break
@@ -593,7 +593,7 @@ case "${de_wm,,}" in
     plasma* | kde* | plasmashell | kwin* | kded*) de_wm="KDE Plasma" ;;
     xfce* | xfwm4 | xfce4-session) de_wm="XFCE" ;;
     mate* | marco) de_wm="MATE" ;;
-    cinnamon* | muffin) de_wm="Cinnamon" ;;
+    cinnamon* | muffin) de_wm="X-Cinnamon" ;;
     budgie*) de_wm="Budgie" ;;
     pantheon* | gala) de_wm="Pantheon (elementary OS)" ;;
     deepin* | dde*) de_wm="Deepin DDE" ;;
@@ -638,6 +638,7 @@ case "${de_wm,,}" in
     cage) de_wm="Cage (kiosk)" ;;
     waybox) de_wm="Waybox" ;;
     oxwm) de_wm="oxwm" ;;
+    exwm) de_wm="exwm" ;;
     aqua | quartz | macos | darwin) de_wm="macOS (Aqua)" ;;
 esac
 if [[ "$(uname -s)" == "Darwin" ]]; then
@@ -650,7 +651,7 @@ if [[ "${de_wm}" == "GNOME" || \
       "${de_wm}" == "MATE" || \
       "${de_wm}" == "XFCE" || \
       "${de_wm}" == "LXQt" || \
-      "${de_wm}" == "Cinnamon" ]]; then
+      "${de_wm}" == "X-Cinnamon" ]]; then
     session_suffix=""
     if [ -n "${XDG_SESSION_TYPE}" ]; then
         case "${XDG_SESSION_TYPE}" in
