@@ -440,18 +440,42 @@ get_gpu() {
         done < <(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null)
     fi
 
-    if [ ${#gpus[@]} -eq 0 ] && [ -d /sys/class/drm/card0/device ]; then
-        local vendor
-        vendor=$(cat /sys/class/drm/card0/device/vendor 2>/dev/null)
-        case "$vendor" in
-            "0x8086") gpus+=("Intel Integrated Graphics") ;;
-            "0x1002") gpus+=("AMD Graphics") ;;
-            *) gpus+=("Integrated Graphics") ;;
-        esac
-    fi
+    for card in /sys/class/drm/card*/device; do
+        [ -d "$card" ] || continue
 
-    if [ ${#gpus[@]} -eq 0 ]; then
+        vendor=$(cat "$card/vendor" 2>/dev/null)
+        device=$(cat "$card/device" 2>/dev/null)
+        driver=$(basename "$(readlink -f "$card/driver" 2>/dev/null)" 2>/dev/null)
+
+        case "$vendor" in
+            "0x8086")  # Intel
+                if [ -n "$driver" ] && [[ "$driver" == i915* || "$driver" == xe* ]]; then
+                    case "$device" in
+                        "0x5916"|"0x5917") name="Intel HD Graphics 620" ;;
+                        "0x5926"|"0x5927") name="Intel Iris Plus Graphics 640" ;;
+                        "0x9b41"|"0x9bca") name="Intel UHD Graphics" ;;
+                        *) name="Intel UHD Graphics" ;;
+                    esac
+                    gpus+=("$name")
+                fi
+                ;;
+            "0x1002")  # AMD
+                if [[ "$driver" == amdgpu* || "$driver" == radeon* ]]; then
+                    gpus+=("AMD Radeon Graphics")
+                fi
+                ;;
+        esac
+    done
+
+    local cleaned=()
+    for gpu in "${gpus[@]}"; do
+        [[ ! " ${cleaned[*]} " == *" ${gpu} "* ]] && cleaned+=("$gpu")
+    done
+
+    if [ ${#cleaned[@]} -eq 0 ]; then
         gpus+=("Unknown GPU")
+    else
+        gpus=("${cleaned[@]}")
     fi
 
     printf '%s\n' "${gpus[@]}"
