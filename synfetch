@@ -842,3 +842,4 @@ echo -e " ${GRAY}─────────────────────
         echo -e " \e[38;5;${SECONDARY}mGPU${RESET} $(cyber_bar "${GPU_USAGE}")"
     fi
     echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+fi
