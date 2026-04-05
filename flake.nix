@@ -13,10 +13,11 @@
       perSystem = { pkgs, lib, ... }: {
         packages.default = pkgs.writeShellApplication {
           name = "synfetch";
-
           runtimeInputs = lib.optionals pkgs.stdenv.isLinux [
-            pkgs.pciutils      # required for GPU detection
+            pkgs.pciutils # required for GPU detection
           ];
+
+          checkPhase = "";
 
           text = builtins.readFile ./synfetch;
         };
