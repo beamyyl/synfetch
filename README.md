@@ -45,6 +45,7 @@ While there are many excellent fetch tools (neofetch, fastfetch, etc.), `synfetc
 
 
 ### Support
+
 `synfetch` currently supports **MacOS** and the following **Linux** distributions. However, I have not been able to test them all.
 If you are experiencing issues with synfetch, please create an [issue](https://github.com/SXSLVT/synfetch/issues/new).
 - Arch
@@ -87,6 +88,7 @@ If you are experiencing issues with synfetch, please create an [issue](https://g
 - A **Nerd Font** is required to display icons! (optional)
 
 ### Building and Installation
+
 For `Arch` based users, I have a [`PKGBUILD`](./PKGBUILD) available. 
 
 For `Nix` users, I have both [`flake.nix`](./flake.nix) and [`flake.lock`](./flake.lock) available.
@@ -105,6 +107,7 @@ chmod +x synfetch
 ```bash
 sudo mv synfetch /usr/local/bin/ && cd -
 ```
+
 
 ### Usage
 
@@ -165,6 +168,7 @@ Examples:
 ```
 
 ### Uninstallation
+
 To uninstall `synfetch`, just run:
 ```bash
 sudo rm -rf /usr/local/bin/synfetch
