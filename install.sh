@@ -48,4 +48,4 @@ echo "────────────────────────�
 
 echo "🎉 synfetch is now installed and ready!"
 echo "   Just run 'synfetch' anytime (or 'synfetch --live' for the cool real-time mode)"
-echo "   Made with love for you @SXSLVT 💖"
+echo "   Goodbye! 👋 "
