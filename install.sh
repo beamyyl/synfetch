@@ -11,31 +11,33 @@ CYAN='\033[0;36m'
 MAGENTA='\033[0;35m'
 RESET='\033[0m'
 
+# Cool banner
 echo -e "${CYAN}"
 cat << "EOF"
    ____          ____    __      __ 
   / __/_ _____  / __/__ / /_____/ / 
  _\ \/ // / _ \/ _// -_) __/ __/ _ \
 /___/\_, /_//_/_/  \__/\__/\__/_//_/
-    /___/                                                      
+    /___/                           
 EOF
 echo -e "${RESET}"
 
 echo -e "${MAGENTA}Hey there! Let's install${RESET} ${YELLOW}synfetch${RESET} ${MAGENTA}in style 🔥${RESET}"
 echo ""
 
-# Loading animation function
+# Loading animation
 loading() {
     local pid=$1
-    local delay=0.1
+    local delay=0.12
     local spin='|/-\'
+    printf "\r"
     while kill -0 "$pid" 2>/dev/null; do
         for i in $(seq 0 3); do
-            printf "\r${CYAN}[${spin:$i:1}] ${YELLOW}Working...${RESET}"
+            printf "\r${CYAN}[${spin:$i:1}] ${YELLOW}Working...${RESET}  "
             sleep $delay
         done
     done
-    printf "\r${GREEN}[✓] Done!${RESET}               \n"
+    printf "\r${GREEN}[✓] Done!${RESET}                 \n"
 }
 
 echo -e "${BLUE}🔍 Checking for existing synfetch...${RESET}"
@@ -52,28 +54,21 @@ fi
 
 echo ""
 
-# Extra cleanup
-echo -e "${BLUE}🧹 Performing extra cleanup...${RESET}"
-for path in /usr/bin/synfetch /usr/local/bin/synfetch /usr/local/sbin/synfetch ~/.local/bin/synfetch; do
-    if [ -f "$path" ]; then
-        echo -e "${YELLOW}   Removing leftover at $path${RESET}"
-        sudo rm -f "$path" 2>/dev/null || true
-    fi
-done
-echo -e "${GREEN}✅ Cleanup complete!${RESET}"
-echo ""
-
-# Cloning
+# Cloning with loading
 echo -e "${BLUE}📥 Cloning the latest synfetch from GitHub...${RESET}"
 (
-    git clone https://github.com/SXSLVT/synfetch.git synfetch-temp 2>/dev/null &
-    loading $!
-) || {
+    git clone https://github.com/SXSLVT/synfetch.git synfetch-temp 2>/dev/null
+) & 
+loading $!
+wait $! 2>/dev/null || {
     echo -e "${RED}❌ Clone failed! (Is git installed?)${RESET}"
     exit 1
 }
 
-cd synfetch-temp
+cd synfetch-temp || {
+    echo -e "${RED}❌ Could not enter synfetch-temp directory${RESET}"
+    exit 1
+}
 
 echo -e "${BLUE}🔧 Making synfetch executable...${RESET}"
 chmod +x synfetch
@@ -98,4 +93,4 @@ echo -e "      ${CYAN}synfetch${RESET}          → Normal mode"
 echo -e "      ${CYAN}synfetch --live${RESET}    → Animated mode 🔥"
 echo ""
 echo -e "${MAGENTA}Enjoy your new fetch tool! 👾${RESET}"
-echo -e "${BLUE} Goodbye! 👋 ${RESET}"
+echo -e "${BLUE}Goodbye! 👋${RESET}"
