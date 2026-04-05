@@ -93,7 +93,7 @@ ${GREEN}  /_/  /_/_/_//_/\\__/
 ${BLUE}  /_  / ___  ____(_)__  / __ \\/ __/
 ${BLUE}   / /_/ _ \\/ __/ / _ \\/ /_/ /\\ \\  
 ${BLUE}  /___/\\___/_/ /_/_//_/\\____/___/  
-		 "
+		"
                     ;;
                 pop|popos)
                     ART="${BLUE}     ___            ____  ____
@@ -132,27 +132,27 @@ ${RED}  / /__/ -_) _ \\/ __/ /_/ /\\ \\
 ${RED}  \\___/\\__/_//_/\\__/\\____/___/  
                     "
                     ;;
-	 mx-linux|mxlinux)
-		 ART="${BLUE}     __  ___       __   _               
+	mx-linux|mxlinux)
+		ART="${BLUE}     __  ___       __   _               
 ${BLUE}    /  |/  /_ __  / /  (_)__  __ ____ __
 ${BLUE}   / /|_/ /\\ \\ / / /__/ / _ \\/ // /\\ \\ /
 ${BLUE}  /_/  /_//_\\_\\ /____/_/_//_/\\_,_//_\\_\\  
-		 "
-		 ;;
-	 guix)
-		 ART="${YELLOW}    _____     _     
+		"
+		;;
+	guix)
+		ART="${YELLOW}    _____     _     
 ${YELLOW}   / ___/_ __(_)_ __
 ${YELLOW}  / (_ / // / /\\ \\ /
 ${YELLOW}  \\___/\\_,_/_//_\\_\\ 
-		 "
-		 ;;
+		"
+		;;
            qubes|qubesos)
-		 ART="${BLUE}    ____       __           ____  ____
+		ART="${BLUE}    ____       __           ____  ____
 ${BLUE}   / __ \\__ __/ /  ___ ___ / __ \\/ __/
 ${BLUE}  / /_/ / // / _ \\/ -_|_-</ /_/ /\\ \\  
 ${BLUE}  \\___\\_\\_,_/_.__/\\__/___/\\____/___/  
-		 "
-		 ;;
+		"
+		;;
 	antix)
 		ART="${BLUE}              __  _ _  __
 ${BLUE}   ___ ____  / /_(_) |/_/
@@ -160,72 +160,72 @@ ${BLUE}  / _ \\/ _ \\/ __/ />  <
 ${BLUE}  \\_,_/_//_/\\__/_/_/|_|  
 		"
                     ;;
-	 garuda)
-		 ART="${RED}    _____                 __    
+	garuda)
+		ART="${RED}    _____                 __    
 ${RED}   / ___/__ _______ _____/ /__ _
 ${RED}  / (_ / _ \\/ __/ // / _  / _ \\/
 ${RED}  \\___/\\_,_/_/  \\_,_/\\_,_/\\_,_/  
-		 "
-		 ;;
-	 nobara)
-		 ART="${MAGENTA}     _  __     __                
+		"
+		;;
+	nobara)
+		ART="${MAGENTA}     _  __     __                
 ${MAGENTA}    / |/ /__  / /  ___ ________ _
 ${MAGENTA}   /    / _ \\/ _ \\/ _ \\/ __/ _ \\/
-${MAGENTA}  /_/|_/\\___/_.__/\\_,_/_/  \\_,_/ 		 
-		 "
-		 ;;
-	 bazzite)
-		 ART="${BLUE}     ___              _ __     
+${MAGENTA}  /_/|_/\\___/_.__/\\_,_/_/  \\_,_/ 		
+		"
+		;;
+	bazzite)
+		ART="${BLUE}     ___              _ __     
 ${BLUE}    / _ )___ _______ (_) /____ 
 ${BLUE}   / _  / _ \\/_ /_ // / __/ -_)
 ${BLUE}  /____/\\_,_//__/__/_/\\__/\\__/
-		 "
-		 ;;
+		"
+		;;
             kali)
-		 ART="${NEON_BLUE}     __ __     ___ 
+		ART="${NEON_BLUE}     __ __     ___ 
 ${NEON_BLUE}    / //_/__ _/ (_)
 ${NEON_BLUE}   / ,< / _ \\/ / / 
 ${NEON_BLUE}  /_/|_|\\_,_/_/_/  
-		 "
-		 ;;
-	 elementaryos|elementary)
-		 ART="${WHITE}        __                   __                ____  ____
+		"
+		;;
+	elementaryos|elementary)
+		ART="${WHITE}        __                   __                ____  ____
 ${WHITE}   ___ / /__ __ _  ___ ___  / /____ _______ __/ __ \\/ __/
 ${WHITE}  / -_) / -_)  ' \\/ -_) _ \\/ __/ _ \\/ __/ // / /_/ /\\ \\  
 ${WHITE}  \\__/_/\\__/_/_/_/\\__/_//_/\\__/\\_,_/_/  \\_, /\\____/___/  
 ${WHITE}                                       /___/             
-		 "
-		 ;;
-	 kde-neon|kdeneon)
-		 ART="${BLUE}     __ _____  ____  _  __            
+		"
+		;;
+	kde-neon|kdeneon)
+		ART="${BLUE}     __ _____  ____  _  __            
 ${BLUE}    / //_/ _ \\/ __/ / |/ /__ ___  ___ 
 ${BLUE}   / ,< / // / _/  /    / -_) _ \\/ _ \\
 ${BLUE}  /_/|_/____/___/ /_/|_/\\__/\\___/_//_/
-		 "
-		 ;;
-	 deepin)
-		 ART="${BLUE}     ___               _    
+		"
+		;;
+	deepin)
+		ART="${BLUE}     ___               _    
 ${BLUE}    / _ \\___ ___ ___  (_)__ 
 ${BLUE}   / // / -_) -_) _ \\/ / _ \\
 ${BLUE}  /____/\\__/\\__/ .__/_/_//_/
 ${BLUE}              /_/           
-		 "
-		 ;;
-	 alpine)
-		 ART="${NEON_BLUE}     ___   __     _         
+		"
+		;;
+	alpine)
+		ART="${NEON_BLUE}     ___   __     _         
 ${NEON_BLUE}    / _ | / /__  (_)__  ___ 
 ${NEON_BLUE}   / __ |/ / _ \\/ / _ \\/ -_)
 ${NEON_BLUE}  /_/ |_/_/ .__/_/_//_/\\__/ 
 ${NEON_BLUE}         /_/                
-		 "
-		 ;;
-	 gobo)
-		 ART="${BLUE}    _____     __      
+		"
+		;;
+	gobo)
+		ART="${BLUE}    _____     __      
 ${BLUE}   / ___/__  / /  ___ 
 ${BLUE}  / (_ / _ \\/ _ \\/ _ \\
 ${BLUE}  \\___/\\___/_.__/\\___/
-		 "
-		 ;;
+		"
+		;;
                 gentoo)
                     ART="${MAGENTA}    _____         __          
 ${MAGENTA}   / ___/__ ___  / /____  ___ 
@@ -426,50 +426,50 @@ RAM=$(get_ram_usage)
 
 # GPU & GPU Usage Detector
 
-get_gpu() {
-    if [ "$(uname)" != "Linux" ]; then
-        echo "$(system_profiler SPDisplaysDataType 2>/dev/null | grep 'Chipset Model' | awk -F': ' '{print $2}' || echo 'Apple GPU')"
-        return
-    fi
-
-    local gpus=()
-
-    if command -v nvidia-smi >/dev/null 2>&1; then
-        while IFS= read -r name; do
-            [ -n "$name" ] && gpus+=("$name")
-        done < <(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null)
-    fi
-
-    if command -v lspci >/dev/null 2>&1; then
-        while IFS= read -r line; do
-            if [[ "$line" == *"NVIDIA"* ]] && command -v nvidia-smi >/dev/null 2>&1; then
-                continue
-            fi
-
-            name=$(echo "$line" | 
-                   sed 's/^[0-9a-f:.]\+ //' |        
-                   sed 's/^\(VGA compatible controller\|3D controller\|Display controller\): *//' | 
-                   sed 's/ (rev .*)$//' |     
-                   sed 's/ \[.*\]//' )      
-
-            [ -n "$name" ] && gpus+=("$name")
-        done < <(lspci | grep -E 'VGA|3D|Display' 2>/dev/null)
-    fi
-
-    if [ ${#gpus[@]} -eq 0 ]; then
-        if [ -d /sys/class/drm/card0/device ]; then
-            gpus+=("Integrated Graphics")
-        else
-            gpus+=("Unknown GPU")
-        fi
-    fi
-
-    if [ ${#gpus[@]} -gt 0 ]; then
-        printf '%s\n' "${gpus[*]}"
-    else
-        echo "Unknown GPU"
-    fi
-}
+# get_gpu() {
+#    if [ "$(uname)" != "Linux" ]; then
+#        echo "$(system_profiler SPDisplaysDataType 2>/dev/null | grep 'Chipset Model' | awk -F': ' '{print $2}' || echo 'Apple GPU')"
+#        return
+#    fi
+#
+#    local gpus=()
+#
+#    if command -v nvidia-smi >/dev/null 2>&1; then
+#        while IFS= read -r name; do
+#            [ -n "$name" ] && gpus+=("$name")
+#        done < <(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null)
+#    fi
+#
+#    if command -v lspci >/dev/null 2>&1; then
+#        while IFS= read -r line; do
+#            if [[ "$line" == *"NVIDIA"* ]] && command -v nvidia-smi >/dev/null 2>&1; then
+#                continue
+#            fi
+#
+#            name=$(echo "$line" | 
+#                   sed 's/^[0-9a-f:.]\+ //' |        
+#                   sed 's/^\(VGA compatible controller\|3D controller\|Display controller\): *//' | 
+#                   sed 's/ (rev .*)$//' |     
+#                   sed 's/ \[.*\]//' )      
+#
+#            [ -n "$name" ] && gpus+=("$name")
+#        done < <(lspci | grep -E 'VGA|3D|Display' 2>/dev/null)
+#    fi
+#
+#    if [ ${#gpus[@]} -eq 0 ]; then
+#        if [ -d /sys/class/drm/card0/device ]; then
+#            gpus+=("Integrated Graphics")
+#        else
+#            gpus+=("Unknown GPU")
+#        fi
+#    fi
+#
+#    if [ ${#gpus[@]} -gt 0 ]; then
+#        printf '%s\n' "${gpus[*]}"
+#    else
+#        echo "Unknown GPU"
+#    fi
+#}
 
 get_gpu_usage() {
     if [ "$(uname)" != "Linux" ]; then
@@ -490,7 +490,7 @@ get_gpu_usage() {
     echo "0"
 }
 
-GPU=$(get_gpu)
+# GPU=$(get_gpu)
 GPU_USAGE=$(get_gpu_usage)
 
 # Real-time Monitoring
@@ -518,8 +518,8 @@ synfetch_live() {
         echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}$(cat /etc/hostname 2>/dev/null || hostname)${RESET}"
         echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
         echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
-        echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
-        echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
+#      echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
+        echo -e " ${PINK}${ICON_UPTIME}${RESET}Uptime  ${PINK}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
         echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
         echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
         echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs    ${YELLOW}$(pkg_count)${RESET}"
@@ -574,7 +574,7 @@ case "${de_wm,,}" in
     plasma* | kde* | plasmashell | kwin* | kded*) de_wm="KDE Plasma" ;;
     xfce* | xfwm4 | xfce4-session) de_wm="XFCE" ;;
     mate* | marco) de_wm="MATE" ;;
-    cinnamon* | muffin) de_wm="X-Cinnamon" ;;
+    cinnamon* | muffin) de_wm="Cinnamon" ;;
     budgie*) de_wm="Budgie" ;;
     pantheon* | gala) de_wm="Pantheon (elementary OS)" ;;
     deepin* | dde*) de_wm="Deepin DDE" ;;
@@ -632,7 +632,7 @@ if [[ "${de_wm}" == "GNOME" || \
       "${de_wm}" == "MATE" || \
       "${de_wm}" == "XFCE" || \
       "${de_wm}" == "LXQt" || \
-      "${de_wm}" == "X-Cinnamon" ]]; then
+      "${de_wm}" == "Cinnamon" ]]; then
     session_suffix=""
     if [ -n "${XDG_SESSION_TYPE}" ]; then
         case "${XDG_SESSION_TYPE}" in
@@ -744,8 +744,8 @@ echo -e " ${BLUE}${ICON_USER}${RESET}User    ${BLUE}${USER}${RESET}"
 echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}$(cat /etc/hostname 2>/dev/null || hostname)${RESET}"
 echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"${RESET}
 echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}$(lscpu | grep 'Model name' | awk -F: '{gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}')${RESET}"
-echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
-echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
+# echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
+echo -e " ${PINK}${ICON_UPTIME}${RESET}Uptime  ${PINK}$(uptime | sed -E 's/^[^,]*up *//; s/, *[0-9]+ users?.*//')${RESET}"
 echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL##*/}${RESET}"
 echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
 echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs    ${YELLOW}$(pkg_count)${RESET}"
