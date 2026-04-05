@@ -11,7 +11,16 @@
       systems = [ "x86_64-linux" "aarch64-linux" "x86_64-darwin" "aarch64-darwin" ];
 
       perSystem = { pkgs, ... }: {
-      packages.default = pkgs.writeShellScriptBin "synfetch" (builtins.readFile ./synfetch);
+        packages.default = pkgs.writeShellApplication {
+          name = "synfetch";
+
+          runtimeInputs = with pkgs; [
+            pciutils      # lspci for GPU detection
+            nvidia-utils  # nice for NVIDIA usage
+          ];
+
+          text = builtins.readFile ./synfetch;
+        };
       };
     };
 }
