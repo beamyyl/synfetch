@@ -16,7 +16,6 @@
 
           runtimeInputs = lib.optionals pkgs.stdenv.isLinux [
             pkgs.pciutils      # required for GPU detection
-            pkgs.nvidia-utils  # nice for NVIDIA usage
           ];
 
           text = builtins.readFile ./synfetch;
