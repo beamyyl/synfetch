@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e  # stop on any error
+set -e
 
 echo "🔥 Hey! Let's install synfetch 🔥"
 
