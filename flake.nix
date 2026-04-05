@@ -14,8 +14,6 @@
         packages.default = pkgs.writeShellApplication {
           name = "synfetch";
 
-          # Only add Linux-only packages (pciutils + nvidia-utils)
-          # This fixes the evaluation error on macOS
           runtimeInputs = lib.optionals pkgs.stdenv.isLinux [
             pkgs.pciutils      # required for GPU detection
             pkgs.nvidia-utils  # nice for NVIDIA usage
