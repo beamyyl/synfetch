@@ -8,9 +8,9 @@ url="https://github.com/SXSLVT/synfetch"
 license=('GPL3')
 depends=('bash')
 optdepends=(
-  'pciutils: Better GPU detection (lspci)'
-  'nvidia-utils: NVIDIA GPU name and usage'
-  'flatpak: Flatpak package counting'
+  'pciutils: Required for proper GPU detection (Intel, AMD Radeon, NVIDIA)'
+  'nvidia-utils: Better NVIDIA GPU usage monitoring in --live mode'
+  'flatpak: Accurate Flatpak package counting'
 )
 provides=('synfetch')
 conflicts=('synfetch-git')
@@ -25,11 +25,14 @@ pkgver() {
 }
 
 package() {
-    cd "${srcdir}/synfetch"
+  cd "${srcdir}/synfetch"
 
-    # Install the main script
-    install -Dm755 synfetch "${pkgdir}/usr/bin/synfetch"
+  # Install the main script
+  install -Dm755 synfetch "${pkgdir}/usr/bin/synfetch"
 
-    # Install license
-    install -Dm644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  # Install license
+  install -Dm644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
+
+  # Install README
+  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
