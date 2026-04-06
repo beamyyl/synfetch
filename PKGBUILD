@@ -29,7 +29,7 @@ package() {
   cd "${srcdir}/synfetch"
 
   # Install the main script
-  install -Dm755 synfetch "${pkgdir}/usr/bin/synfetch"
+  install -Dm755 synfetch "${pkgdir}/usr/local/bin/synfetch"
 
   # Install license
   install -Dm644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
