@@ -175,7 +175,7 @@ Examples:
 
 To uninstall `synfetch`, just run:
 
-**[uninstall.sh](./uninstall.sh) file**
+**The [uninstall.sh](./uninstall.sh) file**
 
 or
 
