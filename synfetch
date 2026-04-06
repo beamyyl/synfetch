@@ -300,6 +300,7 @@ show_help() {
     echo -e "  ${PINK}--noascii${RESET}         Hide ASCII art"
     echo -e "  ${PINK}--distro${RESET} <name>   Display ASCII art of a different distro"
     echo -e "  ${PINK}--live${RESET}            Animated CPU, GPU and RAM usage"
+    echo -e "  ${PINK}--refresh${RESET}         Force refresh all cache files (use after installing packages)"
     echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
     echo ""
     echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, nixos, macos"
@@ -307,6 +308,7 @@ show_help() {
     echo -e "${GRAY}Examples:${RESET}"
     echo -e "  ${GREEN}synfetch ${RESET}"
     echo -e "  ${GREEN}synfetch --live${RESET}"
+    echo -e "  ${GREEN}synfetch --refresh${RESET}"
     echo -e "  ${GREEN}synfetch --nonerd${RESET}"
     echo -e "  ${GREEN}synfetch --noascii${RESET}"
     echo -e "  ${GREEN}synfetch --distro arch${RESET}"
@@ -319,7 +321,7 @@ show_help() {
 parse_args() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
-	--live)
+      	   --live)
 		LIVE_MODE=true
 		;;
             --nonerd)
@@ -334,6 +336,9 @@ parse_args() {
                 ;;
             --help|-h)
                 show_help
+		;;
+	   --refresh)
+                REFRESH=true
                 ;;
             *)
                 echo -e "${PINK}Error:${RESET} Unknown option '$1'"
@@ -346,6 +351,38 @@ parse_args() {
 }
 
 parse_args "$@"
+
+# Cache for speed
+
+CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/synfetch"
+mkdir -p "$CACHE_DIR" 2>/dev/null || true
+REFRESH=${REFRESH:-false}
+
+cache() {
+    local key="$1"
+    local cmd="$2"
+    local cache_file="$CACHE_DIR/${key}.cache"
+    local ttl="${3:-3600}"   # 1 hour default
+
+    if [[ "$REFRESH" == true ]] || [[ ! -f "$cache_file" ]] || \
+       (( $(date +%s) - $(stat -c %Y "$cache_file" 2>/dev/null || echo 0) > ttl )); then
+        eval "$cmd" > "$cache_file" 2>/dev/null || echo "Unknown" > "$cache_file"
+    fi
+    cat "$cache_file"
+}
+
+if [[ "$REFRESH" == true ]] || [[ ! -f "$CACHE_DIR/preload.stamp" ]]; then
+    cache "cpu"  'lscpu | grep "Model name:" | sed "s/.*: *//; s/ with Radeon.*//"' >/dev/null
+    cache "mobo" 'echo "$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"' >/dev/null
+    cache "gpu"  'get_gpu' >/dev/null
+    cache "pkgs" 'pkg_count' 300 >/dev/null          # 5 min TTL for packages
+    touch "$CACHE_DIR/preload.stamp" 2>/dev/null || true
+fi
+
+CPU_MODEL=$(cache "cpu")
+MOBO=$(cache "mobo")
+GPU=$(cache "gpu")
+PKG_COUNT=$(cache "pkgs")
 
 # Nerd Fonts
 
@@ -539,7 +576,7 @@ synfetch_live() {
         fi
         echo -e " ${GRAY}────────────────────────────────────────${RESET}"
         echo -e " ${DIM}Press Ctrl+C to exit live mode${RESET}                "
-        sleep 0.7
+        sleep 0.4
     done
 } 
 
@@ -661,67 +698,50 @@ pkg_count() {
     local pkgs=()
     local count
 
-    if command -v dpkg >/dev/null; then
-        count=$(dpkg --get-selections | grep -v deinstall | wc -l)
+    if command -v pacman >/dev/null; then
+        count=$(pacman -Qq 2>/dev/null | wc -l)
+        pkgs+=("$count (pacman)")
+    elif command -v dpkg >/dev/null; then
+        count=$(dpkg-query -f '${binary:Package}\n' -W 2>/dev/null | wc -l)
         pkgs+=("$count (dpkg)")
-
-    elif command -v guix >/dev/null; then
-        count=$(guix package -I | wc -l)
-        pkgs+=("$count (guix)")
-
     elif command -v rpm >/dev/null; then
-        count=$(rpm -qa | wc -l)
+        count=$(rpm -qa 2>/dev/null | wc -l)
         pkgs+=("$count (rpm)")
-
-    elif command -v qlist >/dev/null; then
-        count=$(qlist -I | wc -l)
-        pkgs+=("$count (portage)")
-
-    elif command -v xbps-query >/dev/null; then
-        count=$(xbps-query -l | wc -l)
-        pkgs+=("$count (xbps)")
-
     elif command -v apk >/dev/null; then
-        count=$(apk info | wc -l)
+        count=$(apk info -q 2>/dev/null | wc -l)
         pkgs+=("$count (apk)")
-
+    elif command -v xbps-query >/dev/null; then
+        count=$(xbps-query -l 2>/dev/null | wc -l)
+        pkgs+=("$count (xbps)")
+    elif command -v qlist >/dev/null; then
+        count=$(qlist -I 2>/dev/null | wc -l)
+        pkgs+=("$count (portage)")
+    elif command -v guix >/dev/null; then
+        count=$(guix package -I 2>/dev/null | wc -l)
+        pkgs+=("$count (guix)")
     elif command -v nix-store >/dev/null; then
         count=$(nix-store -q --requisites /run/current-system 2>/dev/null | wc -l || echo 0)
         pkgs+=("$count (nix)")
-
     elif command -v slackpkg >/dev/null || [ -d /var/log/packages ]; then
         count=$(ls /var/log/packages/ 2>/dev/null | wc -l)
         pkgs+=("$count (slackware)")
-
     elif command -v brew >/dev/null; then
         local formulas=$(brew list --formula 2>/dev/null | wc -l)
         local casks=$(brew list --cask 2>/dev/null | wc -l)
         pkgs+=("$formulas (formulas) + $casks (casks) = $((formulas + casks)) (brew)")
-
     elif command -v port >/dev/null; then
         count=$(port -q installed 2>/dev/null | wc -l)
         pkgs+=("$count (MacPorts)")
-
     elif command -v pkgutil >/dev/null || command -v pkg >/dev/null; then
         count=$(pkgutil --pkgs 2>/dev/null | wc -l)
         pkgs+=("$count (Fink/pkgutil)")
-
-    elif command -v pacman >/dev/null; then
-        count=$(pacman -Q | wc -l)
-        pkgs+=("$count (pacman)")
-
-    elif command -v flatpak >/dev/null; then
-        count=$(flatpak list | wc -l)
-        pkgs+=("$count (flatpak)")
-        echo "${pkgs[*]}"
-        return
     elif ls /Programs >/dev/null 2>&1; then
-        count=$(ls /Programs | wc -l)
+        count=$(ls /Programs 2>/dev/null | wc -l)
         pkgs+=("$count (programs)")
     fi
 
     if command -v flatpak >/dev/null; then
-        local fp_count=$(flatpak list | wc -l)
+        local fp_count=$(flatpak list 2>/dev/null | wc -l)
         if [ "$fp_count" -gt 0 ]; then
             pkgs+=("$fp_count (flatpak)")
         fi
