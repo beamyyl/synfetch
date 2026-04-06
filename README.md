@@ -94,7 +94,12 @@ For `Arch` based users, I have a [`PKGBUILD`](./PKGBUILD) available.
 
 For `Nix` users, I have both [`flake.nix`](./flake.nix) and [`flake.lock`](./flake.lock) available.
 
-For everyone else, I have an [`install.sh`](./install.sh) available.
+For everyone else:
+
+**Run:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch | sudo tee /usr/local/bin/synfetch > /dev/null && sudo chmod +x /usr/local/bin/synfetch
+```
 
 or
 
@@ -167,16 +172,6 @@ Examples:
   synfetch --noascii
   synfetch --distro arch
   synfetch --distro macos --nonerd
-```
-
-### Uninstallation
-
-To uninstall `synfetch`, I have an [`uninstall.sh]`(./uninstall.sh) available.
-
-or
-
-```bash
-sudo rm -rf /usr/local/bin/synfetch
 ```
 
 ### License
