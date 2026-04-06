@@ -353,7 +353,7 @@ if $USE_NERD_FONTS; then
     ICON_OS=" "
     ICON_KERNEL="󰌢 "
     ICON_USER=" "
-    ICON_HOST=" "
+    ICON_HOST="󰗈 "
     ICON_MOBO=" "
     ICON_CPU=" "
     ICON_GPU="󰾲 "
