@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 # Colors
 
 RESET="\e[0m"
@@ -17,6 +18,35 @@ GREEN="\e[38;5;40m"
 YELLOW="\e[38;5;226m"
 WHITE="\e[97m"
 GRAY="\e[38;5;245m"
+
+# Dracula colors and mono accent
+
+DRACULA_CYAN="\e[38;5;81m"
+DRACULA_PURPLE="\e[38;5;141m"
+DRACULA_PINK="\e[38;5;212m"
+DRACULA_GREEN="\e[38;5;78m"
+DRACULA_YELLOW="\e[38;5;228m"
+DRACULA_RED="\e[38;5;203m"
+MONO_ACCENT="\e[38;5;51m" 
+
+# Theme variables
+
+OS_COLOR=""
+KERNEL_COLOR=""
+USER_COLOR=""
+HOST_COLOR=""
+MOBO_COLOR=""
+CPU_COLOR=""
+GPU_COLOR=""
+UPTIME_COLOR=""
+SHELL_COLOR=""
+DEWM_COLOR=""
+PKGS_COLOR=""
+BAR_LABEL_COLOR=""
+FILLED1_COLOR=""
+FILLED2_COLOR=""
+EMPTY_COLOR=""
+SEPARATOR_COLOR=""
 
 # ASCII
 
@@ -287,6 +317,89 @@ ${MAGENTA}  /_/  /_/\\_,_/\\__/\\____/___/
 USE_NERD_FONTS=true
 USE_ASCII=true
 CUSTOM_DISTRO=""
+THEME="synthwave"
+LIVE_MODE=false
+REFRESH=false
+
+# Theme setter
+
+set_theme() {
+    case "$THEME" in
+        synthwave)
+            OS_COLOR="${NEON_BLUE}"
+            KERNEL_COLOR="${MAGENTA}"
+            USER_COLOR="${BLUE}"
+            HOST_COLOR="${RED}"
+            MOBO_COLOR="${GREEN}"
+            CPU_COLOR="${TEAL}"
+            GPU_COLOR="${PINK}"
+            UPTIME_COLOR="${WHITE}"
+            SHELL_COLOR="${PURPLE}"
+            DEWM_COLOR="${GRAY}"
+            PKGS_COLOR="${YELLOW}"
+            BAR_LABEL_COLOR="${PINK}"
+            FILLED1_COLOR="\e[38;5;201m"   
+            FILLED2_COLOR="\e[38;5;45m"
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="${GRAY}"
+            ;;
+        monochrome)
+            OS_COLOR="${MONO_ACCENT}"
+            KERNEL_COLOR="${MONO_ACCENT}"
+            USER_COLOR="${MONO_ACCENT}"
+            HOST_COLOR="${MONO_ACCENT}"
+            MOBO_COLOR="${MONO_ACCENT}"
+            CPU_COLOR="${MONO_ACCENT}"
+            GPU_COLOR="${MONO_ACCENT}"
+            UPTIME_COLOR="${MONO_ACCENT}"
+            SHELL_COLOR="${MONO_ACCENT}"
+            DEWM_COLOR="${MONO_ACCENT}"
+            PKGS_COLOR="${MONO_ACCENT}"
+            BAR_LABEL_COLOR="\e[38;5;245m"
+            FILLED1_COLOR="${MONO_ACCENT}"
+            FILLED2_COLOR="${MONO_ACCENT}"
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="\e[38;5;245m"
+            ;;
+        minimal)
+            MIN_COLOR="\e[38;5;244m"  
+            OS_COLOR="${MIN_COLOR}"
+            KERNEL_COLOR="${MIN_COLOR}"
+            USER_COLOR="${MIN_COLOR}"
+            HOST_COLOR="${MIN_COLOR}"
+            MOBO_COLOR="${MIN_COLOR}"
+            CPU_COLOR="${MIN_COLOR}"
+            GPU_COLOR="${MIN_COLOR}"
+            UPTIME_COLOR="${MIN_COLOR}"
+            SHELL_COLOR="${MIN_COLOR}"
+            DEWM_COLOR="${MIN_COLOR}"
+            PKGS_COLOR="${MIN_COLOR}"
+            BAR_LABEL_COLOR="${GRAY}"
+            FILLED1_COLOR="${WHITE}"
+            FILLED2_COLOR="${WHITE}"
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="${GRAY}"
+            ;;
+        dracula)
+            OS_COLOR="${DRACULA_CYAN}"
+            KERNEL_COLOR="${DRACULA_PURPLE}"
+            USER_COLOR="${DRACULA_PINK}"
+            HOST_COLOR="${DRACULA_GREEN}"
+            MOBO_COLOR="${DRACULA_YELLOW}"
+            CPU_COLOR="${DRACULA_CYAN}"
+            GPU_COLOR="${DRACULA_PURPLE}"
+            UPTIME_COLOR="${WHITE}"
+            SHELL_COLOR="${DRACULA_PINK}"
+            DEWM_COLOR="${GRAY}"
+            PKGS_COLOR="${DRACULA_YELLOW}"
+            BAR_LABEL_COLOR="${DRACULA_PINK}"
+            FILLED1_COLOR="${DRACULA_PINK}"
+            FILLED2_COLOR="${DRACULA_CYAN}"
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="${GRAY}"
+            ;;
+    esac
+}
 
 # Help
 
@@ -300,18 +413,21 @@ show_help() {
     echo -e "  ${PINK}--distro${RESET} <name>   Display ASCII art of a different distro"
     echo -e "  ${PINK}--live${RESET}            Animated CPU, GPU and RAM usage"
     echo -e "  ${PINK}--refresh${RESET}         Force refresh all cache files (use after installing packages)"
+    echo -e "  ${PINK}--theme${RESET} <name>    Color theme (synthwave, monochrome, minimal, dracula)"
     echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
     echo ""
+    echo -e "${BLUE}Available themes:${RESET} synthwave (default), monochrome, minimal, dracula"
     echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, nixos, macos"
     echo ""
     echo -e "${GRAY}Examples:${RESET}"
     echo -e "  ${GREEN}synfetch ${RESET}"
     echo -e "  ${GREEN}synfetch --live${RESET}"
-    echo -e "  ${GREEN}synfetch --refresh${RESET}"
     echo -e "  ${GREEN}synfetch --nonerd${RESET}"
     echo -e "  ${GREEN}synfetch --noascii${RESET}"
-    echo -e "  ${GREEN}synfetch --distro arch${RESET}"
-    echo -e "  ${GREEN}synfetch --distro macos --nonerd${RESET}"
+    echo -e "  ${GREEN}synfetch --refresh${RESET}"
+    echo -e "  ${GREEN}synfetch --distro macos${RESET}" 
+    echo -e "  ${GREEN}synfetch --theme monochrome${RESET}"
+    echo -e "  ${GREEN}synfetch --theme minimal --live${RESET}"
     exit 0
 }
 
@@ -320,9 +436,13 @@ show_help() {
 parse_args() {
     while [[ $# -gt 0 ]]; do
         case "$1" in
-      	  --live)
-		      LIVE_MODE=true
-		      ;;
+            --live)
+                LIVE_MODE=true
+                ;;
+            --theme)
+                shift
+                THEME="${1,,}"
+                ;;
             --nonerd)
                 USE_NERD_FONTS=false
                 ;;
@@ -335,8 +455,8 @@ parse_args() {
                 ;;
             --help|-h)
                 show_help
-         		;;
-	      --refresh)
+                ;;
+            --refresh)
                 REFRESH=true
                 ;;
             *)
@@ -350,6 +470,21 @@ parse_args() {
 }
 
 parse_args "$@"
+
+# Validate theme
+
+validate_theme() {
+    case "$THEME" in
+        synthwave|monochrome|minimal|dracula) ;;
+        *)
+            echo -e "${PINK}Error:${RESET} Unknown theme '$THEME'"
+            echo -e "Available: synthwave, monochrome, minimal, dracula"
+            exit 1
+            ;;
+    esac
+}
+validate_theme
+set_theme 
 
 get_gpu() {
     if command -v lspci >/dev/null 2>&1; then
@@ -507,7 +642,7 @@ cache() {
     local key="$1"
     local cmd="$2"
     local cache_file="$CACHE_DIR/${key}.cache"
-    local ttl="${3:-3600}"   # 1 hour default
+    local ttl="${3:-3600}"
 
     if [[ "$REFRESH" == true ]] || [[ ! -f "$cache_file" ]] || \
        (( $(date +%s) - $(stat -c %Y "$cache_file" 2>/dev/null || echo 0) > ttl )); then
@@ -520,7 +655,7 @@ if [[ "$REFRESH" == true ]] || [[ ! -f "$CACHE_DIR/preload.stamp" ]]; then
     cache "cpu"  'lscpu | grep "Model name:" | sed "s/.*: *//; s/ with Radeon.*//"' >/dev/null
     cache "mobo" 'echo "$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"' >/dev/null
     cache "gpu"  'get_gpu' >/dev/null
-    cache "pkgs" 'pkg_count' 300 >/dev/null          # 5 min TTL for packages
+    cache "pkgs" 'pkg_count' 300 >/dev/null
     touch "$CACHE_DIR/preload.stamp" 2>/dev/null || true
 fi
 
@@ -562,24 +697,24 @@ get_ram_usage() {
     fi
 }
 
+# Cyber bar theme
+
 cyber_bar() {
     local percent=$1
     local width=22
     local filled=$((percent * width / 100))
     local bar=""
 
-    local pulse=$(( (percent % 10) + 80 ))
-
     for ((i=0; i<filled; i++)); do
         if (( i < filled/2 )); then
-            bar+="\e[38;5;201m█"
+            bar+="${FILLED1_COLOR}█"
         else
-            bar+="\e[38;5;45m█"
+            bar+="${FILLED2_COLOR}█"
         fi
     done
 
     for ((i=filled; i<width; i++)); do
-        bar+="\e[38;5;236m─"
+        bar+="${EMPTY_COLOR}─"
     done
 
     printf "%b\e[0m %3d%%" "$bar" "$percent"
@@ -588,7 +723,7 @@ cyber_bar() {
 CPU=$(get_cpu_usage)
 RAM=$(get_ram_usage)
 
-# Animated Uptime
+# Animate Uptime
 
 get_uptime() {
     if [ "$(uname)" = "Linux" ]; then
@@ -777,24 +912,24 @@ synfetch_live() {
             echo
         fi
 
-        echo -e " ${NEON_BLUE}${ICON_OS}${RESET}OS      ${NEON_BLUE}${DISTRO}${RESET}"
-        echo -e " ${MAGENTA}${ICON_KERNEL}${RESET}Kernel  ${MAGENTA}${KERNEL}${RESET}"
-        echo -e " ${BLUE}${ICON_USER}${RESET}User    ${BLUE}${USER}${RESET}"
-        echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}${HOSTNAME}${RESET}"
-        echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}${MOBO}${RESET}"
-        echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}${CPU_MODEL}${RESET}"
-        echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
-        echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(get_uptime)${RESET}"
-        echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL_NAME}${RESET}"
-        echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
-        echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs    ${YELLOW}${PKG_COUNT}${RESET}"
-        echo -e " ${GRAY}────────────────────────────────────────${RESET}"
-        echo -e " ${PINK}CPU${RESET}     $(cyber_bar "${CPU}")"
-        echo -e " ${PINK}RAM${RESET}     $(cyber_bar "${RAM}")"
+        echo -e " ${OS_COLOR}${ICON_OS}${RESET}OS      ${OS_COLOR}${DISTRO}${RESET}"
+        echo -e " ${KERNEL_COLOR}${ICON_KERNEL}${RESET}Kernel  ${KERNEL_COLOR}${KERNEL}${RESET}"
+        echo -e " ${USER_COLOR}${ICON_USER}${RESET}User    ${USER_COLOR}${USER}${RESET}"
+        echo -e " ${HOST_COLOR}${ICON_HOST}${RESET}Host    ${HOST_COLOR}${HOSTNAME}${RESET}"
+        echo -e " ${MOBO_COLOR}${ICON_MOBO}${RESET}MoBo    ${MOBO_COLOR}${MOBO}${RESET}"
+        echo -e " ${CPU_COLOR}${ICON_CPU}${RESET}CPU     ${CPU_COLOR}${CPU_MODEL}${RESET}"
+        echo -e " ${GPU_COLOR}${ICON_GPU}${RESET}GPU     ${GPU_COLOR}${GPU}${RESET}"
+        echo -e " ${UPTIME_COLOR}${ICON_UPTIME}${RESET}Uptime  ${UPTIME_COLOR}$(get_uptime)${RESET}"
+        echo -e " ${SHELL_COLOR}${ICON_SHELL}${RESET}Shell   ${SHELL_COLOR}${SHELL_NAME}${RESET}"
+        echo -e " ${DEWM_COLOR}${ICON_DEWM}${RESET}DE/WM   ${DEWM_COLOR}${de_wm}${RESET}"
+        echo -e " ${PKGS_COLOR}${ICON_PKGS}${RESET}Pkgs    ${PKGS_COLOR}${PKG_COUNT}${RESET}"
+        echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
+        echo -e " ${BAR_LABEL_COLOR}CPU${RESET}     $(cyber_bar "${CPU}")"
+        echo -e " ${BAR_LABEL_COLOR}RAM${RESET}     $(cyber_bar "${RAM}")"
         if [[ "$GPU_USAGE" != "N/A" ]]; then
-            echo -e " ${PINK}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
+            echo -e " ${BAR_LABEL_COLOR}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
         fi
-	echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+        echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
         echo -e " ${DIM}Press Ctrl+C to exit live mode${RESET}                "
         sleep 0.4
     done
@@ -812,22 +947,22 @@ else
         echo
     fi
 
-echo -e " ${NEON_BLUE}${ICON_OS}${RESET}OS      ${NEON_BLUE}${DISTRO}${RESET}"
-echo -e " ${MAGENTA}${ICON_KERNEL}${RESET}Kernel  ${MAGENTA}${KERNEL}${RESET}"
-echo -e " ${BLUE}${ICON_USER}${RESET}User    ${BLUE}${USER}${RESET}"
-echo -e " ${RED}${ICON_HOST}${RESET}Host    ${RED}${HOSTNAME}${RESET}"
-echo -e " ${GREEN}${ICON_MOBO}${RESET}MoBo    ${GREEN}${MOBO}${RESET}"
-echo -e " ${TEAL}${ICON_CPU}${RESET}CPU     ${TEAL}${CPU_MODEL}${RESET}"
-echo -e " ${PINK}${ICON_GPU}${RESET}GPU     ${PINK}${GPU}${RESET}"
-echo -e " ${WHITE}${ICON_UPTIME}${RESET}Uptime  ${WHITE}$(get_uptime)${RESET}"
-echo -e " ${PURPLE}${ICON_SHELL}${RESET}Shell   ${PURPLE}${SHELL_NAME}${RESET}"
-echo -e " ${GRAY}${ICON_DEWM}${RESET}DE/WM   ${GRAY}${de_wm}${RESET}"
-echo -e " ${YELLOW}${ICON_PKGS}${RESET}Pkgs    ${YELLOW}${PKG_COUNT}${RESET}"
-echo -e " ${GRAY}────────────────────────────────────────${RESET}"
-echo -e " ${PINK}CPU${RESET}     $(cyber_bar "${CPU}")"
-echo -e " ${PINK}RAM${RESET}     $(cyber_bar "${RAM}")"
-if [[ "$GPU_USAGE" != "N/A" ]]; then
-    echo -e " ${PINK}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
-fi
-echo -e " ${GRAY}────────────────────────────────────────${RESET}"
+    echo -e " ${OS_COLOR}${ICON_OS}${RESET}OS      ${OS_COLOR}${DISTRO}${RESET}"
+    echo -e " ${KERNEL_COLOR}${ICON_KERNEL}${RESET}Kernel  ${KERNEL_COLOR}${KERNEL}${RESET}"
+    echo -e " ${USER_COLOR}${ICON_USER}${RESET}User    ${USER_COLOR}${USER}${RESET}"
+    echo -e " ${HOST_COLOR}${ICON_HOST}${RESET}Host    ${HOST_COLOR}${HOSTNAME}${RESET}"
+    echo -e " ${MOBO_COLOR}${ICON_MOBO}${RESET}MoBo    ${MOBO_COLOR}${MOBO}${RESET}"
+    echo -e " ${CPU_COLOR}${ICON_CPU}${RESET}CPU     ${CPU_COLOR}${CPU_MODEL}${RESET}"
+    echo -e " ${GPU_COLOR}${ICON_GPU}${RESET}GPU     ${GPU_COLOR}${GPU}${RESET}"
+    echo -e " ${UPTIME_COLOR}${ICON_UPTIME}${RESET}Uptime  ${UPTIME_COLOR}$(get_uptime)${RESET}"
+    echo -e " ${SHELL_COLOR}${ICON_SHELL}${RESET}Shell   ${SHELL_COLOR}${SHELL_NAME}${RESET}"
+    echo -e " ${DEWM_COLOR}${ICON_DEWM}${RESET}DE/WM   ${DEWM_COLOR}${de_wm}${RESET}"
+    echo -e " ${PKGS_COLOR}${ICON_PKGS}${RESET}Pkgs    ${PKGS_COLOR}${PKG_COUNT}${RESET}"
+    echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
+    echo -e " ${BAR_LABEL_COLOR}CPU${RESET}     $(cyber_bar "${CPU}")"
+    echo -e " ${BAR_LABEL_COLOR}RAM${RESET}     $(cyber_bar "${RAM}")"
+    if [[ "$GPU_USAGE" != "N/A" ]]; then
+        echo -e " ${BAR_LABEL_COLOR}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
+    fi
+    echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
 fi
