@@ -8,10 +8,10 @@ url="https://github.com/SXSLVT/synfetch"
 license=('GPL3')
 depends=(
   'bash'
-  'pciutils'
 )
 optdepends=(
   'nvidia-utils: Better NVIDIA GPU usage monitoring'
+  'pciutils: Better for accurate GPU detection'
 )
 provides=('synfetch')
 conflicts=('synfetch-git')
