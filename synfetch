@@ -418,16 +418,6 @@ show_help() {
     echo ""
     echo -e "${BLUE}Available themes:${RESET} synthwave (default), monochrome, minimal, dracula"
     echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, nixos, macos"
-    echo ""
-    echo -e "${GRAY}Examples:${RESET}"
-    echo -e "  ${GREEN}synfetch ${RESET}"
-    echo -e "  ${GREEN}synfetch --live${RESET}"
-    echo -e "  ${GREEN}synfetch --nonerd${RESET}"
-    echo -e "  ${GREEN}synfetch --noascii${RESET}"
-    echo -e "  ${GREEN}synfetch --refresh${RESET}"
-    echo -e "  ${GREEN}synfetch --distro macos${RESET}" 
-    echo -e "  ${GREEN}synfetch --theme monochrome${RESET}"
-    echo -e "  ${GREEN}synfetch --theme minimal --live${RESET}"
     exit 0
 }
 
