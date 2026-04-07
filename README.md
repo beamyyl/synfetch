@@ -19,7 +19,6 @@
 
 ### Contents
 - [Why synfetch?](#why-synfetch)
-- [Features](#features)
 - [Support](#support)
 - [Dependencies](#dependencies)
 - [Building and Installation](#building-and-installation)
@@ -29,20 +28,18 @@
 
 ### Why synfetch?
 
-While there are many excellent fetch tools (neofetch, fastfetch, etc.), `synfetch` stands out by embracing a distinct **synthwave / synthetic** identity:
+### Why synfetch?
 
-- Clean, modern layout with vibrant synthwave colors
-- Fast bash implementation that stays lightweight
-- Can be used in ricing and sharing your info/rice
-- Cross-platform support for **Linux** and **macOS**
+**Blazingly fast** — now **as fast as fastfetch** and clearly faster than neofetch.
 
-### Features
+While there are many excellent fetch tools, `synfetch` stands out with:
 
-- Beautiful custom ASCII art
-- Real-time Monitoring
-- Displays Info + CPU, GPU and RAM Usage
-- Highly customizable (easy to understand the script) & Minimal Flags
-
+- Pure bash with smart caching (feels instant on every run)
+- Beautiful synthwave aesthetic with vibrant neon colors
+- Lightweight, debloated, and highly customizable
+- Real-time monitoring mode (`--live`)
+- Excellent Linux + macOS support
+- Perfect for ricing and showing off your setup
 
 ### Support
 
@@ -82,9 +79,9 @@ If you are experiencing issues with synfetch, please create an [issue](https://g
 - MacOS
 
 ### Dependencies
-- The package **pciutils** is required for accurate GPU detection (Intel, AMD Radeon, NVIDIA)!
-- The package **nvidia-utils** is required for NVIDIA GPU usage! **(optional)** 
-- A **Nerd Font** is required to display icons! **(optional)**
+
+- Only requires `bash` (because ``synfetch` is **pure bash**) 
+- Uses common tools like `lspci`, `lscpu` when available **(optional)**
 
 ### Building and Installation
 
