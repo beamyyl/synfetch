@@ -476,6 +476,8 @@ validate_theme() {
 validate_theme
 set_theme 
 
+# GPU & GPU Usage
+
 get_gpu() {
     if command -v lspci >/dev/null 2>&1; then
         local gpus
