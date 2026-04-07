@@ -28,8 +28,6 @@
 
 ### Why synfetch?
 
-### Why synfetch?
-
 **Blazingly fast** — now **as fast as fastfetch** and clearly faster than neofetch.
 
 While there are many excellent fetch tools, `synfetch` stands out with:
