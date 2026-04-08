@@ -974,7 +974,7 @@ synfetch_live() {
         echo -e " ${BAR_LABEL_COLOR}CPU${RESET}     $(cyber_bar "${CPU}")"
         echo -e " ${BAR_LABEL_COLOR}RAM${RESET}     $(cyber_bar "${RAM}")"
         if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
-            echo -e " ${PINK}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
+            echo -e " ${BAR_LABEL_COLOR}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
         fi
         echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
         echo -e " ${DIM}Press Ctrl+C to exit live mode${RESET}                "
@@ -1009,7 +1009,7 @@ else
     echo -e " ${BAR_LABEL_COLOR}CPU${RESET}     $(cyber_bar "${CPU}")"
     echo -e " ${BAR_LABEL_COLOR}RAM${RESET}     $(cyber_bar "${RAM}")"
     if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
-        echo -e " ${PINK}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
+        echo -e " ${BAR_LABEL_COLOR}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")"
     fi
     echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
 fi
