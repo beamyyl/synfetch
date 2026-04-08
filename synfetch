@@ -804,7 +804,7 @@ else
     ICON_PKGS=""
 fi
 
-# DE/WM Detector
+# DE/WM Detector 
 
 de_wm="Unknown"
 
@@ -815,18 +815,18 @@ elif [ -n "${DESKTOP_SESSION}" ]; then
 fi
 
 case "${de_wm,,}" in
-    *x-cinnamon*)          de_wm="Cinnamon" ;;
-    *zorin*)               de_wm="Zorin OS" ;;
-    *ubuntu:gnome* | *gnome*) de_wm="GNOME" ;;
-    *kde* | *plasma*)      de_wm="KDE Plasma" ;;
-    *xfce*)                de_wm="XFCE" ;;
-    *mate*)                de_wm="MATE" ;;
-    *budgie*)              de_wm="Budgie" ;;
-    *pantheon* | *elementary*) de_wm="Pantheon" ;;
-    *deepin* | *dde*)      de_wm="Deepin DDE" ;;
-    *cosmic*)              de_wm="COSMIC" ;;
-    *ukui*)                de_wm="UKUI" ;;
-    *lumina*)              de_wm="Lumina" ;;
+    *x-cinnamon*)                    de_wm="Cinnamon" ;;
+    *zorin*)                         de_wm="Zorin OS (GNOME)" ;;   # ← Fixed
+    *ubuntu:gnome* | *gnome*)        de_wm="GNOME" ;;
+    *kde* | *plasma*)                de_wm="KDE Plasma" ;;
+    *xfce*)                          de_wm="XFCE" ;;
+    *mate*)                          de_wm="MATE" ;;
+    *budgie*)                        de_wm="Budgie" ;;
+    *pantheon* | *elementary*)       de_wm="Pantheon" ;;
+    *deepin* | *dde*)                de_wm="Deepin DDE" ;;
+    *cosmic*)                        de_wm="COSMIC" ;;
+    *ukui*)                          de_wm="UKUI" ;;
+    *lumina*)                        de_wm="Lumina" ;;
 esac
 
 if [[ "$de_wm" == "Unknown" || -z "$de_wm" ]]; then
@@ -918,7 +918,8 @@ fi
 if [[ "${de_wm}" == "GNOME" || "${de_wm}" == "KDE Plasma" || \
       "${de_wm}" == "Cinnamon" || "${de_wm}" == "XFCE" || \
       "${de_wm}" == "MATE" || "${de_wm}" == "LXQt" || \
-      "${de_wm}" == "Enlightenment" || "${de_wm}" == "UKUI" ]]; then
+      "${de_wm}" == "Enlightenment" || "${de_wm}" == "UKUI" || \
+      "${de_wm}" == "Zorin OS (GNOME)" ]]; then
     session_suffix=""
     if [ -n "${XDG_SESSION_TYPE}" ]; then
         case "${XDG_SESSION_TYPE}" in
