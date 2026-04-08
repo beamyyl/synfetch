@@ -299,6 +299,13 @@ ${GRAY}   / _  / -_) _  / __/ _ \\/ __/   _/
 ${GRAY}  /____/\\__/\\_,_/_/  \\___/\\__/_/\\_\\                            
 		   "
 		   ;;
+		bodhi)
+		   ART="${GREEN}      ___          ____   _ 
+${GREEN}    / _ )___  ___/ / /  (_)
+${GREEN}   / _  / _ \\/ _  / _ \\/ / 
+${GREEN}  /____/\\___/\\_,_/_//_/_/  
+		   "
+		   ;;
                 nix|nixos)
                     ART="${BLUE}     _  ___      ____  ____
 ${BLUE}    / |/ (_)_ __/ __ \\/ __/
@@ -425,7 +432,7 @@ show_help() {
     echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
     echo ""
     echo -e "${BLUE}Available themes:${RESET} synthwave (default), monochrome, minimal, dracula"
-    echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, nixos, macos"
+    echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos"
     exit 0
 }
 
