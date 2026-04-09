@@ -87,7 +87,11 @@ Uses common tools like `lspci`, `lscpu` when available **(optional)**
 
 For `Arch` based users, I have a [`PKGBUILD`](./PKGBUILD) available. 
 
-For `Nix` users, I have both [`flake.nix`](./flake.nix) and [`flake.lock`](./flake.lock) available.
+For `Nix` users, you can just run: 
+
+```bash
+nix run github:SXSLVT/synfetch
+```
 
 For everyone else:
 
