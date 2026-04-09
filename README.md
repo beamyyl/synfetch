@@ -160,10 +160,10 @@ Options:
   --distro <name>   Display ASCII art of a different distro
   --live            Animated CPU, GPU and RAM usage
   --refresh         Force refresh all cache files (use after installing packages)
-  --theme <name>    Color theme (synthwave, monochrome, minimal, dracula)
+  --theme <name>    Color theme
   --help | -h       Show this help message
 
-Available themes: synthwave (default), monochrome, minimal, dracula
+Available themes: synthwave (default), monochrome, minimal, dracula, nord
 Available distros: arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos
 ```
 
