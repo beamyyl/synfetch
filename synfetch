@@ -800,6 +800,7 @@ cyber_bar() {
         bar+="${EMPTY_COLOR}─"
     done
 
+    [[ "$percent" =~ ^[0-9]+$ ]] || percent=0
     printf "%b\e[0m %3d%%" "$bar" "$percent"
 }
 
