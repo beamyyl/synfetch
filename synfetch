@@ -4,23 +4,16 @@
 # Colors
 
 RESET="\e[0m"
-BOLD="\e[1m"
-DIM="\e[2m"
-
-NEON_BLUE="\e[38;5;39m" 
-MAGENTA="\e[38;5;165m"
 PINK="\e[38;5;201m"
 BLUE="\e[38;5;51m"
 PURPLE="\e[38;5;135m"
-TEAL="\e[38;5;45m"
 RED="\e[38;5;196m"
 GREEN="\e[38;5;40m"
 YELLOW="\e[38;5;226m"
 WHITE="\e[97m"
 GRAY="\e[38;5;245m"
 
-# Dracula and monochrome colors
-
+# Theme colors
 DRACULA_CYAN="\e[38;5;81m"
 DRACULA_PURPLE="\e[38;5;141m"
 DRACULA_PINK="\e[38;5;212m"
@@ -28,6 +21,7 @@ DRACULA_GREEN="\e[38;5;78m"
 DRACULA_YELLOW="\e[38;5;228m"
 DRACULA_RED="\e[38;5;203m"
 MONO_ACCENT="\e[38;5;51m" 
+NORD_ACCENT="\e[38;5;116m" 
 
 # Theme variables
 
@@ -292,20 +286,20 @@ ${GREEN}  | |/ / _ \\/ / _  /
 ${GREEN}  |___/\\___/_/\\_,_/  
                     "
                     ;;
-	      bedrock)
-	          ART="${GRAY}     ___         __             __  
+	     bedrock)
+	         ART="${GRAY}     ___         __             __  
 ${GRAY}    / _ )___ ___/ /______  ____/ /__
 ${GRAY}   / _  / -_) _  / __/ _ \\/ __/   _/
 ${GRAY}  /____/\\__/\\_,_/_/  \\___/\\__/_/\\_\\                            
-		  "
-		  ;;
+		 "
+		 ;;
 		bodhi)
-		  ART="${GREEN}     ___          ____   _ 
+		 ART="${GREEN}     ___          ____   _ 
 ${GREEN}    / _ )___  ___/ / /  (_)
 ${GREEN}   / _  / _ \\/ _  / _ \\/ / 
 ${GREEN}  /____/\\___/\\_,_/_//_/_/  
-		  "
-		  ;;
+		 "
+		 ;;
                 nix|nixos)
                     ART="${BLUE}     _  ___      ____  ____
 ${BLUE}    / |/ (_)_ __/ __ \\/ __/
@@ -414,8 +408,7 @@ set_theme() {
             SEPARATOR_COLOR="${GRAY}"
             ;;
 
-        nord)
-            NORD_ACCENT="\e[38;5;116m" 
+           nord)
             OS_COLOR="${NORD_ACCENT}"
             KERNEL_COLOR="${NORD_ACCENT}"
             USER_COLOR="${NORD_ACCENT}"
@@ -432,7 +425,7 @@ set_theme() {
             FILLED2_COLOR="${NORD_ACCENT}"
             EMPTY_COLOR="\e[38;5;236m"
             SEPARATOR_COLOR="\e[38;5;245m"
-	   ;;
+            ;;
        esac
 }
 
@@ -606,9 +599,9 @@ get_gpu_usage() {
         return
     fi
 
-    if command -v intel_gpu_top >/dev/null 2>&1; then
+       if command -v intel_gpu_top >/dev/null 2>&1; then
         local usage
-        usage=$(timeout 0.3s intel_gpu_top -s 500 -o - 2>/dev/null \
+        usage=$(timeout 0.2s intel_gpu_top -s 500 -o - 2>/dev/null \
                 | awk 'NR==3 {print $2; exit}' | tr -d ' %' || echo "0")
         if [[ "$usage" =~ ^[0-9]+$ ]] && (( usage > 0 )); then
             echo "$usage"
@@ -618,8 +611,6 @@ get_gpu_usage() {
 
     echo "0"
 }
-
-GPU_USAGE=$(get_gpu_usage)
 
 # CPU Model Detector
 
@@ -741,10 +732,12 @@ cache() {
 }
 
 if [[ "$REFRESH" == true ]] || [[ ! -f "$CACHE_DIR/preload.stamp" ]]; then
-    cache "cpu"  'get_cpu_model' >/dev/null
-    cache "mobo" 'echo "$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"' >/dev/null
-    cache "gpu"  'get_gpu' >/dev/null
-    cache "pkgs" 'pkg_count' 300 >/dev/null
+    cache "cpu"       'get_cpu_model' >/dev/null
+    cache "mobo"      'echo "$(cat /sys/class/dmi/id/board_vendor 2>/dev/null || echo "") $(cat /sys/class/dmi/id/board_name 2>/dev/null || echo "")"' >/dev/null
+    cache "gpu"       'get_gpu' >/dev/null
+    cache "pkgs"      'pkg_count' 300 >/dev/null
+    cache "cpu_usage" 'get_cpu_usage' 2 >/dev/null
+    cache "gpu_usage" 'get_gpu_usage' 2 >/dev/null
     touch "$CACHE_DIR/preload.stamp" 2>/dev/null || true
 fi
 
@@ -763,7 +756,7 @@ get_cpu_usage() {
         total1=$((user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice))
         idle1=$((idle + iowait))
 
-        sleep 0.05
+        sleep 0.01
 
         read -r cpu user nice system idle iowait irq softirq steal guest guest_nice < /proc/stat
         total2=$((user + nice + system + idle + iowait + irq + softirq + steal + guest + guest_nice))
@@ -809,7 +802,14 @@ cyber_bar() {
     printf "%b\e[0m %3d%%" "$bar" "$percent"
 }
 
-CPU=$(get_cpu_usage)
+if [[ "${LIVE_MODE:-false}" == true ]]; then
+    CPU=0
+    GPU_USAGE=0
+else
+    CPU=$(cache "cpu_usage" 'get_cpu_usage' 2)
+    GPU_USAGE=$(cache "gpu_usage" 'get_gpu_usage' 2)
+fi
+
 RAM=$(get_ram_usage)
 
 # Animate Uptime
