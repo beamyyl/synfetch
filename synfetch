@@ -674,7 +674,7 @@ pkg_count() {
         pkgs+=("$count (xbps)")
     elif command -v qlist >/dev/null; then
         count=$(qlist -I 2>/dev/null | wc -l)
-        pkgs+=("$count (portage)")
+        pkgs+=("$count (emerge)")
     elif command -v guix >/dev/null; then
         count=$(guix package -I 2>/dev/null | wc -l)
         pkgs+=("$count (guix)")
