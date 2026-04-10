@@ -98,8 +98,15 @@ ${RED}    / _ \\___ / /  (_)__  ___
 ${RED}   / // / -_) _ \\/ / _ \\/ _ \\
 ${RED}  /____/\\__/_.__/_/\\_,_/_//_/                           
                     "             
-                    ;;
-                fedora)
+        	   ;;
+                devuan)
+		   ART="${RED}     ___                        
+${RED}    / _ \\___ _  ____ _____ ____ 
+${RED}   / // / -_) |/ / // / _ \\/ _ \\
+${RED}  /____/\\__/|___/\\_,_/\\_,_/_//_/
+		   "
+		   ;;
+     	       fedora)
                     ART="${BLUE}     ____       __             
 ${BLUE}    / __/__ ___/ /__  _______ _
 ${BLUE}   / _// -_) _  / _ \\/ __/ _ \\/
@@ -287,8 +294,8 @@ ${GREEN}  | |/ / _ \\/ / _  /
 ${GREEN}  |___/\\___/_/\\_,_/  
                     "
                     ;;
-	    bedrock)
-	        ART="${GRAY}     ___         __             __  
+	   bedrock)
+	       ART="${GRAY}     ___         __             __  
 ${GRAY}    / _ )___ ___/ /______  ____/ /__
 ${GRAY}   / _  / -_) _  / __/ _ \\/ __/   _/
 ${GRAY}  /____/\\__/\\_,_/_/  \\___/\\__/_/\\_\\                            
@@ -307,7 +314,7 @@ ${BLUE}    / |/ (_)_ __/ __ \\/ __/
 ${BLUE}   /    / /\\ \\ / /_/ /\\ \\  
 ${BLUE}  /_/|_/_//_\\_|\\____/___/  
                     "
-	    	   ;;
+	   	  ;;
           macos|darwin|mac)
                     ART="${MAGENTA}     __  ___         ____  ____
 ${MAGENTA}    /  |/  /__ _____/ __ \\/ __/
@@ -446,7 +453,7 @@ show_help() {
     echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
     echo ""
     echo -e "${BLUE}Available themes:${RESET} synthwave (default), monochrome, minimal, dracula, nord"
-    echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos"
+    echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos"
     exit 0
 }
 
@@ -952,7 +959,6 @@ case "${de_wm,,}" in
     waybox)                                 de_wm="Waybox" ;;
     oxwm)                                   de_wm="oxwm" ;;
     exwm)                                   de_wm="exwm" ;;
-    ctwm)                                   de_wm="ctwm" ;;
 esac
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
