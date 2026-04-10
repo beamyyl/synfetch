@@ -294,8 +294,8 @@ ${GREEN}  | |/ / _ \\/ / _  /
 ${GREEN}  |___/\\___/_/\\_,_/  
                     "
                     ;;
-	 bedrock)
-	     ART="${GRAY}     ___         __             __  
+	bedrock)
+	    ART="${GRAY}     ___         __             __  
 ${GRAY}    / _ )___ ___/ /______  ____/ /__
 ${GRAY}   / _  / -_) _  / __/ _ \\/ __/   _/
 ${GRAY}  /____/\\__/\\_,_/_/  \\___/\\__/_/\\_\\                            
@@ -314,7 +314,7 @@ ${BLUE}    / |/ (_)_ __/ __ \\/ __/
 ${BLUE}   /    / /\\ \\ / /_/ /\\ \\  
 ${BLUE}  /_/|_/_//_\\_|\\____/___/  
                     "
-	 	;;
+		;;
           macos|darwin|mac)
                     ART="${MAGENTA}     __  ___         ____  ____
 ${MAGENTA}    /  |/  /__ _____/ __ \\/ __/
@@ -765,35 +765,26 @@ cache "pkgs" 'pkg_count' 300;              PKG_COUNT=$_CACHE_RESULT
 # CPU & RAM Usage
 
 get_cpu_usage() {
-    if [ "$(uname)" != "Linux" ]; then
-        echo "0"
-        return
-    fi
+    local stat_cache="$CACHE_DIR/cpu_stat.cache"
+    local u n s i io ir so st
+    read -r _ u n s i io ir so st _ _ < /proc/stat
 
-    local u1 n1 s1 i1 io1 ir1 so1 st1
-    local u2 n2 s2 i2 io2 ir2 so2 st2
-    local total1 idle1 total2 idle2 diff_total diff_idle
+    local total=$(( u+n+s+i+io+ir+so+st ))
+    local idle=$(( i+io ))
 
-    read -r _ u1 n1 s1 i1 io1 ir1 so1 st1 _ _ < /proc/stat
-
-    sleep 0.08
-
-    read -r _ u2 n2 s2 i2 io2 ir2 so2 st2 _ _ < /proc/stat
-
-    total1=$((u1 + n1 + s1 + i1 + io1 + ir1 + so1 + st1))
-    idle1=$((i1 + io1))
-
-    total2=$((u2 + n2 + s2 + i2 + io2 + ir2 + so2 + st2))
-    idle2=$((i2 + io2))
-
-    diff_total=$((total2 - total1))
-    diff_idle=$((idle2 - idle1))
-
-    if (( diff_total == 0 )); then
-        echo 0
+    if [[ -f "$stat_cache" ]]; then
+        local pu pn ps pi pio pir pso pst
+        read -r pu pn ps pi pio pir pso pst < "$stat_cache"
+        local ptotal=$(( pu+pn+ps+pi+pio+pir+pso+pst ))
+        local pidle=$(( pi+pio ))
+        local dt=$(( total-ptotal ))
+        local di=$(( idle-pidle ))
+        (( dt > 0 )) && echo $(( (100*(dt-di) + dt/2) / dt )) || echo 0
     else
-        echo $(( (100 * (diff_total - diff_idle) + diff_total/2 ) / diff_total ))
+        echo 0
     fi
+
+    printf '%s %s %s %s %s %s %s %s\n' "$u" "$n" "$s" "$i" "$io" "$ir" "$so" "$st" > "$stat_cache"
 }
 
 get_ram_usage() {
