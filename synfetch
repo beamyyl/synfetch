@@ -515,9 +515,12 @@ set_theme
 # GPU & GPU Usage
 
 get_gpu() {
+    local gpu_list=()
+    
     if command -v lspci >/dev/null 2>&1; then
-        local gpus
-        gpus=$(lspci -nn 2>/dev/null | grep -E 'VGA|3D|Display' | sed 's/.*: //' | sed '
+        while read -r line; do
+            [[ -n "$line" ]] && gpu_list+=("$line")
+        done < <(lspci -nn 2>/dev/null | grep -E 'VGA|3D|Display' | sed 's/.*: //' | sed '
             s/ (rev .*)$//;
             s/\[[0-9a-fx:]\+\]//g;
             s/Advanced Micro Devices, Inc\. \[AMD\/ATI\]/AMD Radeon/;
@@ -535,46 +538,31 @@ get_gpu() {
             s/ Max-Q$//i;
             s/ Laptop$//i;
         ' | sort -u)
-
-        if [ -n "$gpus" ]; then
-            local joined
-            joined=$(echo "$gpus" | paste -sd ' + ' -)
-            echo "$joined"
-            return
-        fi
     fi
 
-    if command -v nvidia-smi >/dev/null 2>&1; then
+    if [ ${#gpu_list[@]} -eq 0 ] && command -v nvidia-smi >/dev/null 2>&1; then
         local nvidia_name
         nvidia_name=$(nvidia-smi --query-gpu=name --format=csv,noheader,nounits 2>/dev/null | head -n1)
-        if [ -n "$nvidia_name" ] && [ "$nvidia_name" != "NVIDIA" ]; then
-            echo "NVIDIA $nvidia_name"
-            return
+        [[ -n "$nvidia_name" && "$nvidia_name" != "NVIDIA" ]] && gpu_list+=("NVIDIA $nvidia_name")
+    fi
+
+    if [ ${#gpu_list[@]} -gt 0 ]; then
+        (IFS=' + '; echo "${gpu_list[*]}")
+    else
+       
+	if [ -d /sys/class/drm/card0/device ]; then
+            local vendor
+            vendor=$(cat /sys/class/drm/card0/device/vendor 2>/dev/null)
+            case "$vendor" in
+                0x10de) echo "NVIDIA GPU" ;;
+                0x1002) echo "AMD GPU" ;;
+                0x8086) echo "Intel GPU" ;;
+                *)      echo "Integrated Graphics" ;;
+            esac
+        else
+            echo "Unknown GPU"
         fi
     fi
-
-    if command -v glxinfo >/dev/null 2>&1; then
-        local glx_gpu
-        glx_gpu=$(glxinfo -B 2>/dev/null | grep -i "OpenGL renderer" | head -n1 | sed 's/.*: //; s|/.*||; s/ (.*)//; s/.*Mesa DRI //')
-        if [ -n "$glx_gpu" ]; then
-            echo "$glx_gpu"
-            return
-        fi
-    fi
-
-    if [ -d /sys/class/drm/card0/device ]; then
-        local vendor
-        vendor=$(cat /sys/class/drm/card0/device/vendor 2>/dev/null)
-        case "$vendor" in
-            0x10de) echo "NVIDIA GPU" ;;
-            0x1002) echo "AMD GPU" ;;
-            0x8086) echo "Intel GPU" ;;
-            *)      echo "Integrated Graphics" ;;
-        esac
-        return
-    fi
-
-    echo "Unknown GPU"
 }
 
 get_gpu_usage() {
@@ -751,16 +739,16 @@ if [[ "$REFRESH" == true ]] || [[ ! -f "$CACHE_DIR/preload.stamp" ]]; then
     cache "cpu"       'get_cpu_model'
     cache "mobo"      'printf "%s %s\n" "$(< /sys/class/dmi/id/board_vendor)" "$(< /sys/class/dmi/id/board_name)" 2>/dev/null'
     cache "gpu"       'get_gpu'
-    cache "pkgs"      'pkg_count' 86400
-    cache "cpu_usage" 'get_cpu_usage' 300
-    cache "gpu_usage" 'get_gpu_usage' 300
+    cache "pkgs"      'pkg_count' 360
+    cache "cpu_usage" 'get_cpu_usage' 10
+    cache "gpu_usage" 'get_gpu_usage' 10
     touch "$CACHE_DIR/preload.stamp" 2>/dev/null || true
 fi
 
 cache "cpu"  'get_cpu_model';              CPU_MODEL=$_CACHE_RESULT
 cache "mobo" 'printf "%s %s\n" "$(< /sys/class/dmi/id/board_vendor)" "$(< /sys/class/dmi/id/board_name)" 2>/dev/null'; MOBO=$_CACHE_RESULT
 cache "gpu"  'get_gpu';                    GPU=$_CACHE_RESULT
-cache "pkgs" 'pkg_count' 300;              PKG_COUNT=$_CACHE_RESULT
+cache "pkgs" 'pkg_count' 360;              PKG_COUNT=$_CACHE_RESULT
 
 # CPU & RAM Usage
 
@@ -832,8 +820,8 @@ if [[ "${LIVE_MODE:-false}" == true ]]; then
     CPU=0
     GPU_USAGE=0
 else
-    cache "cpu_usage" 'get_cpu_usage' 300;   CPU=$_CACHE_RESULT
-    cache "gpu_usage" 'get_gpu_usage' 300;   GPU_USAGE=$_CACHE_RESULT
+    cache "cpu_usage" 'get_cpu_usage' 10; CPU=$_CACHE_RESULT
+    cache "gpu_usage" 'get_gpu_usage' 10; GPU_USAGE=$_CACHE_RESULT
 fi
 
 # Animate Uptime
