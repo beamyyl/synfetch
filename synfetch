@@ -740,8 +740,8 @@ if [[ "$REFRESH" == true ]] || [[ ! -f "$CACHE_DIR/preload.stamp" ]]; then
     cache "mobo"      'printf "%s %s\n" "$(< /sys/class/dmi/id/board_vendor)" "$(< /sys/class/dmi/id/board_name)" 2>/dev/null'
     cache "gpu"       'get_gpu'
     cache "pkgs"      'pkg_count' 360
-    cache "cpu_usage" 'get_cpu_usage' 5
-    cache "gpu_usage" 'get_gpu_usage' 5
+    cache "cpu_usage" 'get_cpu_usage' 7
+    cache "gpu_usage" 'get_gpu_usage' 7
     touch "$CACHE_DIR/preload.stamp" 2>/dev/null || true
 fi
 
@@ -820,8 +820,8 @@ if [[ "${LIVE_MODE:-false}" == true ]]; then
     CPU=0
     GPU_USAGE=0
 else
-    cache "cpu_usage" 'get_cpu_usage' 5; CPU=$_CACHE_RESULT
-    cache "gpu_usage" 'get_gpu_usage' 5; GPU_USAGE=$_CACHE_RESULT
+    cache "cpu_usage" 'get_cpu_usage' 7; CPU=$_CACHE_RESULT
+    cache "gpu_usage" 'get_gpu_usage' 7; GPU_USAGE=$_CACHE_RESULT
 fi
 
 # Animate Uptime
