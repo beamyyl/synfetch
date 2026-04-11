@@ -94,21 +94,10 @@ For `Nix` users, enable `flakes` and you can just run:
 nix run github:SXSLVT/synfetch
 ```
 
-For everyone else:
-
-**Clone the repository and cd into the new directory**
+For everyone else, run:
 ```bash
-git clone https://github.com/SXSLVT/synfetch && cd synfetch
+wget https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch && chmod +x synfetch && sudo mv synfetch /usr/local/bin/
 ```
-**Make `synfetch` executable**
-```bash
-chmod +x synfetch
-```
-**Install `synfetch` system-wide and return to the previous directory**
-```bash
-sudo mv synfetch /usr/local/bin/ && cd -
-```
-
 
 ### Usage
 
