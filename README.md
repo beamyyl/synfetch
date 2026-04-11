@@ -86,9 +86,9 @@ Uses common tools like `lspci`, `lscpu` when available **(optional)**
 
 ### Building and Installation
 
-For `Arch` based users, I have a [`PKGBUILD`](./PKGBUILD) available. 
+For those on `Arch` based systems, I have a [`PKGBUILD`](./PKGBUILD) available. 
 
-For `Nix` users, enable `flakes` and you can just run: 
+For those on `Nix` systems, enable `flakes` and you can just run: 
 
 ```bash
 nix run github:SXSLVT/synfetch
