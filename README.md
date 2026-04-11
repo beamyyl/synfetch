@@ -100,7 +100,7 @@ wget https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch && chmod +x
 ```
 What this command does:
 
-`wget ...` → downloads the **synfetch** script from GitHub
+`wget ...` → downloads **synfetch** from GitHub
 
 `chmod +x synfetch` → makes **synfetch** executable
 
