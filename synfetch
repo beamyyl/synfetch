@@ -43,7 +43,7 @@ FILLED2_COLOR=""
 EMPTY_COLOR=""
 SEPARATOR_COLOR=""
 
-# ASCII
+# ASCII Detector
 
 detect_distro() {
     local target_distro="${CUSTOM_DISTRO}"
@@ -512,7 +512,7 @@ validate_theme() {
 validate_theme
 set_theme 
 
-# GPU & GPU Usage
+# GPU & GPU Usage Detector
 
 get_gpu() {
     local gpu_list=()
@@ -752,7 +752,7 @@ cache "mobo" 'printf "%s %s\n" "$(< /sys/class/dmi/id/board_vendor)" "$(< /sys/c
 cache "gpu"  'get_gpu';                    GPU=$_CACHE_RESULT
 cache "pkgs" 'pkg_count' 120;              PKG_COUNT=$_CACHE_RESULT
 
-# CPU & RAM Usage
+# CPU Usage & RAM Usage Detector
 
 get_cpu_usage() {
     local stat_cache="$CACHE_DIR/cpu_stat.cache"
@@ -990,7 +990,7 @@ if [[ "${de_wm}" == "GNOME" || "${de_wm}" == "KDE Plasma" || \
     de_wm="${de_wm}${session_suffix}"
 fi
 
-# Pre-computed Variables
+# Precomputed Variables
 
 { read -r KERNEL; } < /proc/sys/kernel/osrelease 2>/dev/null || KERNEL=$(uname -r)
 : "${HOSTNAME:=$(hostname 2>/dev/null)}"
