@@ -33,7 +33,4 @@ package() {
 
   # Install license
   install -Dm644 LICENSE.md "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE.md"
-
-  # Install README
-  install -Dm644 README.md "${pkgdir}/usr/share/doc/${pkgname}/README.md"
 }
