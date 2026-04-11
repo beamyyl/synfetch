@@ -97,7 +97,7 @@ nix run github:SXSLVT/synfetch
 
 For everyone else, run:
 ```bash
-wget https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch && chmod +x synfetch && sudo mv synfetch /usr/local/bin/
+wget https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch && chmod +x synfetch && sudo mv synfetch /usr/bin/
 ```
 What this command does:
 
@@ -105,7 +105,7 @@ What this command does:
 
 `chmod +x synfetch` → makes **synfetch** executable
 
-`sudo mv synfetch /usr/local/bin/` → installs **synfetch** system-wide (so you can run it anywhere)
+`sudo mv synfetch /usr/bin/` → installs **synfetch** system-wide (so you can run it anywhere)
 
 ### Usage
 
@@ -173,7 +173,7 @@ Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zor
 
 If you want to uninstall `synfetch`, run:
 ```bash
-sudo rm -rf /usr/local/bin/synfetch
+sudo rm -rf /usr/bin/synfetch
 ```
 
 ### License
