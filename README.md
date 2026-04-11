@@ -87,7 +87,7 @@ Uses common tools like `lspci`, `lscpu` when available **(optional)**
 
 ### Building and Installation
 
-For those on `Arch` based systems, I have a [`PKGBUILD`](./PKGBUILD) available. 
+For those on `Arch` based systems, **synfetch** is available in the [`AUR`](https://aur.archlinux.org/packages/synfetch-git).
 
 For those on `Nix` systems, enable `flakes` and you can just run: 
 
