@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 # Colors
 
 RESET="\e[0m"
@@ -532,11 +531,12 @@ get_gpu() {
             s/3D controller: //i;
             s/VGA compatible controller: //i;
             s/Display controller: //i;
-            s/^ *//; s/ *$//;
             s/\[//g; s/\]//g;
-            s/ Mobile$//i;
-            s/ Max-Q$//i;
-            s/ Laptop$//i;
+            s/ Max-Q//i;
+            s/ Laptop//i;
+            s/ Mobile//i;
+            s/ *\/ *$//;
+            s/^ *//; s/ *$//;
         ' | sort -u)
     fi
 
@@ -549,8 +549,7 @@ get_gpu() {
     if [ ${#gpu_list[@]} -gt 0 ]; then
         (IFS=' + '; echo "${gpu_list[*]}")
     else
-       
-	if [ -d /sys/class/drm/card0/device ]; then
+        if [ -d /sys/class/drm/card0/device ]; then
             local vendor
             vendor=$(cat /sys/class/drm/card0/device/vendor 2>/dev/null)
             case "$vendor" in
