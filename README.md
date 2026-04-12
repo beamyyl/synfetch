@@ -28,7 +28,7 @@
 
 ### Why synfetch?
 
-They told me **bash** wasn't meant for **speed**; I took that personally. `synfetch` stands out to be the fastest, feature-rich system fetch tool written entirely in pure **bash**.
+They told me **bash** wasn't meant for speed... I took that personally. `synfetch` stands out to be the fastest, feature-rich system fetch tool written entirely in pure **bash**.
 
 ### Features
 
