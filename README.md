@@ -146,7 +146,7 @@ To display ASCII art of a different distro:
 ```bash
 synfetch --distro <name>
 ```
-To force refresh all cache files (use after installing packages)
+To force refresh all cache files (use after installing packages):
 ```bash
 synfetch --refresh
 ```
