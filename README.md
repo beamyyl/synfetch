@@ -122,6 +122,11 @@ or
 synfetch -h
 ```
 
+To open or locate the configuration file:
+```bash
+synfetch --config
+```
+
 To display Uptime & CPU, GPU, RAM Usage in real-time:
 ```bash
 synfetch --live
@@ -156,6 +161,7 @@ Output of `synfetch --help`
 Usage: synfetch [OPTIONS]
 
 Options:
+  --config          Open or locate the configuration file
   --nonerd          Hide icons
   --noascii         Hide ASCII art
   --distro <name>   Display ASCII art of a different distro
@@ -164,7 +170,11 @@ Options:
   --theme <name>    Color theme
   --help | -h       Show this help message
 
-Available themes: synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox
+Config File:
+  Location: /home/syner/.config/synfetch/config
+  Set THEME="custom" in the config to use your own Hex colors.
+
+Available themes: synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom
 Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos
 ```
 
