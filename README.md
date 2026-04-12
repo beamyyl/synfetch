@@ -165,7 +165,7 @@ Options:
   --theme <name>    Color theme
   --help | -h       Show this help message
 
-Available themes: synthwave (default), monochrome, minimal, dracula, nord
+Available themes: synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox
 Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos
 ```
 
