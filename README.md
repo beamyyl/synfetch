@@ -4,13 +4,13 @@
 
 <div align="center">
 
-# Synfetch
+<img width="521" height="457" alt="image" src="https://github.com/user-attachments/assets/dcbd644b-6ac7-4014-940f-ba48aebf64d9" />
 
 </div>
 
 <div align="center">
 
-<img width="521" height="457" alt="image" src="https://github.com/user-attachments/assets/dcbd644b-6ac7-4014-940f-ba48aebf64d9" />
+# Synfetch
 
 </div>
 
