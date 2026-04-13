@@ -151,9 +151,19 @@ To force refresh all cache files (use after installing packages):
 synfetch --refresh
 ```
 
+To pick a random built-in theme:
+```bash
+synfetch --cycle-theme
+```
+
 To set a theme:
 ```bash
 synfetch --theme <name>
+```
+
+To randomize colors and distro:
+```bash
+synfetch --random
 ```
 
 Output of `synfetch --help`
@@ -168,6 +178,8 @@ Options:
   --live            Animated Uptime, CPU, GPU and RAM usage
   --refresh         Force refresh all cache files (use after installing packages)
   --theme <name>    Color theme
+  --cycle-theme     Pick a random built-in theme
+  --random          Randomize colors and distro
   --help | -h       Show this help message
 
 Config File:
