@@ -151,7 +151,7 @@ ${C1}   / /|_/ / _ \\/ _ \\  / / _ \\/ __/ _ \\
 ${C1}  /_/  /_/\\_,_/_//_/_/ /\\_,_/_/  \\___/
 ${C1}                  |___/               
                     "    
-    		   ;;
+    		  ;;
                 opensuse*|sles)
                     ART="${C1}                       ______  __________
 ${C1}   ___  ___  ___ ___  / __/ / / / __/ __/
@@ -342,8 +342,8 @@ ${C1}  /_/  /_/\\_,_/\\__/\\____/___/
 
 set_theme() {
     case "$THEME" in
-        synthwave)
-	   C1="${BLUE}"
+       synthwave)
+	        C1="${BLUE}"
             OS_COLOR="${BLUE}"
             KERNEL_COLOR="${PURPLE}"
             USER_COLOR="${PINK}"
@@ -362,7 +362,7 @@ set_theme() {
             SEPARATOR_COLOR="${GRAY}"
             ;;
         monochrome)
-	   C1="${MONO_ACCENT}"
+	        C1="${MONO_ACCENT}"
             OS_COLOR="${MONO_ACCENT}"
             KERNEL_COLOR="${MONO_ACCENT}"
             USER_COLOR="${MONO_ACCENT}"
@@ -382,7 +382,7 @@ set_theme() {
             ;;
         minimal)
             MIN_COLOR="\e[38;5;244m"
-	   C1="${MIN_COLOR}"  
+	        C1="${MIN_COLOR}"  
             OS_COLOR="${MIN_COLOR}"
             KERNEL_COLOR="${MIN_COLOR}"
             USER_COLOR="${MIN_COLOR}"
@@ -454,7 +454,7 @@ set_theme() {
             BAR_LABEL_COLOR="${TOKYONIGHT}"
             FILLED1_COLOR="${TOKYONIGHT}"
             FILLED2_COLOR="${TOKYONIGHT}"   
-   	   EMPTY_COLOR="\e[38;2;41;46;66m"
+   	        EMPTY_COLOR="\e[38;2;41;46;66m"
             SEPARATOR_COLOR="${TOKYONIGHT}"
             ;;
         catppuccin)
@@ -554,7 +554,21 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
 # Set THEME to "custom" to use the hex colors below
 THEME="synthwave"
 
-# Custom Hex Colors 
+# Show/Hide modules
+SHOW_OS=true
+SHOW_KERNEL=true
+SHOW_USER=true
+SHOW_HOST=true
+SHOW_MOBO=true
+SHOW_CPU=true
+SHOW_GPU=true
+SHOW_UPTIME=true
+SHOW_SHELL=true
+SHOW_DEWM=true
+SHOW_PKGS=true
+SHOW_USAGE_BARS=true
+
+# Custom hex colors 
 C1_HEX="#ff5555"            # ASCII Art
 OS_HEX="#ffb86c"            # OS
 KERNEL_HEX="#f1fa8c"        # Kernel
@@ -603,9 +617,11 @@ show_help() {
     echo -e "  ${PINK}--live${RESET}            Animated Uptime, CPU, GPU and RAM usage"
     echo -e "  ${PINK}--refresh${RESET}         Force refresh all cache files (use after installing packages)"
     echo -e "  ${PINK}--theme${RESET} <name>    Color theme"
+    echo -e "  ${PINK}--cycle-theme${RESET}     Pick a random built-in theme"
+    echo -e "  ${PINK}--random${RESET}          Randomize colors and distro"
     echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
     echo ""
-echo -e "${BLUE}Config File:${RESET}"
+    echo -e "${BLUE}Config File:${RESET}"
     echo -e "  Location: ${GRAY}${CONFIG_FILE}${RESET}"
     echo -e "  Set ${PINK}THEME=\"custom\"${RESET} in the config to use your own Hex colors."
     echo ""
@@ -656,6 +672,30 @@ parse_args() {
                 shift
                 THEME="${1,,}"
                 ;;
+            --random)
+                distros=("arch" "cachyos" "ubuntu" "debian" "devuan" "fedora" "linuxmint" "zorinos" "popos" "manjaro" "opensuse" "slackware" "centos" "mxlinux" "guix" "qubesos" "antix" "garuda" "nobara" "bazzite" "kali" "elementaryos" "kdeneon" "deepin" "alpine" "gobo" "lfs" "gentoo" "endeavouros" "artix" "void" "bedrock" "bodhi" "nixos" "macos")
+                CUSTOM_DISTRO=${distros[$RANDOM % ${#distros[@]}]}
+
+                rand_hex() { 
+			printf "#%06x" "$(( ((RANDOM << 15) | RANDOM) % 0x1000000 ))"
+		}
+
+                C1_HEX=$(rand_hex); OS_HEX=$(rand_hex); KERNEL_HEX=$(rand_hex)
+                USER_HEX=$(rand_hex); HOST_HEX=$(rand_hex); MOBO_HEX=$(rand_hex)
+                CPU_HEX=$(rand_hex); GPU_HEX=$(rand_hex); UPTIME_HEX=$(rand_hex)
+                SHELL_HEX=$(rand_hex); DEWM_HEX=$(rand_hex); PKGS_HEX=$(rand_hex)
+                BAR_LABEL_HEX=$(rand_hex); BAR_FILLED1_HEX=$(rand_hex)
+                BAR_FILLED2_HEX=$(rand_hex); BAR_EMPTY_HEX=$(rand_hex)
+                SEPARATOR_HEX=$(rand_hex)
+	   
+                THEME="custom" 
+                shift 
+	       ;;
+            --cycle-theme)
+                themes=("synthwave" "monochrome" "minimal" "dracula" "nord" "catppuccin" "tokyonight" "gruvbox" "custom")
+                THEME=${themes[$RANDOM % ${#themes[@]}]}
+                shift 
+		;;
             --nonerd)
                 USE_NERD_FONTS=false
                 ;;
@@ -856,9 +896,6 @@ pkg_count() {
     elif command -v guix >/dev/null; then
         count=$(guix package -I 2>/dev/null | wc -l)
         pkgs+=("$count (guix)")
-    elif command -v nix-store >/dev/null; then
-        count=$(nix-store -q --requisites /run/current-system 2>/dev/null | wc -l || echo 0)
-        pkgs+=("$count (nix)")
     elif command -v slackpkg >/dev/null || [ -d /var/log/packages ]; then
         count=$(ls /var/log/packages/ 2>/dev/null | wc -l)
         pkgs+=("$count (slackware)")
@@ -872,6 +909,9 @@ pkg_count() {
     elif command -v pkgutil >/dev/null || command -v pkg >/dev/null; then
         count=$(pkgutil --pkgs 2>/dev/null | wc -l)
         pkgs+=("$count (Fink/pkgutil)")
+    elif command -v nix-store >/dev/null; then
+        count=$(nix-store -q --requisites /run/current-system 2>/dev/null | wc -l || echo 0)
+        pkgs+=("$count (nix)")
     elif command -v pacman >/dev/null; then
         count=$(pacman -Qq 2>/dev/null | wc -l)
         pkgs+=("$count (pacman)")
@@ -1015,6 +1055,17 @@ else
     cache "cpu_usage" 'get_cpu_usage' 7; CPU=$_CACHE_RESULT
     cache "gpu_usage" 'get_gpu_usage' 7; GPU_USAGE=$_CACHE_RESULT
 fi
+
+# Prin
+
+prin() {
+    local icon=$1    
+    local label=$2   
+    local value=$3  
+    local color=$4  
+    
+    printf " ${color}%s${RESET} %-8s ${color}%s${RESET}\n" "$icon" "$label" "$value"
+}
 
 # Animated Uptime
 
@@ -1205,27 +1256,30 @@ synfetch_live() {
             echo -e "$ART"
             echo
         fi
+       
+       	prin "$ICON_OS"     "OS"     "$DISTRO"      "$OS_COLOR"
+        prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
+        prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
+        prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
+        prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
+        prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
+        prin "$ICON_GPU"    "GPU"    "$GPU"         "$GPU_COLOR"
+        prin "$ICON_UPTIME" "Uptime" "$(get_uptime)" "$UPTIME_COLOR"
+        prin "$ICON_SHELL"  "Shell"  "$SHELL_NAME"  "$SHELL_COLOR"
+        prin "$ICON_DEWM"   "DE/WM"  "$de_wm"       "$DEWM_COLOR"
+        prin "$ICON_PKGS"   "Pkgs"   "$PKG_COUNT"   "$PKGS_COLOR"
 
-        echo -e " ${OS_COLOR}${ICON_OS}${RESET}OS      ${OS_COLOR}${DISTRO}${RESET}"
-        echo -e " ${KERNEL_COLOR}${ICON_KERNEL}${RESET}Kernel  ${KERNEL_COLOR}${KERNEL}${RESET}"
-        echo -e " ${USER_COLOR}${ICON_USER}${RESET}User    ${USER_COLOR}${USER}${RESET}"
-        echo -e " ${HOST_COLOR}${ICON_HOST}${RESET}Host    ${HOST_COLOR}${HOSTNAME}${RESET}"
-        echo -e " ${MOBO_COLOR}${ICON_MOBO}${RESET}MoBo    ${MOBO_COLOR}${MOBO}${RESET}"
-        echo -e " ${CPU_COLOR}${ICON_CPU}${RESET}CPU     ${CPU_COLOR}${CPU_MODEL}${RESET}"
-        echo -e " ${GPU_COLOR}${ICON_GPU}${RESET}GPU     ${GPU_COLOR}${GPU}${RESET}"
-        echo -e " ${UPTIME_COLOR}${ICON_UPTIME}${RESET}Uptime  ${UPTIME_COLOR}$(get_uptime)${RESET}"
-        echo -e " ${SHELL_COLOR}${ICON_SHELL}${RESET}Shell   ${SHELL_COLOR}${SHELL_NAME}${RESET}"
-        echo -e " ${DEWM_COLOR}${ICON_DEWM}${RESET}DE/WM   ${DEWM_COLOR}${de_wm}${RESET}"
-        echo -e " ${PKGS_COLOR}${ICON_PKGS}${RESET}Pkgs    ${PKGS_COLOR}${PKG_COUNT}${RESET}"
-        echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
-        echo -e " ${BAR_LABEL_COLOR}CPU${RESET}     $(cyber_bar "${CPU}")"
-        echo -e " ${BAR_LABEL_COLOR}RAM${RESET}     $(cyber_bar "${RAM}")"
-        if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
-            echo -e " ${BAR_LABEL_COLOR}GPU${RESET}     $(cyber_bar "${GPU_USAGE}")     "
+	if [[ "${SHOW_USAGE_BARS:-true}" == true ]]; then
+          echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
+          printf " ${BAR_LABEL_COLOR}CPU${RESET}     %b\n" "$(cyber_bar "${CPU}")"
+          printf " ${BAR_LABEL_COLOR}RAM${RESET}     %b\n" "$(cyber_bar "${RAM}")"
+          if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
+          printf " ${BAR_LABEL_COLOR}GPU${RESET}     %b\n" "$(cyber_bar "${GPU_USAGE}")      "
         fi
         echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
+        fi
         echo -e " ${GRAY}Press Ctrl+C to exit live mode${RESET}                "
-        sleep 0.4
+       	sleep 0.4
     done
 }
 
@@ -1241,28 +1295,30 @@ else
         echo
     fi
 
-    printf " ${OS_COLOR}${ICON_OS}${RESET}OS      ${OS_COLOR}%s${RESET}\n \
-${KERNEL_COLOR}${ICON_KERNEL}${RESET}Kernel  ${KERNEL_COLOR}%s${RESET}\n \
-${USER_COLOR}${ICON_USER}${RESET}User    ${USER_COLOR}%s${RESET}\n \
-${HOST_COLOR}${ICON_HOST}${RESET}Host    ${HOST_COLOR}%s${RESET}\n \
-${MOBO_COLOR}${ICON_MOBO}${RESET}MoBo    ${MOBO_COLOR}%s${RESET}\n \
-${CPU_COLOR}${ICON_CPU}${RESET}CPU     ${CPU_COLOR}%s${RESET}\n \
-${GPU_COLOR}${ICON_GPU}${RESET}GPU     ${GPU_COLOR}%s${RESET}\n \
-${UPTIME_COLOR}${ICON_UPTIME}${RESET}Uptime  ${UPTIME_COLOR}%s${RESET}\n \
-${SHELL_COLOR}${ICON_SHELL}${RESET}Shell   ${SHELL_COLOR}%s${RESET}\n \
-${DEWM_COLOR}${ICON_DEWM}${RESET}DE/WM   ${DEWM_COLOR}%s${RESET}\n \
-${PKGS_COLOR}${ICON_PKGS}${RESET}Pkgs    ${PKGS_COLOR}%s${RESET}\n \
-${SEPARATOR_COLOR}────────────────────────────────────────${RESET}\n" \
-        "$DISTRO" "$KERNEL" "$USER" "$HOSTNAME" "$MOBO" \
-        "$CPU_MODEL" "$GPU" "$(get_uptime)" "$SHELL_NAME" "$de_wm" "$PKG_COUNT"
-    printf " ${BAR_LABEL_COLOR}CPU${RESET}     %b\n" "$(cyber_bar "${CPU}")"
-    printf " ${BAR_LABEL_COLOR}RAM${RESET}     %b\n" "$(cyber_bar "${RAM}")"
-    if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
-        printf " ${BAR_LABEL_COLOR}GPU${RESET}     %b\n" "$(cyber_bar "${GPU_USAGE}")"
+    prin "$ICON_OS"     "OS"     "$DISTRO"      "$OS_COLOR"
+    prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
+    prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
+    prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
+    prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
+    prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
+    prin "$ICON_GPU"    "GPU"    "$GPU"         "$GPU_COLOR"
+    prin "$ICON_UPTIME" "Uptime" "$(get_uptime)" "$UPTIME_COLOR"
+    prin "$ICON_SHELL"  "Shell"  "$SHELL_NAME"  "$SHELL_COLOR"
+    prin "$ICON_DEWM"   "DE/WM"  "$de_wm"       "$DEWM_COLOR"
+    prin "$ICON_PKGS"   "Pkgs"   "$PKG_COUNT"   "$PKGS_COLOR"
+
+    if [[ "${SHOW_USAGE_BARS:-true}" == true ]]; then
+        echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
+        printf " ${BAR_LABEL_COLOR}CPU${RESET}     %b\n" "$(cyber_bar "${CPU}")"
+        printf " ${BAR_LABEL_COLOR}RAM${RESET}     %b\n" "$(cyber_bar "${RAM}")"
+        if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
+            printf " ${BAR_LABEL_COLOR}GPU${RESET}     %b\n" "$(cyber_bar "${GPU_USAGE}")"
+        fi
+        echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
     fi
-    printf " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}\n"
 fi
 
-# CPU Usage stats
+# CPU Usage stats cache update
+
 read -r _ u n s i io ir so st _ _ < /proc/stat
 printf '%s %s %s %s %s %s %s %s\n' "$u" "$n" "$s" "$i" "$io" "$ir" "$so" "$st" > "$CACHE_DIR/cpu_stat.cache"
