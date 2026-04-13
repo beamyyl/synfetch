@@ -22,6 +22,7 @@ DRACULA_GREEN="\e[38;5;78m"
 DRACULA_YELLOW="\e[38;5;228m"
 DRACULA_RED="\e[38;5;203m"
 MONO_ACCENT="\e[38;5;51m" 
+MIN_COLOR="\e[38;5;244m"
 NORD_ACCENT="\e[38;5;116m" 
 TOKYONIGHT="\e[38;2;122;162;247m"
 CAT_MAUVE="\e[38;2;203;166;247m"
@@ -151,7 +152,7 @@ ${C1}   / /|_/ / _ \\/ _ \\  / / _ \\/ __/ _ \\
 ${C1}  /_/  /_/\\_,_/_//_/_/ /\\_,_/_/  \\___/
 ${C1}                  |___/               
                     "    
-    		  ;;
+    		 ;;
                 opensuse*|sles)
                     ART="${C1}                       ______  __________
 ${C1}   ___  ___  ___ ___  / __/ / / / __/ __/
@@ -381,7 +382,6 @@ set_theme() {
             SEPARATOR_COLOR="\e[38;5;245m"
             ;;
         minimal)
-            MIN_COLOR="\e[38;5;244m"
 	        C1="${MIN_COLOR}"  
             OS_COLOR="${MIN_COLOR}"
             KERNEL_COLOR="${MIN_COLOR}"
@@ -665,7 +665,7 @@ parse_args() {
 		fi                
 		exit 0
 		;;
-	   --live)
+	  --live)
                 LIVE_MODE=true
                 ;;
             --theme)
@@ -687,10 +687,10 @@ parse_args() {
                 BAR_LABEL_HEX=$(rand_hex); BAR_FILLED1_HEX=$(rand_hex)
                 BAR_FILLED2_HEX=$(rand_hex); BAR_EMPTY_HEX=$(rand_hex)
                 SEPARATOR_HEX=$(rand_hex)
-	   
+	  
                 THEME="custom" 
                 shift 
-	       ;;
+	      ;;
             --cycle-theme)
                 themes=("synthwave" "monochrome" "minimal" "dracula" "nord" "catppuccin" "tokyonight" "gruvbox" "custom")
                 THEME=${themes[$RANDOM % ${#themes[@]}]}
@@ -1256,24 +1256,24 @@ synfetch_live() {
             echo -e "$ART"
             echo
         fi
-       
-       	prin "$ICON_OS"     "OS"     "$DISTRO"      "$OS_COLOR"
-        prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
-        prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
-        prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
-        prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
-        prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
-        prin "$ICON_GPU"    "GPU"    "$GPU"         "$GPU_COLOR"
-        prin "$ICON_UPTIME" "Uptime" "$(get_uptime)" "$UPTIME_COLOR"
-        prin "$ICON_SHELL"  "Shell"  "$SHELL_NAME"  "$SHELL_COLOR"
-        prin "$ICON_DEWM"   "DE/WM"  "$de_wm"       "$DEWM_COLOR"
-        prin "$ICON_PKGS"   "Pkgs"   "$PKG_COUNT"   "$PKGS_COLOR"
+      
+        [[ "${SHOW_OS:-true}" == true ]]     && prin "$ICON_OS"     "OS"     "$DISTRO"      "$OS_COLOR"
+        [[ "${SHOW_KERNEL:-true}" == true ]] && prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
+        [[ "${SHOW_USER:-true}" == true ]]   && prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
+        [[ "${SHOW_HOST:-true}" == true ]]   && prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
+        [[ "${SHOW_MOBO:-true}" == true ]]   && prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
+        [[ "${SHOW_CPU:-true}" == true ]]    && prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
+        [[ "${SHOW_GPU:-true}" == true ]]    && prin "$ICON_GPU"    "GPU"    "$GPU"         "$GPU_COLOR"
+        [[ "${SHOW_UPTIME:-true}" == true ]] && prin "$ICON_UPTIME" "Uptime" "$(get_uptime)" "$UPTIME_COLOR"
+        [[ "${SHOW_SHELL:-true}" == true ]]  && prin "$ICON_SHELL"  "Shell"  "$SHELL_NAME"  "$SHELL_COLOR"
+        [[ "${SHOW_DEWM:-true}" == true ]]   && prin "$ICON_DEWM"   "DE/WM"  "$de_wm"       "$DEWM_COLOR"
+        [[ "${SHOW_PKGS:-true}" == true ]]   && prin "$ICON_PKGS"   "Pkgs"   "$PKG_COUNT"   "$PKGS_COLOR"
 
-	if [[ "${SHOW_USAGE_BARS:-true}" == true ]]; then
-          echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
-          printf " ${BAR_LABEL_COLOR}CPU${RESET}     %b\n" "$(cyber_bar "${CPU}")"
-          printf " ${BAR_LABEL_COLOR}RAM${RESET}     %b\n" "$(cyber_bar "${RAM}")"
-          if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
+   	    if [[ "${SHOW_USAGE_BARS:-true}" == true ]]; then
+        echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
+        printf " ${BAR_LABEL_COLOR}CPU${RESET}     %b\n" "$(cyber_bar "${CPU}")"
+        printf " ${BAR_LABEL_COLOR}RAM${RESET}     %b\n" "$(cyber_bar "${RAM}")"
+        if [[ "$GPU_USAGE" != "N/A" && "$GPU_USAGE" != "0" ]]; then
           printf " ${BAR_LABEL_COLOR}GPU${RESET}     %b\n" "$(cyber_bar "${GPU_USAGE}")      "
         fi
         echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
@@ -1295,18 +1295,18 @@ else
         echo
     fi
 
-    prin "$ICON_OS"     "OS"     "$DISTRO"      "$OS_COLOR"
-    prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
-    prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
-    prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
-    prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
-    prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
-    prin "$ICON_GPU"    "GPU"    "$GPU"         "$GPU_COLOR"
-    prin "$ICON_UPTIME" "Uptime" "$(get_uptime)" "$UPTIME_COLOR"
-    prin "$ICON_SHELL"  "Shell"  "$SHELL_NAME"  "$SHELL_COLOR"
-    prin "$ICON_DEWM"   "DE/WM"  "$de_wm"       "$DEWM_COLOR"
-    prin "$ICON_PKGS"   "Pkgs"   "$PKG_COUNT"   "$PKGS_COLOR"
-
+    [[ "${SHOW_OS:-true}" == true ]]     && prin "$ICON_OS"     "OS"     "$DISTRO"      "$OS_COLOR"
+    [[ "${SHOW_KERNEL:-true}" == true ]] && prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
+    [[ "${SHOW_USER:-true}" == true ]]   && prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
+    [[ "${SHOW_HOST:-true}" == true ]]   && prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
+    [[ "${SHOW_MOBO:-true}" == true ]]   && prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
+    [[ "${SHOW_CPU:-true}" == true ]]    && prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
+    [[ "${SHOW_GPU:-true}" == true ]]    && prin "$ICON_GPU"    "GPU"    "$GPU"         "$GPU_COLOR"
+    [[ "${SHOW_UPTIME:-true}" == true ]] && prin "$ICON_UPTIME" "Uptime" "$(get_uptime)" "$UPTIME_COLOR"
+    [[ "${SHOW_SHELL:-true}" == true ]]  && prin "$ICON_SHELL"  "Shell"  "$SHELL_NAME"  "$SHELL_COLOR"
+    [[ "${SHOW_DEWM:-true}" == true ]]   && prin "$ICON_DEWM"   "DE/WM"  "$de_wm"       "$DEWM_COLOR"
+    [[ "${SHOW_PKGS:-true}" == true ]]   && prin "$ICON_PKGS"   "Pkgs"   "$PKG_COUNT"   "$PKGS_COLOR"
+    
     if [[ "${SHOW_USAGE_BARS:-true}" == true ]]; then
         echo -e " ${SEPARATOR_COLOR}────────────────────────────────────────${RESET}"
         printf " ${BAR_LABEL_COLOR}CPU${RESET}     %b\n" "$(cyber_bar "${CPU}")"
