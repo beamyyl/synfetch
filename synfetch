@@ -1325,7 +1325,7 @@ pause_selected() {
 
 synfetch_live() {
     clear
-    printf '\e[?25l'     
+    printf '\e[?25l'       
     stty -icanon -echo
     trap 'printf "\e[?25h\e[2J\e[H"; stty sane; clear; exit 0' INT EXIT
 
@@ -1335,14 +1335,16 @@ synfetch_live() {
     local WAS_TOO_SMALL=false
 
     while true; do
-        local cols=$(tput cols 2>/dev/null || echo 80)   
-        local lines=$(tput lines 2>/dev/null || echo 24)
+        local size
+        size=$(stty size 2>/dev/null || echo "24 80")
+        local lines=${size%% *}
+        local cols=${size##* }
 
         [[ -z "$cols" || "$cols" -lt 20 ]] && cols=80
         [[ -z "$lines" || "$lines" -lt 5 ]] && lines=24
 
         if (( cols < 115 || lines < 24 )); then
-            printf '\e[2J\e[H'   # clear
+            printf '\e[2J\e[H'
             local warn_row=$(( lines / 2 - 4 ))
             local warn_col=$(( (cols - 68) / 2 ))
             (( warn_col < 0 )) && warn_col=0
@@ -1367,6 +1369,7 @@ synfetch_live() {
             WAS_TOO_SMALL=false
         fi
 
+        # Right panel sticks to right edge
         local RIGHT_PANEL_WIDTH=55
         local MIN_GAP=3
         local RIGHT_COL=$(( cols - RIGHT_PANEL_WIDTH ))
@@ -1384,8 +1387,8 @@ synfetch_live() {
 
         local row=0
 
-        printf '\e[%d;%dH' $((row+1)) 1
         if $USE_ASCII; then
+            printf '\e[%d;%dH' $((row+1)) 1
             while IFS= read -r art_line; do
                 printf '\e[%d;%dH' $((row+1)) 1
                 printf "%b${RESET}" "$art_line"
@@ -1460,15 +1463,16 @@ synfetch_live() {
         fi
         while (( right_row < _proc_start_row + MAX_PROCS + 2 )); do
             printf '\e[%d;%dH' $((right_row+1)) $((RIGHT_COL+1))
-            printf '\e[K'   # clear line (was tput el)
+            printf '\e[K'
             right_row=$((right_row + 1))
         done
 
+        # Bottom status bar
         local bottom_row=$(( lines - 1 ))
         local status="[k: kill] [p: pause/resume] [c: sort CPU] [r: sort RAM] [/: search] [q: quit]  "
         [[ -n "$SEARCH_QUERY" ]] && status+="${YELLOW}Filter: $SEARCH_QUERY ${RESET}"
         printf '\e[%d;%dH' $((bottom_row+1)) 1
-        printf '\e[K'   # clear line
+        printf '\e[K'
         printf "${GRAY}${status}${RESET}"
 
         local key=""
