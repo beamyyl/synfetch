@@ -13,8 +13,13 @@
       perSystem = { pkgs, lib, ... }: {
         packages.default = pkgs.writeShellApplication {
           name = "synfetch";
-          runtimeInputs = lib.optionals pkgs.stdenv.isLinux [
-            pkgs.pciutils
+          
+          runtimeInputs = [
+            pkgs.coreutils
+            pkgs.ncurses   
+          ] ++ lib.optionals pkgs.stdenv.isLinux [
+            pkgs.pciutils 
+            pkgs.procps   
           ];
 
           checkPhase = "";
