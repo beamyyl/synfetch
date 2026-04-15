@@ -59,19 +59,50 @@ detect_distro() {
                 target_distro="${ID:-unknown}"
                 DISTRO="${PRETTY_NAME:-$NAME:-Unknown Linux}"
                 ;;
-            Darwin*)
-                DISTRO="macOS $(sw_vers -productVersion 2>/dev/null || echo "")"
-                target_distro="macos"
-                ;;
             *)
                 DISTRO="Unknown"
                 target_distro="unknown"
                 ;;
         esac
     else
-        case "$target_distro" in
-            macos|darwin|mac) DISTRO="macOS" ;;
-            *) DISTRO="${target_distro^}" ;;
+
+case "$target_distro" in
+            arch)              DISTRO="Arch Linux" ;;
+            cachy|cachyos)     DISTRO="CachyOS" ;;
+            ubuntu)            DISTRO="Ubuntu" ;;
+            debian)            DISTRO="Debian" ;;
+            devuan)            DISTRO="Devuan" ;;
+            fedora)            DISTRO="Fedora" ;;
+            linuxmint|linux-mint) DISTRO="Linux Mint" ;;
+            zorinos|zorin)     DISTRO="Zorin OS" ;;
+            popos|pop)         DISTRO="Pop!_OS" ;;
+            manjaro)           DISTRO="Manjaro" ;;
+            opensuse*|sles)    DISTRO="openSUSE" ;;
+            slackware)         DISTRO="Slackware" ;;
+            centos|centos-stream|rhel) DISTRO="CentOS" ;;
+            mxlinux|mx-linux)  DISTRO="MX Linux" ;;
+            guix)              DISTRO="GNU Guix" ;;
+            qubesos|qubes)     DISTRO="Qubes OS" ;;
+            antix)             DISTRO="antiX" ;;
+            garuda)            DISTRO="Garuda Linux" ;;
+            nobara)            DISTRO="Nobara" ;;
+            bazzite)           DISTRO="Bazzite" ;;
+            kali)              DISTRO="Kali Linux" ;;
+            elementaryos|elementary) DISTRO="elementary OS" ;;
+            kdeneon|kde-neon)  DISTRO="KDE neon" ;;
+            deepin)            DISTRO="Deepin" ;;
+            alpine)            DISTRO="Alpine Linux" ;;
+            gobo)              DISTRO="GoboLinux" ;;
+            lfs|linux-from-scratch) DISTRO="Linux From Scratch" ;;
+            gentoo)            DISTRO="Gentoo Linux" ;;
+            endeavouros|endeavour) DISTRO="EndeavourOS" ;;
+            artix)             DISTRO="Artix Linux" ;;
+            void)              DISTRO="Void Linux" ;;
+            bedrock)           DISTRO="Bedrock Linux" ;;
+            bodhi)             DISTRO="Bodhi Linux" ;;
+            nixos|nix)         DISTRO="NixOS" ;;
+            macos|darwin|mac)  DISTRO="macOS" ;;
+            *)                 DISTRO="${target_distro^}" ;;
         esac
     fi
 
@@ -834,7 +865,7 @@ get_cpu_model() {
         local model
         model=$(awk -F': ' '/^model name/ {print $2; exit}' /proc/cpuinfo 2>/dev/null)
         if [ -n "$model" ]; then
-            echo "$model" | sed 's/ with Radeon.*//; s/^ *//; s/ *$//'
+            echo "$model" | sed 's/ with Radeon.*//; s/  */ /g; s/ @ .*GHz$//; s/^ *//; s/ *$//'
             return
         fi
 
@@ -1234,7 +1265,7 @@ get_top_processes() {
     total_mem_mb=$(awk '/MemTotal/ {print int($2/1024)}' /proc/meminfo 2>/dev/null || echo 8192)
 
     local _ps_out
-    _ps_out=$(LC_ALL=C ps -eo pid,user,%cpu,%mem,comm --no-headers --sort="$sort_opt")
+    _ps_out=$(LC_NUMERIC=C ps -eo pid,user,%cpu,%mem,comm --no-headers --sort="$sort_opt")
 
     if [[ -n "$SEARCH_QUERY" ]]; then
         _ps_out=$(grep -i -- "$SEARCH_QUERY" <<< "$_ps_out")
@@ -1334,6 +1365,8 @@ synfetch_live() {
     local WAS_TOO_SMALL=false
     local SHOW_RIGHT_PANEL=true
     local LAST_SHOW_RIGHT_PANEL=true
+    local cpu_update_counter=0
+    local CPU_UPDATE_EVERY=3
 
     while true; do
         local size
@@ -1377,8 +1410,11 @@ synfetch_live() {
             RIGHT_COL=$((62 + MIN_GAP))
         fi
 
+        if (( cpu_update_counter % CPU_UPDATE_EVERY == 0 )); then
         CPU=$(get_cpu_usage 2>/dev/null || echo 0)
-        RAM=$(get_ram_usage 2>/dev/null || echo 0)
+        fi
+        cpu_update_counter=$((cpu_update_counter + 1))
+       	RAM=$(get_ram_usage 2>/dev/null || echo 0)
         GPU_USAGE=$(get_gpu_usage 2>/dev/null || echo 0)
         get_top_processes
 
@@ -1441,7 +1477,7 @@ synfetch_live() {
 
             if [ ${#PROC_PIDS[@]} -eq 0 ]; then
                 printf '\e[%d;%dH' $((right_row+1)) $((RIGHT_COL+1))
-                printf "${GRAY}No processes                                               ${RESET}"
+                printf "${GRAY}No processes                                        ${RESET}"
                 right_row=$((right_row + 1))
             else
                 for i in "${!PROC_PIDS[@]}"; do
@@ -1478,12 +1514,19 @@ synfetch_live() {
             done
         fi
 
-        local bottom_row=$(( lines - 1 ))
-        local status="[k: kill] [p: pause/resume] [c: sort CPU] [r: sort RAM] [/: search] [h: toggle panel] [q: quit]  "
-        [[ -n "$SEARCH_QUERY" ]] && status+="${YELLOW}Filter: $SEARCH_QUERY ${RESET}"
-        printf '\e[%d;%dH' $((bottom_row+1)) 1
+        local help_row=$((lines - 1))
+        local filter_row=$((lines - 2))
+
+        printf '\e[%d;%dH' $((help_row + 1)) 1
         printf '\e[K'
-        printf "${GRAY}${status}${RESET}"
+        local status="[k: kill] [p: pause/resume] [c: sort CPU] [r: sort RAM] [/: search] [h: toggle panel] [q: quit]  "
+        printf "${C1}${status}${RESET}"
+
+        printf '\e[%d;%dH' $((filter_row + 1)) 1
+        printf '\e[K'
+        if [[ -n "$SEARCH_QUERY" ]]; then
+            printf "${C1}Filter: ${SEARCH_QUERY}${RESET}"
+        fi
 
         local key=""
         if read -t 0.08 -n 1 -s key 2>/dev/null; then
@@ -1491,7 +1534,7 @@ synfetch_live() {
                 "q"|"Q") printf '\e[2J\e[H'; break ;;
                 "/")
                     local _sq=""
-                    printf '\e[%d;%dH' $((bottom_row+1)) 1
+                    printf '\e[%d;%dH' $((help_row + 1)) 1
                     printf '\e[K'
                     printf "${YELLOW}Search (leave blank to exit): ${RESET}"
                     while true; do
@@ -1500,15 +1543,15 @@ synfetch_live() {
                         if [[ "$_ch" == "" ]]; then break
                         elif [[ "$_ch" == $'\x7f' || "$_ch" == $'\b' ]]; then
                             [[ -n "$_sq" ]] && _sq="${_sq%?}"
-                            printf '\e[%d;%dH' $((bottom_row+1)) 1
+                            printf '\e[%d;%dH' $((help_row + 1)) 1
                             printf '\e[K'
-                            printf "${YELLOW}Search: ${RESET}${_sq}"
+                            printf "${YELLOW}Search (leave blank to exit): ${RESET}${_sq}"
                         elif [[ "$_ch" == $'\e' ]]; then _sq=""; break
                         else _sq+="$_ch"; printf "%s" "$_ch"
                         fi
                     done
                     SEARCH_QUERY="$_sq"
-                    printf '\e[%d;%dH' $((bottom_row+1)) 1
+                    printf '\e[%d;%dH' $((help_row + 1)) 1
                     printf '\e[K'
                     SELECTED=0
                     ;;
