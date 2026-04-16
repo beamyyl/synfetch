@@ -81,9 +81,19 @@ If you are experiencing issues with synfetch, please create an [issue](https://g
 
 ### Dependencies
 
-Only requires `bash`
+Core dependencies **(necessary)**:
+`bash`, `coreutils` and `procps`/`procps-ng`.
 
-Uses common tools like `lspci`, `lscpu` when available **(optional)**
+Required dependencies for Live mode (--live):
+`tput` and `stty`.
+
+Optional dependencies for GPU/CPU detection:
+`lspci`, `lscpu` for most GPUs and CPUs.
+`nvidia-smi` for NVIDIA GPU usage and detection.
+`intel_gpu_top`, `timeout` for Intel GPU usage.
+
+MacOS-specific dependencies:
+`sysctl`, `vm_stat` and `date`. 
 
 ### Building and Installation
 
