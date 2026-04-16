@@ -81,6 +81,8 @@ If you are experiencing issues with synfetch, please create an [issue](https://g
 
 ### Dependencies
 
+`wget` is required to cloned the repository! (you can remove it later)
+
 Core dependencies **(necessary)**:
 `bash`, `coreutils` and `procps`/`procps-ng`.
 
