@@ -170,7 +170,8 @@ synfetch --random
 
 Output of `synfetch --help`
 ```bash
-Usage: synfetch [OPTIONS]
+Usage:
+  synfetch [OPTIONS]
 
 Options:
   --config          Open or locate the configuration file
