@@ -370,7 +370,7 @@ ${C1}  /_/  /_/\\_,_/\\__/\\____/___/
 set_theme() {
     case "$THEME" in
        synthwave)
-	  C1="${BLUE}"
+	 C1="${BLUE}"
             OS_COLOR="${BLUE}"
             KERNEL_COLOR="${PURPLE}"
             USER_COLOR="${PINK}"
@@ -389,7 +389,7 @@ set_theme() {
             SEPARATOR_COLOR="${GRAY}"
             ;;
         monochrome)
-	  C1="${MONO_ACCENT}"
+	 C1="${MONO_ACCENT}"
             OS_COLOR="${MONO_ACCENT}"
             KERNEL_COLOR="${MONO_ACCENT}"
             USER_COLOR="${MONO_ACCENT}"
@@ -408,7 +408,7 @@ set_theme() {
             SEPARATOR_COLOR="\e[38;5;245m"
             ;;
         minimal)
-	  C1="${MIN_COLOR}"  
+	 C1="${MIN_COLOR}"  
             OS_COLOR="${MIN_COLOR}"
             KERNEL_COLOR="${MIN_COLOR}"
             USER_COLOR="${MIN_COLOR}"
@@ -480,7 +480,7 @@ set_theme() {
             BAR_LABEL_COLOR="${TOKYONIGHT}"
             FILLED1_COLOR="${TOKYONIGHT}"
             FILLED2_COLOR="${TOKYONIGHT}"   
-   	  EMPTY_COLOR="\e[38;2;41;46;66m"
+   	 EMPTY_COLOR="\e[38;2;41;46;66m"
             SEPARATOR_COLOR="${TOKYONIGHT}"
             ;;
         catppuccin)
@@ -629,9 +629,10 @@ source "$CONFIG_FILE"
 # Help
 show_help() {
     echo ""
-    echo -e "${BLUE}Usage:${RESET} synfetch [OPTIONS]"
+    echo -e "${BLUE}Usage: ${RESET}"
+    echo -e "  synfetch ${YELLOW}[OPTIONS]${RESET}"
     echo ""
-    echo -e "${BOLD}Options:${RESET}"
+    echo -e "${BLUE}Options:${RESET}"
     echo -e "  ${PINK}--config${RESET}          Open or locate the configuration file"
     echo -e "  ${PINK}--nonerd${RESET}          Hide icons"
     echo -e "  ${PINK}--noascii${RESET}         Hide ASCII art"
@@ -647,8 +648,11 @@ show_help() {
     echo -e "  Location: ${GRAY}${CONFIG_FILE}${RESET}"
     echo -e "  Set ${PINK}THEME=\"custom\"${RESET} in the config to use your own Hex colors."
     echo ""
-    echo -e "${BLUE}Available themes:${RESET} synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom"
-    echo -e "${BLUE}Available distros:${RESET} arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos"
+    echo -e "${BLUE}Available themes:${RESET}" 
+    echo -e "  synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom"
+    echo ""
+    echo -e "${BLUE}Available distros:${RESET}" 
+    echo -e "  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos"
     echo ""
     exit 0
 }
@@ -1235,7 +1239,6 @@ fi
 SHELL_NAME="${SHELL##*/}"
 
 # Real-time Monitoring + Top
-
 MAX_PROCS=20
 SORT_MODE="cpu"
 declare -a PROC_PIDS PROC_USERS PROC_CPUS PROC_MEMS PROC_COMMS
