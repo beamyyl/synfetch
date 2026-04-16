@@ -644,7 +644,7 @@ show_help() {
     echo -e "  ${PINK}--random${RESET}          Randomize colors and distro"
     echo -e "  ${PINK}--help | -h${RESET}       Show this help message"
     echo ""
-    echo -e "${BLUE}Config File:${RESET}"
+    echo -e "${BLUE}Config:${RESET}"
     echo -e "  Location: ${GRAY}${CONFIG_FILE}${RESET}"
     echo -e "  Set ${PINK}THEME=\"custom\"${RESET} in the config to use your own Hex colors."
     echo ""
