@@ -93,7 +93,7 @@ Required dependencies for Live mode (--live):
 
 Optional dependencies for GPU/CPU detection:
 
-`lspci`, `lscpu` for most GPUs and CPUs.
+`pciutils` for most GPUs and CPUs.
 
 `nvidia-utils` for NVIDIA GPU usage and detection.
 
