@@ -770,29 +770,22 @@ get_gpu() {
     if command -v lspci >/dev/null 2>&1; then
         while read -r line; do
             [ -n "$line" ] && gpu_list+=("$line")
-        done < <(lspci 2>/dev/null | grep -iE 'vga|3d|display' | sed 's/.*: //' | sed '
-            s/ (rev .*)$//;
-            s/\[[0-9a-fx:]\+\]//g;
-            s/Advanced Micro Devices, Inc\. \[AMD\/ATI\]/AMD Radeon/;
-            s/Advanced Micro Devices, Inc\./AMD/;
-            s/Intel Corporation/Intel/;
-            s/NVIDIA Corporation/NVIDIA/;
-            s/NVIDIA NVIDIA/NVIDIA/g;
-            s/^NVIDIA  */NVIDIA /;
-            s| / Radeon .* Series||i;
-            s/3D controller: //i;
-            s/VGA compatible controller: //i;
-            s/Display controller: //i;
-            s/ Max-Q//gi;
-            s/ Laptop//gi;
-            s/ Mobile//gi;
-            s/ *\/ *$//;
-            s/^ *//; s/ *$//;
-            s/[[:space:]]\{2,\}/ /g;
-            s/TU[0-9][0-9]*[A-Z]*M* //gi;
-            s/GA[0-9]* //gi;
-            s/\[//g; s/\]//g;
-        ' | sort -u)
+        done < <(lspci -mm 2>/dev/null | grep -E "VGA|3D|Display" | sed '
+            s/^[^ ]* //;       
+            s/"//g;                
+            s/ \[.*\]//g;           
+            s/ (rev .*)$//;   
+            s/Corporation //g;     
+            s/Inc\. //g;            
+            s/Computer //g;        
+            s/Device .*//g;           
+            s/VGA compatible controller //gi; 
+            s/3D controller //gi;     
+            s/Display controller //gi;   
+            s/ASUSTeK//gi;              
+            s/^NVIDIA //i; s/^Intel //i; s/^AMD //i; 
+            s/^ //; s/ $//;             
+        ' | awk '!seen[$0]++' | sed 's/^/NVIDIA /') 
     fi
 
     if command -v nvidia-smi >/dev/null 2>&1; then
@@ -1399,7 +1392,7 @@ synfetch_live() {
         [[ -z "$cols" || "$cols" -lt 20 ]] && cols=80
         [[ -z "$lines" || "$lines" -lt 5 ]] && lines=24
 
-        if (( cols < 120 || lines < 24 )); then
+        if (( cols < 120 || lines < 26 )); then
             printf '\e[2J\e[H'
             local warn_row=$(( lines / 2 - 4 ))
             local warn_col=$(( (cols - 68) / 2 ))
@@ -1407,7 +1400,7 @@ synfetch_live() {
             printf '\e[%d;%dH' $((warn_row+1)) $((warn_col+1))
             echo -e "${C1}-- TERMINAL TOO SMALL --${RESET}"
             printf '\e[%d;%dH' $((warn_row+2)) $((warn_col+1))
-            echo -e "   Need at least → ${YELLOW}120 × 24${RESET}"
+            echo -e "   Need at least → ${YELLOW}120 × 26${RESET}"
             printf '\e[%d;%dH' $((warn_row+3)) $((warn_col+1))
             echo -e "   You have      → ${GRAY}${cols} × ${lines}${RESET}"
             printf '\e[%d;%dH' $((warn_row+4)) $((warn_col+1))
@@ -1566,7 +1559,7 @@ synfetch_live() {
                     local _sq=""
                     printf '\e[%d;%dH' $((help_row + 1)) 1
                     printf '\e[K'
-                    printf "${YELLOW}Search (leave blank to exit): ${RESET}"
+                    printf "${YELLOW}Search (ESC to cancel): ${RESET}"
                     while true; do
                         local _ch
                         read -r -s -n 1 _ch
@@ -1575,7 +1568,7 @@ synfetch_live() {
                             [[ -n "$_sq" ]] && _sq="${_sq%?}"
                             printf '\e[%d;%dH' $((help_row + 1)) 1
                             printf '\e[K'
-                            printf "${YELLOW}Search (leave blank to exit): ${RESET}${_sq}"
+                            printf "${YELLOW}Search (ESC to cancel): ${RESET}${_sq}"
                         elif [[ "$_ch" == $'\e' ]]; then _sq=""; break
                         else _sq+="$_ch"; printf "%s" "$_ch"
                         fi
@@ -1598,9 +1591,9 @@ synfetch_live() {
                     ;;
                 $'\e')
                     read -t 0.05 -n 1 -s key2; read -t 0.05 -n 1 -s key3
-                    [[ "$key3" == "A" ]] && ((SELECTED--))
-                    [[ "$key3" == "B" ]] && ((SELECTED++))
-                    ;;
+                    [[ "$key3" == "A" ]] && (( SELECTED > 0 )) && ((SELECTED--))
+                    [[ "$key3" == "B" ]] && (( SELECTED < ${#PROC_PIDS[@]} - 1 )) && ((SELECTED++))
+		    ;;
             esac
         fi
     done
