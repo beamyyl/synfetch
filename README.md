@@ -90,7 +90,7 @@ Core dependencies **(necessary)**:
 Required dependencies for Live mode (--live):
 `tput` and `stty`.
 
-Optional dependencies for GPU/CPU detection:
+Optional dependencies for better GPU/CPU detection:
 
 `pciutils` for most GPUs and CPUs.
 
