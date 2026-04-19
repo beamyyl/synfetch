@@ -134,7 +134,7 @@ What this command does:
 
 `sudo mv synfetch /usr/bin/` → installs **synfetch** system-wide (so you can run it anywhere)
 
-You can use the [`install.sh`](./install.sh) script for automatically re-installing and updating synfetch.
+You can use the [`install.sh`](./install.sh) script to update synfetch.
 
 ### Usage
 
