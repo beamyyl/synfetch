@@ -45,6 +45,12 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 `synfetch` currently supports **MacOS** and the following **Linux** distributions. However, I have not been able to test them all.
 If you are experiencing issues with synfetch, please create an [issue](https://github.com/SXSLVT/synfetch/issues/new).
 - Arch
+- BlackArch
+- Arco
+- Archcraft
+- Puppy
+- SteamOS
+- Parabola
 - Artix
 - CachyOS
 - Garuda
@@ -53,10 +59,14 @@ If you are experiencing issues with synfetch, please create an [issue](https://g
 - Debian
 - Devuan
 - Ubuntu
+- PikaOS
+- Peppermint
+- Tails
+- ParrotOS
 - Linux Mint
 - ZorinOS
 - Pop!_OS
-- elementaryOS
+- elementary OS
 - Kali
 - MX Linux
 - antiX
@@ -211,7 +221,7 @@ Available themes:
   synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom
 
 Available distros:
-  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos
+  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, macos
 ```
 
 ### Uninstallation
