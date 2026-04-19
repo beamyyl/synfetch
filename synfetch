@@ -101,6 +101,16 @@ case "$target_distro" in
             bedrock)           DISTRO="Bedrock Linux" ;;
             bodhi)             DISTRO="Bodhi Linux" ;;
             nixos|nix)         DISTRO="NixOS" ;;
+	    blackarch)         DISTRO="BlackArch" ;;
+	    arcolinux|arco)    DISTRO="ArcoLinux" ;;
+            archcraft)         DISTRO="Archcraft" ;;
+	    puppy|puppylinux)  DISTRO="Puppy Linux" ;;
+	    parrot|parrotos)   DISTRO="Parrot OS" ;;
+	    peppermint)        DISTRO="Peppermint" ;;
+	    parabola)          DISTRO="Parabola" ;;
+	    steam|steamos)     DISTRO="SteamOS" ;;
+	    tails)             DISTRO="Tails" ;;
+	    pika|pikaos)       DISTRO="PikaOS" ;;
             macos|darwin|mac)  DISTRO="macOS" ;;
             *)                 DISTRO="${target_distro^}" ;;
         esac
@@ -352,6 +362,81 @@ ${C1}   /    / /\\ \\ / /_/ /\\ \\
 ${C1}  /_/|_/_//_\\_|\\____/___/  
                     "
 		;;
+	blackarch)
+		ART="${C1}     ___  __         __    ___           __ 
+${C1}    / _ )/ /__ _____/ /__ / _ | ________/ / 
+${C1}   / _  / / _ \\/ __/  '_// __ |/ __/ __/ _ \\
+${C1}  /____/_/\\_,_/\\__/_/\\_\\/_/ |_/_/  \\__/_//_/
+		"
+		;;
+	arco|arcolinux)
+		ART="${C1}     ___              
+${C1}    / _ | ___________ 
+${C1}   / __ |/ __/ __/ _ \\
+${C1}  /_/ |_/_/  \\__/\\___/
+		"
+		;;
+	archcraft)
+		ART="${C1}     ___           __                _____ 
+${C1}    / _ | ________/ /  ___________ _/ _/ /_
+${C1}   / __ |/ __/ __/ _ \\/ __/ __/ _ \\/ _/ __/
+${C1}  /_/ |_/_/  \\__/_//_/\\__/_/  \\_,_/_/ \\__/ 
+                   "
+		   ;;
+	   puppylinux|puppy)
+		   ART="${C1}     ___                     
+${C1}    / _ \\__ _____  ___  __ __
+${C1}   / ___/ // / _ \\/ _ \\/ // /
+${C1}  /_/   \\_,_/ .__/ .__/\\_, / 
+${C1}           /_/  /_/   /___/ 
+		   "
+		   ;;
+	   parrot|parrotos)
+		   ART="${C1}     ___                    __  ____  ____
+${C1}    / _ \\___ ____________  / /_/ __ \\/ __/
+${C1}   / ___/ _ \/ __/ __/ _ \\/ __/ /_/ /\\ \\  
+${C1}  /_/   \\_,_/_/ /_/  \\___/\\__/\\____/___/ 
+		   "
+		   ;;
+	   peppermint)
+		   ART="${C1}     ___                              _      __ 
+${C1}    / _ \\___ ___  ___  ___ ______ _  (_)__  / /_
+${C1}   / ___/ -_) _ \\/ _ \\/ -_) __/  ' \\/ / _ \\/ __/
+${C1}  /_/   \\__/ .__/ .__/\\__/_/ /_/_/_/_/_//_/\\__/ 
+${C1}          /_/  /_/ 		   
+"
+		   ;;
+	   parabola)
+		   ART="${C1}     ___                __        __    
+${C1}    / _ \\___ ________ _/ /  ___  / /__ _
+${C1}   / ___/ _ \\/ __/ _ \\/ _ \\/ _ \\/ / _ \\/
+${C1}  /_/   \\_,_/_/  \\_,_/_.__/\\___/_/\\_,_/
+		   "
+		   ;;
+	   steam|steamos)
+		   ART="
+${C1}     ______                 ____  ____
+${C1}    / __/ /____ ___  __ _  / __ \\/ __/
+${C1}   _\\ \\/ __/ -_) _ \\/  ' \\/ /_/ /\\ \\  
+${C1}  /___/\\__/\\__/\\_,_/_/_/_/\\____/___/  
+		   "
+		   ;;
+	   tails)
+		   ART="
+${C1}   ______     _ __  
+${C1}  /_  __/__ _(_) /__
+${C1}   / / / _ \\/ / (_-<
+${C1}  /_/  \\_,_/_/_/___/
+		   "
+		   ;;
+	   pika|pikaos)
+		   ART="
+${C1}     ___  _ __        ____  ____
+${C1}    / _ \\(_) /_____ _/ __ \\/ __/
+${C1}   / ___/ /  '_/ _ \\/ /_/ /\\ \\  
+${C1}  /_/  /_/_/\\_|\\_,_/\\____/___/  
+		   "
+		   ;;
           macos|darwin|mac)
                     ART="${C1}     __  ___         ____  ____
 ${C1}    /  |/  /__ _____/ __ \\/ __/
@@ -574,7 +659,7 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     mkdir -p "$CONFIG_DIR" 2>/dev/null
     cat <<EOF > "$CONFIG_FILE"
 # Available themes: synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox
-# Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos
+# Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, macos
 
 # Set THEME to "custom" to use the hex colors below
 THEME="synthwave"
@@ -654,7 +739,7 @@ show_help() {
     echo -e "  synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom"
     echo ""
     echo -e "${BLUE}Available distros:${RESET}" 
-    echo -e "  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, macos"
+    echo -e "  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, macos"
     echo ""
     exit 0
 }
@@ -700,7 +785,7 @@ parse_args() {
                 THEME="${1,,}"
                 ;;
             --random)
-                distros=("arch" "cachyos" "ubuntu" "debian" "devuan" "fedora" "linuxmint" "zorinos" "popos" "manjaro" "opensuse" "slackware" "centos" "mxlinux" "guix" "qubesos" "antix" "garuda" "nobara" "bazzite" "kali" "elementaryos" "kdeneon" "deepin" "alpine" "gobo" "lfs" "gentoo" "endeavouros" "artix" "void" "bedrock" "bodhi" "nixos" "macos")
+                distros=("arch" "cachyos" "ubuntu" "debian" "devuan" "fedora" "linuxmint" "zorinos" "popos" "manjaro" "opensuse" "slackware" "centos" "mxlinux" "guix" "qubesos" "antix" "garuda" "nobara" "bazzite" "kali" "elementaryos" "kdeneon" "deepin" "alpine" "gobo" "lfs" "gentoo" "endeavouros" "artix" "void" "bedrock" "bodhi" "nixos" "macos" "blackarch" "arco" "archcraft" "puppy" "parrotos" "peppermint" "parabola" "steamos" "tails" "pikaos")
                 CUSTOM_DISTRO=${distros[$RANDOM % ${#distros[@]}]}
 
                 rand_hex() { 
@@ -772,22 +857,20 @@ get_gpu() {
     if command -v lspci >/dev/null 2>&1; then
         while read -r line; do
             [ -n "$line" ] && gpu_list+=("$line")
-        done < <(lspci -mm 2>/dev/null | grep -E "VGA|3D|Display" | sed '
-            s/^[^ ]* //;       
-            s/"//g;                
-            s/ \[.*\]//g;           
-            s/ (rev .*)$//;   
-            s/Corporation //g;     
-            s/Inc\. //g;            
-            s/Computer //g;        
-            s/Device .*//g;           
-            s/VGA compatible controller //gi; 
-            s/3D controller //gi;     
-            s/Display controller //gi;   
-            s/ASUSTeK//gi;              
-            s/^NVIDIA //i; s/^Intel //i; s/^AMD //i; 
-            s/^ //; s/ $//;             
-        ' | awk '!seen[$0]++' | sed 's/^/NVIDIA /') 
+        done < <(lspci 2>/dev/null | grep -E "VGA|3D|Display" | sed '
+            s/^.*: //;                    # remove bus address
+            s/ \[.*\]//g;                 # remove [rev ...]
+            s/ (rev .*)$//;
+            s/Corporation //g;
+            s/Inc\. //g;
+            s/Computer //g;
+            s/Device .*//g;
+            s/VGA compatible controller //gi;
+            s/3D controller //gi;
+            s/Display controller //gi;
+            s/ASUSTeK//gi;
+            s/^ //; s/ $//;
+        ' | awk '!seen[$0]++')
     fi
 
     if command -v nvidia-smi >/dev/null 2>&1; then
@@ -796,7 +879,7 @@ get_gpu() {
         if [[ -n "$nvidia_name" ]]; then
             local found_nv=false
             for i in "${!gpu_list[@]}"; do
-                if [[ "${gpu_list[$i]}" == NVIDIA* ]]; then
+                if [[ "${gpu_list[$i]}" == *NVIDIA* || "${gpu_list[$i]}" == *GeForce* || "${gpu_list[$i]}" == *RTX* || "${gpu_list[$i]}" == *Quadro* ]]; then
                     gpu_list[$i]="NVIDIA ${nvidia_name#NVIDIA }"
                     found_nv=true
                 fi
@@ -1268,7 +1351,15 @@ if [[ "$de_wm" == "GNOME" || "$de_wm" == "KDE Plasma" ]]; then
     if [[ -n "${WAYLAND_DISPLAY:-}" ]] || [[ "${XDG_SESSION_TYPE:-}" == "wayland" ]]; then
         de_wm="${de_wm} (Wayland)"
     elif [[ -n "${DISPLAY:-}" ]] || [[ "${XDG_SESSION_TYPE:-}" == "x11" ]]; then
-        de_wm="${de_wm} (X11)"
+        if command -v xdpyinfo >/dev/null 2>&1; then
+            if xdpyinfo 2>/dev/null | grep -qi "xlibre"; then
+                de_wm="${de_wm} (Xlibre)"
+            else
+                de_wm="${de_wm} (X11)"
+            fi
+        else
+            de_wm="${de_wm} (X11)"
+        fi
     fi
 fi
 
