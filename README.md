@@ -104,7 +104,7 @@ Optional dependencies for better GPU/CPU detection:
 
 `pciutils` for most GPUs and CPUs.
 
-`nvidia-utils` for NVIDIA GPU usage and detection.
+`nvidia-utils` for NVIDIA GPU usage.
 
 `intel_gpu_top`, `timeout` for Intel GPU usage.
 
