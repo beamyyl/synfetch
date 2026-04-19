@@ -938,10 +938,20 @@ get_gpu_usage() {
         return
     fi
 
-       if command -v intel_gpu_top >/dev/null 2>&1; then
+    if command -v intel_gpu_top >/dev/null 2>&1; then
         local usage
-        usage=$(timeout 0.2s intel_gpu_top -s 500 -o - 2>/dev/null \
-                | awk 'NR==3 {print $2; exit}' | tr -d ' %' || echo "0")
+
+        usage=$(timeout 0.4s intel_gpu_top -s 250 -o - 2>/dev/null \
+                | awk '/Render/ {gsub(/[^0-9]/,"",$0); print $0; exit}' || echo "0")
+
+        if [[ "$usage" =~ ^[0-9]+$ ]] && (( usage > 0 )); then
+            echo "$usage"
+            return
+        fi
+
+        usage=$(timeout 0.4s intel_gpu_top -s 250 -o - 2>/dev/null \
+                | awk 'NR==3 {gsub(/[^0-9]/,"",$2); print $2; exit}' || echo "0")
+
         if [[ "$usage" =~ ^[0-9]+$ ]] && (( usage > 0 )); then
             echo "$usage"
             return
