@@ -106,7 +106,7 @@ Optional dependencies for better GPU/CPU detection:
 
 `nvidia-utils` for NVIDIA GPU usage.
 
-`intel_gpu_top`, `timeout` for Intel GPU usage.
+`intel-gpu-tools` for Intel GPU usage.
 
 MacOS-specific dependencies:
 `sysctl`, `vm_stat` and `date`. 
