@@ -1460,9 +1460,9 @@ pause_selected() {
     done
 
     if $is_paused; then
-        printf "${C1}Resume PID %s [%s]? (y = yes)${RESET}" "$pid" "$cmd"
+	    printf "${C1}Resume PID %s [%s]? (y)es${RESET}" "$pid" "$cmd"
     else
-        printf "${C1}Pause PID %s [%s]? (y = yes)${RESET}" "$pid" "$cmd"
+	    printf "${C1}Pause PID %s [%s]? (y)es${RESET}" "$pid" "$cmd"
     fi
 
     local kkey=""
@@ -1662,7 +1662,7 @@ synfetch_live() {
 
         printf '\e[%d;%dH' $((help_row + 1)) 1
         printf '\e[K'
-        local status="[k: kill] [p: pause/resume] [c: sort CPU] [r: sort RAM] [/: search] [h: toggle panel] [q: quit]  "
+        local status="[k]ill | [p]ause/resume | sort [C]PU | sort [R]AM | [s]earch | [h]ide/show panel | [q]uit "
         printf "${C1}${status}${RESET}"
 
         printf '\e[%d;%dH' $((filter_row + 1)) 1
@@ -1675,7 +1675,7 @@ synfetch_live() {
         if read -t 0.08 -n 1 -s key 2>/dev/null; then
             case "$key" in
                 "q"|"Q") printf '\e[2J\e[H'; break ;;
-                "/")
+                "s"|"S")
                     local _sq=""
                     printf '\e[%d;%dH' $((help_row + 1)) 1
                     printf '\e[K'
