@@ -103,8 +103,6 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 
 ### Dependencies
 
-- `wget` is required to download `synfetch` from GitHub!
-
 - Core dependencies **(necessary)**:
 `bash`, `coreutils` and `procps`/`procps-ng`.
 
