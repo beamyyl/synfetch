@@ -141,11 +141,11 @@ wget https://raw.githubusercontent.com/SXSLVT/synfetch/main/synfetch && chmod +x
 ```
 What this command does:
 
-`wget ...` → downloads **synfetch** from GitHub
+  `wget ...` → downloads **synfetch** from GitHub
 
-`chmod +x synfetch` → makes **synfetch** executable
+  `chmod +x synfetch` → makes **synfetch** executable
 
-`sudo mv synfetch /usr/bin/` → installs **synfetch** system-wide (so you can run it anywhere)
+  `sudo mv synfetch /usr/bin/` → installs **synfetch** system-wide (so you can run it anywhere)
 
 You can use the [`install.sh`](./install.sh) script to update synfetch.
 
