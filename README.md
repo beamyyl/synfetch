@@ -34,17 +34,17 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 
 ### Features
 
-Pure bash (no compiled binaries) with smart caching (feels instant on every run)
+- Pure bash (no compiled binaries) with smart caching (feels instant on every run)
 
-Beautiful synthwave aesthetic with vibrant neon colors
+- Beautiful synthwave aesthetic with vibrant neon colors
 
-Lightweight, minimal, and highly customizable
+- Lightweight, minimal, and highly customizable
 
-Real-time monitoring mode
+- Real-time monitoring mode
 
-Excellent Linux + macOS support
+- Excellent Linux + macOS support
 
-Perfect for ricing and showing off your setup
+- Perfect for ricing and showing off your setup
 
 ### Support
 
@@ -98,13 +98,13 @@ Perfect for ricing and showing off your setup
 
 ### Limitations
 
-No support for BSD family and Windows (Windows can run synfetch via `WSL` and will probably add support for BSD family soon)
+- No support for BSD family and Windows (Windows can run synfetch via `WSL` and will probably add support for BSD family soon)
 
-The `--live` feature can be slow, especially on older hardware
+- The `--live` feature can be slow, especially on older hardware
 
-All supported OSes listed above are untested
+- All supported OSes listed above are untested
 
-Very young project (undiscovered bugs might exist)
+- Very young project (undiscovered bugs might exist)
 
 ### Dependencies
 
