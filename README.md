@@ -109,19 +109,19 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 ### Dependencies
 
 - Core dependencies **(necessary)**:
-`bash`, `coreutils` and `procps`/`procps-ng`.
+`bash`, `coreutils` and `procps`/`procps-ng`
 - Required dependencies for Live mode (--live):
-`tput` and `stty`.
+`tput` and `stty`
 - Optional dependencies for better GPU/CPU detection:
 
-  `pciutils` for most GPUs and CPUs.
+  `pciutils` for most GPUs and CPUs
 
-  `nvidia-utils` for NVIDIA GPU usage.
+  `nvidia-utils` for NVIDIA GPU usage
 
-  `intel-gpu-tools` for Intel GPU usage.
+  `intel-gpu-tools` for Intel GPU usage
 
 - MacOS-specific dependencies:
-`sysctl`, `vm_stat` and `date`. 
+`sysctl`, `vm_stat` and `date`
 
 ### Building and Installation
 
