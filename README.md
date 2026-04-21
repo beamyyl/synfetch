@@ -35,15 +35,10 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 ### Features
 
 - Pure bash (no compiled binaries) with smart caching (feels instant on every run)
-  
 - Beautiful synthwave aesthetic with vibrant neon colors
-  
 - Lightweight, minimal, and highly customizable
-  
 - Real-time monitoring mode
-  
 - Excellent Linux + macOS support
-  
 - Perfect for ricing and showing off your setup
 
 ### Support
@@ -99,21 +94,16 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 ### Limitations
 
 - No support for BSD family and Windows (Windows can run synfetch via `WSL` and will probably add support for BSD family soon)
-
 - The `--live` feature can be slow, especially on older hardware
-
 - All supported OSes listed above are untested
-
 - Very young project (undiscovered bugs might exist)
 
 ### Dependencies
 
 - Core dependencies **(necessary)**:
 `bash`, `coreutils` and `procps`/`procps-ng`.
-
 - Required dependencies for Live mode (--live):
 `tput` and `stty`.
-
 - Optional dependencies for better GPU/CPU detection:
 
   `pciutils` for most GPUs and CPUs.
@@ -129,7 +119,8 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 
 For those on `Arch` based systems, **synfetch** is available in the [AUR](https://aur.archlinux.org/packages/synfetch-git).
 
-For those on `Nix` systems, make sure to have `flakes` enabled and you can just run: 
+For those on `Nix`
+systems, make sure to have `flakes` enabled and you can just run: 
 
 ```bash
 nix run github:SXSLVT/synfetch
