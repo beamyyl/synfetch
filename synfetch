@@ -1289,7 +1289,7 @@ case "${de_wm,,}" in
     cinnamon* | muffin) de_wm="Cinnamon" ;;
     budgie*) de_wm="Budgie" ;;
     pantheon* | gala) de_wm="Pantheon" ;;
-    de* epin| dde*) de_wm="Deepin DDE" ;;
+    deepin* | dde*) de_wm="Deepin DDE" ;;
     ukui*) de_wm="UKUI" ;;
     lxde* | lxsession) de_wm="LXDE" ;;
     lxqt*) de_wm="LXQt" ;;
