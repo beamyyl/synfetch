@@ -497,7 +497,7 @@ set_theme() {
             SHELL_COLOR="${MONO_ACCENT}"
             DEWM_COLOR="${MONO_ACCENT}"
             PKGS_COLOR="${MONO_ACCENT}"
-            BAR_LABEL_COLOR="\e[38;5;245m"
+            BAR_LABEL_COLOR="${MONO_ACCENT}"
             FILLED1_COLOR="${MONO_ACCENT}"
             FILLED2_COLOR="${MONO_ACCENT}"
             EMPTY_COLOR="\e[38;5;236m"
