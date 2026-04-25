@@ -87,6 +87,7 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 - Gentoo
 - Void
 - Alpine
+- Chimera
 - Bedrock
 - Guix
 - GoboLinux
@@ -234,7 +235,7 @@ Available themes:
   synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom
 
 Available distros:
-  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, macos
+  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, chimera, macos
 ```
 
 ### Uninstallation
