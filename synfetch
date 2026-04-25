@@ -501,7 +501,7 @@ set_theme() {
             FILLED1_COLOR="${MONO_ACCENT}"
             FILLED2_COLOR="${MONO_ACCENT}"
             EMPTY_COLOR="\e[38;5;236m"
-            SEPARATOR_COLOR="\e[38;5;245m"
+            SEPARATOR_COLOR="${GRAY}"
             ;;
         minimal)
 	C1="${MIN_COLOR}"  
@@ -558,7 +558,7 @@ set_theme() {
             FILLED1_COLOR="${NORD_ACCENT}"
             FILLED2_COLOR="${NORD_ACCENT}"
             EMPTY_COLOR="\e[38;5;236m"
-            SEPARATOR_COLOR="\e[38;5;245m"
+            SEPARATOR_COLOR="${GRAY}"
             ;;
          tokyonight)
             C1="${TOKYONIGHT}"
@@ -576,9 +576,9 @@ set_theme() {
             BAR_LABEL_COLOR="${TOKYONIGHT}"
             FILLED1_COLOR="${TOKYONIGHT}"
             FILLED2_COLOR="${TOKYONIGHT}"   
-   	EMPTY_COLOR="\e[38;2;41;46;66m"
-            SEPARATOR_COLOR="${TOKYONIGHT}"
-            ;;
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="${GRAY}"
+	    ;;
         catppuccin)
             C1="${CAT_MAUVE}"
             OS_COLOR="${CAT_BLUE}"
@@ -595,9 +595,9 @@ set_theme() {
             BAR_LABEL_COLOR="${CAT_MAUVE}"
             FILLED1_COLOR="${CAT_PINK}"
             FILLED2_COLOR="${CAT_BLUE}"
-            EMPTY_COLOR="\e[38;2;49;50;68m"
-            SEPARATOR_COLOR="\e[38;2;88;91;112m"
-            ;;
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="${GRAY}"    
+	    ;;
         gruvbox)
             C1="${GRUV_ORANGE}"
             OS_COLOR="${GRUV_YELLOW}"
@@ -614,9 +614,9 @@ set_theme() {
             BAR_LABEL_COLOR="${GRUV_ORANGE}"
             FILLED1_COLOR="\e[38;2;251;73;52m"
             FILLED2_COLOR="${GRUV_YELLOW}"
-            EMPTY_COLOR="\e[38;2;60;56;54m"
-            SEPARATOR_COLOR="\e[38;2;146;131;116m"
-            ;;   
+            EMPTY_COLOR="\e[38;5;236m"
+            SEPARATOR_COLOR="${GRAY}"
+	    ;;   
           custom)
             C1=$(hex_to_ansi "${C1_HEX:-#51ffff}")
             OS_COLOR=$(hex_to_ansi "${OS_HEX:-#51ffff}")
@@ -635,7 +635,7 @@ set_theme() {
             FILLED2_COLOR=$(hex_to_ansi "${BAR_FILLED2_HEX:-#51ffff}")
             EMPTY_COLOR=$(hex_to_ansi "${BAR_EMPTY_HEX:-#282a36}")
             SEPARATOR_COLOR=$(hex_to_ansi "${SEPARATOR_HEX:-#282a36}")
-            ;;
+        ;;
     esac
 }
 
