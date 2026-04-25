@@ -111,6 +111,7 @@ case "$target_distro" in
 	    steam|steamos)     DISTRO="SteamOS" ;;
 	    tails)             DISTRO="Tails" ;;
 	    pika|pikaos)       DISTRO="PikaOS" ;;
+	    chimera)           DISTRO="Chimera Linux" ;;
             macos|darwin|mac)  DISTRO="macOS" ;;
             *)                 DISTRO="${target_distro^}" ;;
         esac
@@ -437,13 +438,21 @@ ${C1}   / ___/ /  '_/ _ \\/ /_/ /\\ \\
 ${C1}  /_/  /_/_/\\_|\\_,_/\\____/___/  
 		   "
 		   ;;
+	   chimera)
+		   ART="
+${C1}    _______   _                   
+${C1}   / ___/ /  (_)_ _  ___ _______ _
+${C1}  / /__/ _ \\/ /  ' \\/ -_) __/ _ \\/
+${C1}  \\___/_//_/_/_/_/_/\\__/_/  \\_,_/ 
+		   "
+		   ;;
           macos|darwin|mac)
                     ART="${C1}     __  ___         ____  ____
 ${C1}    /  |/  /__ _____/ __ \\/ __/
 ${C1}   / /|_/ / _ \\/ __/ /_/ /\\ \\  
 ${C1}  /_/  /_/\\_,_/\\__/\\____/___/  
-"
-;;
+               "
+               ;;
         *)
             ART="
 
@@ -659,7 +668,7 @@ if [[ ! -f "$CONFIG_FILE" ]]; then
     mkdir -p "$CONFIG_DIR" 2>/dev/null
     cat <<EOF > "$CONFIG_FILE"
 # Available themes: synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox
-# Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, macos
+# Available distros: arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, chimera, macos
 
 # Set THEME to "custom" to use the hex colors below
 THEME="synthwave"
@@ -739,7 +748,7 @@ show_help() {
     echo -e "  synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom"
     echo ""
     echo -e "${BLUE}Available distros:${RESET}" 
-    echo -e "  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, macos"
+    echo -e "  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, chimera, macos"
     echo ""
     exit 0
 }
@@ -785,7 +794,7 @@ parse_args() {
                 THEME="${1,,}"
                 ;;
             --random)
-                distros=("arch" "cachyos" "ubuntu" "debian" "devuan" "fedora" "linuxmint" "zorinos" "popos" "manjaro" "opensuse" "slackware" "centos" "mxlinux" "guix" "qubesos" "antix" "garuda" "nobara" "bazzite" "kali" "elementaryos" "kdeneon" "deepin" "alpine" "gobo" "lfs" "gentoo" "endeavouros" "artix" "void" "bedrock" "bodhi" "nixos" "macos" "blackarch" "arco" "archcraft" "puppy" "parrotos" "peppermint" "parabola" "steamos" "tails" "pikaos")
+                distros=("arch" "cachyos" "ubuntu" "debian" "devuan" "fedora" "linuxmint" "zorinos" "popos" "manjaro" "opensuse" "slackware" "centos" "mxlinux" "guix" "qubesos" "antix" "garuda" "nobara" "bazzite" "kali" "elementaryos" "kdeneon" "deepin" "alpine" "gobo" "lfs" "gentoo" "endeavouros" "artix" "void" "bedrock" "bodhi" "nixos" "macos" "blackarch" "arco" "archcraft" "puppy" "parrotos" "peppermint" "parabola" "steamos" "tails" "pikaos" "chimera") 
                 CUSTOM_DISTRO=${distros[$RANDOM % ${#distros[@]}]}
 
                 rand_hex() { 
@@ -1006,9 +1015,24 @@ pkg_count() {
         count=$(qlist -I 2>/dev/null | wc -l)
         pkgs+=("$count (emerge)")
     elif command -v guix >/dev/null; then
-        count=$(guix package -I 2>/dev/null | wc -l)
-        pkgs+=("$count (guix)")
-    elif command -v slackpkg >/dev/null || [ -d /var/log/packages ]; then
+        local user_count=$(guix package --list-installed 2>/dev/null | wc -l)
+        local system_count=0
+        if [ -f /run/current-system/profile/manifest ]; then
+            system_count=$(guix package --list-installed --profile=/run/current-system/profile 2>/dev/null | wc -l)
+        fi
+        local total=$((user_count + system_count))
+        if (( total > 0 )); then
+            if (( system_count > 0 )) && (( user_count > 0 )); then
+                pkgs+=("$total (guix: $user_count user + $system_count system)")
+            elif (( system_count > 0 )); then
+                pkgs+=("$total (guix system)")
+            else
+                pkgs+=("$total (guix)")
+            fi
+        else
+            pkgs+=("0 (guix)")
+        fi
+   elif command -v slackpkg >/dev/null || [ -d /var/log/packages ]; then
         count=$(ls /var/log/packages/ 2>/dev/null | wc -l)
         pkgs+=("$count (slackware)")
     elif command -v brew >/dev/null; then
@@ -1075,7 +1099,7 @@ cache() {
 
 if [[ "$REFRESH" == true ]] || [[ ! -f "$CACHE_DIR/preload.stamp" ]]; then
     cache "cpu"       'get_cpu_model'
-    cache "mobo"      'printf "%s %s\n" "$(< /sys/class/dmi/id/board_vendor)" "$(< /sys/class/dmi/id/board_name)" 2>/dev/null'
+    cache "mobo"      'get_mobo_info'
     cache "gpu"       'get_gpu'
     cache "pkgs"      'pkg_count' 120
     cache "cpu_usage" 'get_cpu_usage' 7
@@ -1132,6 +1156,29 @@ get_ram_usage() {
 }
 
 RAM=$(get_ram_usage)
+
+# Motherboard Detector 
+get_mobo_info() {
+    local vendor="" name="" product=""
+
+    [ -r /sys/class/dmi/id/board_vendor ] && vendor=$(< /sys/class/dmi/id/board_vendor 2>/dev/null)
+    [ -r /sys/class/dmi/id/board_name ]   && name=$(< /sys/class/dmi/id/board_name 2>/dev/null)
+
+    if [ -z "$vendor" ] || [ -z "$name" ] || [[ "$name" == "None" || "$name" == "" ]]; then
+        [ -r /sys/class/dmi/id/sys_vendor ]    && vendor=$(< /sys/class/dmi/id/sys_vendor 2>/dev/null)
+        [ -r /sys/class/dmi/id/product_name ]  && name=$(< /sys/class/dmi/id/product_name 2>/dev/null)
+    fi
+
+    vendor=${vendor//QEMU Standard PC/QEMU}
+    vendor=${vendor//Bochs/Bochs}
+    name=${name//Standard PC (i440FX + PIIX, 1996)/QEMU VM}
+
+    if [[ -n "$vendor" && -n "$name" && "$vendor" != " " && "$name" != " " ]]; then
+        printf "%s %s" "$vendor" "$name"
+    else
+        echo "Unknown MoBo"
+    fi
+}
 
 # Cyber bar theme
 cyber_bar() {
@@ -1379,8 +1426,7 @@ SELECTED=0
 SEARCH_QUERY=""
 
 get_fallback_mobo() {
-    printf "%s %s" "$(< /sys/class/dmi/id/board_vendor 2>/dev/null || echo "")" \
-                   "$(< /sys/class/dmi/id/board_name 2>/dev/null || echo "")" 2>/dev/null || echo "Unknown MoBo"
+    get_mobo_info
 }
 
 get_fallback_cpu() {
@@ -1745,7 +1791,9 @@ else
     [[ "${SHOW_KERNEL:-true}" == true ]] && prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
     [[ "${SHOW_USER:-true}" == true ]]   && prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
     [[ "${SHOW_HOST:-true}" == true ]]   && prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
-    [[ "${SHOW_MOBO:-true}" == true ]]   && prin "$ICON_MOBO"   "MoBo"   "$MOBO"        "$MOBO_COLOR"
+    mobo_print="${MOBO:-}"
+    [[ -z "$mobo_print" || "$mobo_print" == *"Unknown"* ]] && mobo_print=$(get_mobo_info)
+    [[ "${SHOW_MOBO:-true}" == true ]]   && prin "$ICON_MOBO"   "MoBo"   "$mobo_print"  "$MOBO_COLOR"
     [[ "${SHOW_CPU:-true}" == true ]]    && prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
     if [[ "${SHOW_GPU:-true}" == true ]]; then
         while IFS= read -r gpu_line || [[ -n "$gpu_line" ]]; do
