@@ -121,7 +121,7 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 
   `intel-gpu-tools` for Intel GPU usage
 
-- MacOS-specific dependencies:
+- MacOS specific dependencies:
 `sysctl`, `vm_stat` and `date`
 
 ### Building and Installation
