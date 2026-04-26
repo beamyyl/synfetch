@@ -1161,20 +1161,38 @@ RAM=$(get_ram_usage)
 get_mobo_info() {
     local vendor="" name="" product=""
 
+    if [ "$(uname)" = "Darwin" ]; then
+        name=$(sysctl -n hw.model 2>/dev/null)
+        vendor="Apple"
+        if [ -n "$name" ]; then
+            printf "%s %s" "$vendor" "$name"
+            return
+        fi
+    fi
+
     [ -r /sys/class/dmi/id/board_vendor ] && vendor=$(< /sys/class/dmi/id/board_vendor 2>/dev/null)
     [ -r /sys/class/dmi/id/board_name ]   && name=$(< /sys/class/dmi/id/board_name 2>/dev/null)
 
-    if [ -z "$vendor" ] || [ -z "$name" ] || [[ "$name" == "None" || "$name" == "" ]]; then
+    if [ -z "$vendor" ] || [ -z "$name" ] || [[ "$name" == "None" || "$name" == "" || "$name" == *"Default string"* || "$name" == *"To be filled"* ]]; then
         [ -r /sys/class/dmi/id/sys_vendor ]    && vendor=$(< /sys/class/dmi/id/sys_vendor 2>/dev/null)
         [ -r /sys/class/dmi/id/product_name ]  && name=$(< /sys/class/dmi/id/product_name 2>/dev/null)
+    fi
+
+    if [ -z "$name" ] || [[ "$name" == "None" || "$name" == *"Default string"* ]]; then
+        if [ -r /sys/firmware/devicetree/base/model ]; then
+            name=$(tr -d '\0' < /sys/firmware/devicetree/base/model 2>/dev/null)
+            vendor=""
+        fi
     fi
 
     vendor=${vendor//QEMU Standard PC/QEMU}
     vendor=${vendor//Bochs/Bochs}
     name=${name//Standard PC (i440FX + PIIX, 1996)/QEMU VM}
 
-    if [[ -n "$vendor" && -n "$name" && "$vendor" != " " && "$name" != " " ]]; then
+    if [[ -n "$vendor" && -n "$name" && "$vendor" != " " && "$name" != " " && "$vendor" != "$name" ]]; then
         printf "%s %s" "$vendor" "$name"
+    elif [[ -n "$name" && "$name" != " " && "$name" != "None" ]]; then
+        printf "%s" "$name"
     else
         echo "Unknown MoBo"
     fi
