@@ -596,7 +596,8 @@ set_theme() {
             FILLED1_COLOR="${CAT_PINK}"
             FILLED2_COLOR="${CAT_BLUE}"
             EMPTY_COLOR="\e[38;5;236m"
-            SEPARATOR_COLOR="${GRAY}"    
+            SEPARATOR_COLOR="${GRAY}"
+            
 	    ;;
         gruvbox)
             C1="${GRUV_ORANGE}"
@@ -635,7 +636,7 @@ set_theme() {
             FILLED2_COLOR=$(hex_to_ansi "${BAR_FILLED2_HEX:-#51ffff}")
             EMPTY_COLOR=$(hex_to_ansi "${BAR_EMPTY_HEX:-#282a36}")
             SEPARATOR_COLOR=$(hex_to_ansi "${SEPARATOR_HEX:-#282a36}")
-        ;;
+            ;;
     esac
 }
 
@@ -1109,7 +1110,7 @@ fi
 
 # Preload cached values
 cache "cpu"  'get_cpu_model';              CPU_MODEL=$_CACHE_RESULT
-cache "mobo" 'get_mobo_info';              MOBO=$_CACHE_RESULT
+cache "mobo" 'printf "%s %s\n" "$(< /sys/class/dmi/id/board_vendor)" "$(< /sys/class/dmi/id/board_name)" 2>/dev/null'; MOBO=$_CACHE_RESULT
 cache "gpu"  'get_gpu';                    GPU=$_CACHE_RESULT
 cache "pkgs" 'pkg_count' 120;              PKG_COUNT=$_CACHE_RESULT
 
@@ -1159,39 +1160,44 @@ RAM=$(get_ram_usage)
 
 # Motherboard Detector 
 get_mobo_info() {
-    local vendor="" name="" product=""
+    local vendor="" name="" version="" product=""
 
     [ -r /sys/class/dmi/id/board_vendor ] && vendor=$(< /sys/class/dmi/id/board_vendor 2>/dev/null | xargs)
     [ -r /sys/class/dmi/id/board_name ]   && name=$(< /sys/class/dmi/id/board_name 2>/dev/null | xargs)
 
-    if [ -z "$vendor" ] || [ -z "$name" ] || [[ "$name" == "None" || -z "$name" ]]; then
-        [ -r /sys/class/dmi/id/sys_vendor ]    && vendor=$(< /sys/class/dmi/id/sys_vendor 2>/dev/null | xargs)
-        [ -r /sys/class/dmi/id/product_name ]  && name=$(< /sys/class/dmi/id/product_name 2>/dev/null | xargs)
+    if [[ -z "$vendor" || -z "$name" || "$name" == "None" || -z "${name// /}" ]]; then
+        [ -r /sys/class/dmi/id/sys_vendor ]   && vendor=$(< /sys/class/dmi/id/sys_vendor 2>/dev/null | xargs)
+        [ -r /sys/class/dmi/id/product_name ] && name=$(< /sys/class/dmi/id/product_name 2>/dev/null | xargs)
     fi
 
-    if [ -z "$name" ] || [[ "$name" == "None" || "$name" =~ ^[[:space:]]*$ ]]; then
+    if [[ -z "$name" || "$name" == "None" || -z "${name// /}" ]]; then
         [ -r /sys/class/dmi/id/product_version ] && name=$(< /sys/class/dmi/id/product_version 2>/dev/null | xargs)
     fi
 
     vendor=${vendor//QEMU Standard PC/QEMU}
     vendor=${vendor//Bochs/Bochs}
-    name=${name//Standard PC (i440FX + PIIX, 1996)/QEMU VM}
+    name=${name//Standard PC \(i440FX + PIIX, 1996\)/QEMU VM}
     name=${name//None/}
     name=${name//To Be Filled By O.E.M./}
     name=${name//Default string/}
+    name=${name//System Product Name/}
+    name=${name//System Version/}
 
-    if [[ -n "$vendor" && -n "$name" && "$vendor" != " " && "$name" != " " ]]; then
+    vendor=$(echo "$vendor" | xargs)
+    name=$(echo "$name" | xargs)
+
+    if [[ -n "$vendor" && -n "$name" ]]; then
         if [[ "$name" == *"$vendor"* ]]; then
-            printf "%s" "$name"
+            echo "$name"
         else
-            printf "%s %s" "$vendor" "$name"
+            echo "$vendor $name"
         fi
     elif [[ -n "$name" ]]; then
-        printf "%s" "$name"
+        echo "$name"
     elif [[ -n "$vendor" ]]; then
-        printf "%s" "$vendor"
+        echo "$vendor"
     else
-        echo "Unknown MoBo"
+        echo "Unknown"
     fi
 }
 
@@ -1419,6 +1425,8 @@ if [[ -n "${WAYLAND_DISPLAY:-}" ]] || [[ "${XDG_SESSION_TYPE:-}" == "wayland" ]]
 elif [[ -n "${DISPLAY:-}" ]] || [[ "${XDG_SESSION_TYPE:-}" == "x11" ]]; then
     if command -v xdpyinfo >/dev/null 2>&1 && xdpyinfo 2>/dev/null | grep -qi "xlibre"; then
         de_wm="${de_wm} (XLibre)"
+    elif command -v xdpyinfo >/dev/null 2>&1 && xdpyinfo 2>/dev/null | grep -qi "X.Org X Server"; then
+        de_wm="${de_wm} (X11)"
     else
         de_wm="${de_wm} (X11)"
     fi
