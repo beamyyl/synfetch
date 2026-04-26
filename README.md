@@ -46,7 +46,8 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 
 ### Support
 
-`synfetch` currently supports **MacOS** and the following **Linux** distributions. Please create an [issue](https://github.com/SXSLVT/synfetch/issues/new), if you are experiencing issues.
+`synfetch` currently supports **MacOS** and the following **Linux** distributions. If any issue arises, please create an [issue](https://github.com/SXSLVT/synfetch/issues/new).
+- Arch
 - BlackArch
 - ArcoLinux
 - Archcraft 
