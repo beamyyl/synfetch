@@ -1811,8 +1811,6 @@ else
     [[ "${SHOW_KERNEL:-true}" == true ]] && prin "$ICON_KERNEL" "Kernel" "$KERNEL"      "$KERNEL_COLOR"
     [[ "${SHOW_USER:-true}" == true ]]   && prin "$ICON_USER"   "User"   "$USER"        "$USER_COLOR"
     [[ "${SHOW_HOST:-true}" == true ]]   && prin "$ICON_HOST"   "Host"   "$HOSTNAME"    "$HOST_COLOR"
-    mobo_print="${MOBO:-}"
-    [[ -z "$mobo_print" || "$mobo_print" == *"Unknown"* ]] && mobo_print=$(get_mobo_info)
     [[ "${SHOW_MOBO:-true}" == true ]]   && prin "$ICON_MOBO"   "MoBo"   "$mobo_print"  "$MOBO_COLOR"
     [[ "${SHOW_CPU:-true}" == true ]]    && prin "$ICON_CPU"    "CPU"    "$CPU_MODEL"   "$CPU_COLOR"
     if [[ "${SHOW_GPU:-true}" == true ]]; then
