@@ -60,6 +60,8 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 - Garuda
 - Manjaro
 - EndeavourOS
+- Red Hat
+- CentOS
 - Debian
 - Devuan
 - Ubuntu
@@ -93,7 +95,6 @@ They told me **bash** wasn't meant for speed... I took that personally. `synfetc
 - Puppy
 - NixOS
 - QubesOS
-- CentOS
 - MacOS
 
 ### Limitations
@@ -234,7 +235,7 @@ Available themes:
   synthwave (default), monochrome, minimal, dracula, nord, catppuccin, tokyonight, gruvbox, custom
 
 Available distros:
-  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, chimera, macos
+  arch, cachyos, ubuntu, debian, devuan, fedora, linuxmint, zorinos, popos, manjaro, opensuse, slackware, centos, redhat, mxlinux, guix, qubesos, antix, garuda, nobara, bazzite, kali, elementaryos, kdeneon, deepin, alpine, gobo, lfs, gentoo, endeavouros, artix, void, bedrock, bodhi, nixos, blackarch, arco, archcraft, puppy, parrotos, peppermint, parabola, steamos, tails, pikaos, chimera, macos
 ```
 
 ### Uninstallation
