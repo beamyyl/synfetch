@@ -6,7 +6,7 @@
 
 <img width="703" height="487" alt="image" src="https://github.com/user-attachments/assets/1536f850-c7ba-4028-a5da-1e0c146fd670" />
 
-<img width="1061" height="554" alt="image" src="https://github.com/user-attachments/assets/202742ce-6f38-4ea7-9401-1113850b0793" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/97f7febd-dee0-4101-bf53-5f3c34add3e5" />
 
 </div>
 
