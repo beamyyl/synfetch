@@ -226,7 +226,7 @@ Options:
   --help | -h       Show this help message
 
 Config:
-  Location: /home/syner/.config/synfetch/config
+  Location: /home/$USER/.config/synfetch/config
   Set THEME="custom" in the config to use your own Hex colors.
 
 Available themes:
